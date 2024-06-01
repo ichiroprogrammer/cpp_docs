@@ -17,7 +17,14 @@ def get_args(args=None):
 
     args = parser.parse_args(args)
 
+    args.repos = os.path.abspath(args.repos)
     return args;
+
+
+def move_to_base_dir():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(base_dir)
+
 
 def _subprocess_run(cmd):
     print("executing ", cmd)
@@ -67,7 +74,6 @@ def get_repos_name(dir):
         return None
 
 
-
 class ReleasedRepos:
     def __init__(self, repos_dir):
         self._dir = repos_dir
@@ -113,11 +119,21 @@ def make_log(released_repos: ReleasedRepos):
     with open(log_file, 'w') as file:
         file.write(released_repos.sh1)
 
+def git_add_ci(released_repos: ReleasedRepos):
+    cmd = f"git add ."
+    _subprocess_run(cmd)
+
+    cmd = f"git commit -m '{released_repos.repos_name}({released_repos.version_on_file})'"
+    _subprocess_run(cmd)
+
+
 
 def _main():
     opt = get_args()
 
     released_repos = ReleasedRepos(opt.repos)
+
+    move_to_base_dir()
 
     print(released_repos)
 
@@ -132,6 +148,8 @@ def _main():
     copy_files_to_docs(all_docs, to_dirs)
 
     make_log(released_repos)
+
+    git_add_ci(released_repos)
 
 def get_all_docs(dir):
     content_o = os.path.join(dir, 'o') 
