@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V18.02)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V18.02)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<h1 id="インデックス">インデックス</h1>
+<p>  1 <a href="introduction.html#SS_1">イントロダクション</a><br />
+   1.1 <a href="introduction.html#SS_1_1">本ドキュメントの目的</a><br />
+   1.2 <a href="introduction.html#SS_1_2">本ドキュメントの次に</a><br />
+   1.3 <a href="introduction.html#SS_1_3">改訂履歴</a><br />
+   1.4 <a
+href="introduction.html#SS_1_4">本ドキュメントの修正・改善</a><br />
+   1.5 <a href="introduction.html#SS_1_5">例示したコードの説明</a><br />
+   1.6 <a
+href="introduction.html#SS_1_6">本ドキュメントでの言葉の使い方の注意</a></p>
+<p>  2 <a
+href="software_practice.html#SS_2">ソフトウェアプラクティス</a><br />
+   2.1 <a href="software_practice.html#SS_2_1">DRYの原則</a><br />
+    2.1.1 <a
+href="software_practice.html#SS_2_1_1">作業の繰り返し</a><br />
+    2.1.2 <a href="software_practice.html#SS_2_1_2">成果物の重複</a><br />
+   2.2 <a href="software_practice.html#SS_2_2">KISSの原則</a><br />
+   2.3 <a
+href="software_practice.html#SS_2_3">ボーイスカウトの規則</a><br />
+   2.4 <a href="software_practice.html#SS_2_4">YAGNIの原則</a><br />
+   2.5 <a href="software_practice.html#SS_2_5">Name and Conquer</a><br />
+   2.6 <a
+href="software_practice.html#SS_2_6">ノコギリの刃を研ぐ</a><br />
+   2.7 <a href="software_practice.html#SS_2_7">推定有罪</a><br />
+   2.8 <a href="software_practice.html#SS_2_8">デメテルの法則</a><br />
+   2.9 <a href="software_practice.html#SS_2_9">コンウェイの法則</a><br />
+   2.10 <a
+href="software_practice.html#SS_2_10">Inside-Outの原則</a><br />
+   2.11 <a href="software_practice.html#SS_2_11">SOLID</a></p>
+<p>  3 <a
+href="programming_convention.html#SS_3">プログラミング規約</a><br />
+   3.1 <a
+href="programming_convention.html#SS_3_1">型とインスタンス</a><br />
+    3.1.1 <a href="programming_convention.html#SS_3_1_1">算術型</a><br />
+     3.1.1.1 <a
+href="programming_convention.html#SS_3_1_1_1">整数型</a><br />
+     3.1.1.2 <a
+href="programming_convention.html#SS_3_1_1_2">char型</a><br />
+     3.1.1.3 <a
+href="programming_convention.html#SS_3_1_1_3">std::byte型</a><br />
+     3.1.1.4 <a
+href="programming_convention.html#SS_3_1_1_4">bool型</a><br />
+     3.1.1.5 <a
+href="programming_convention.html#SS_3_1_1_5">浮動小数点型</a><br />
+    3.1.2 <a href="programming_convention.html#SS_3_1_2">enum</a><br />
+    3.1.3 <a href="programming_convention.html#SS_3_1_3">bit
+field</a><br />
+    3.1.4 <a href="programming_convention.html#SS_3_1_4">class</a><br />
+    3.1.5 <a href="programming_convention.html#SS_3_1_5">struct</a><br />
+    3.1.6 <a href="programming_convention.html#SS_3_1_6">union</a><br />
+    3.1.7 <a href="programming_convention.html#SS_3_1_7">配列</a><br />
+    3.1.8 <a
+href="programming_convention.html#SS_3_1_8">型エイリアス</a><br />
+    3.1.9 <a
+href="programming_convention.html#SS_3_1_9">const/constexprインスタンス</a><br />
+    3.1.10 <a
+href="programming_convention.html#SS_3_1_10">リテラル</a><br />
+    3.1.11 <a
+href="programming_convention.html#SS_3_1_11">型推論</a><br />
+     3.1.11.1 <a
+href="programming_convention.html#SS_3_1_11_1">auto</a><br />
+    3.1.12 <a
+href="programming_convention.html#SS_3_1_12">インスタンスの初期化</a><br />
+    3.1.13 <a
+href="programming_convention.html#SS_3_1_13">rvalue</a><br />
+   3.2 <a
+href="programming_convention.html#SS_3_2">クラスとインスタンス</a><br />
+    3.2.1 <a
+href="programming_convention.html#SS_3_2_1">ファイルの使用方法</a><br />
+    3.2.2 <a
+href="programming_convention.html#SS_3_2_2">クラスの規模</a><br />
+     3.2.2.1 <a
+href="programming_convention.html#SS_3_2_2_1">行数</a><br />
+     3.2.2.2 <a
+href="programming_convention.html#SS_3_2_2_2">メンバの数</a><br />
+     3.2.2.3 <a
+href="programming_convention.html#SS_3_2_2_3">凝集度</a><br />
+    3.2.3 <a
+href="programming_convention.html#SS_3_2_3">アクセスレベルと隠蔽化</a><br />
+    3.2.4 <a
+href="programming_convention.html#SS_3_2_4">継承/派生</a><br />
+     3.2.4.1 <a
+href="programming_convention.html#SS_3_2_4_1">インターフェースの継承</a><br />
+     3.2.4.2 <a
+href="programming_convention.html#SS_3_2_4_2">多重継承</a><br />
+    3.2.5 <a
+href="programming_convention.html#SS_3_2_5">非静的なメンバ変数/定数の初期化</a><br />
+    3.2.6 <a
+href="programming_convention.html#SS_3_2_6">静的なメンバ変数/定数の初期化</a><br />
+    3.2.7 <a
+href="programming_convention.html#SS_3_2_7">mutableなメンバ変数</a><br />
+    3.2.8 <a
+href="programming_convention.html#SS_3_2_8">スライシング</a><br />
+    3.2.9 <a
+href="programming_convention.html#SS_3_2_9">オブジェクトの所有権</a><br />
+    3.2.10 <a
+href="programming_convention.html#SS_3_2_10">オブジェクトのライフタイム</a><br />
+   3.3 <a
+href="programming_convention.html#SS_3_3">非メンバ関数/メンバ関数</a><br />
+    3.3.1 <a
+href="programming_convention.html#SS_3_3_1">非メンバ関数</a><br />
+    3.3.2 <a
+href="programming_convention.html#SS_3_3_2">メンバ関数</a><br />
+     3.3.2.1 <a
+href="programming_convention.html#SS_3_3_2_1">特殊メンバ関数</a><br />
+     3.3.2.2 <a
+href="programming_convention.html#SS_3_3_2_2">コンストラクタ</a><br />
+     3.3.2.3 <a
+href="programming_convention.html#SS_3_3_2_3">copyコンストラクタ、copy代入演算子</a><br />
+     3.3.2.4 <a
+href="programming_convention.html#SS_3_3_2_4">moveコンストラクタ、move代入演算子</a><br />
+     3.3.2.5 <a
+href="programming_convention.html#SS_3_3_2_5">初期化子リストコンストラクタ</a><br />
+     3.3.2.6 <a
+href="programming_convention.html#SS_3_3_2_6">デストラクタ</a><br />
+     3.3.2.7 <a
+href="programming_convention.html#SS_3_3_2_7">オーバーライド</a><br />
+    3.3.3 <a
+href="programming_convention.html#SS_3_3_3">非メンバ関数/メンバ関数共通</a><br />
+     3.3.3.1 <a
+href="programming_convention.html#SS_3_3_3_1">サイクロマティック複雑度</a><br />
+     3.3.3.2 <a
+href="programming_convention.html#SS_3_3_3_2">行数</a><br />
+     3.3.3.3 <a
+href="programming_convention.html#SS_3_3_3_3">オーバーロード</a><br />
+     3.3.3.4 <a
+href="programming_convention.html#SS_3_3_3_4">演算子オーバーロード</a><br />
+     3.3.3.5 <a
+href="programming_convention.html#SS_3_3_3_5">実引数/仮引数</a><br />
+     3.3.3.6 <a
+href="programming_convention.html#SS_3_3_3_6">自動変数</a><br />
+     3.3.3.7 <a
+href="programming_convention.html#SS_3_3_3_7">戻り値型</a><br />
+     3.3.3.8 <a
+href="programming_convention.html#SS_3_3_3_8">constexpr関数</a><br />
+     3.3.3.9 <a
+href="programming_convention.html#SS_3_3_3_9">リエントラント性</a><br />
+     3.3.3.10 <a
+href="programming_convention.html#SS_3_3_3_10">エクセプション処理</a><br />
+     3.3.3.11 <a
+href="programming_convention.html#SS_3_3_3_11">ビジーループ</a><br />
+   3.4 <a href="programming_convention.html#SS_3_4">構文</a><br />
+    3.4.1 <a href="programming_convention.html#SS_3_4_1">複合文</a><br />
+    3.4.2 <a
+href="programming_convention.html#SS_3_4_2">switch文</a><br />
+    3.4.3 <a href="programming_convention.html#SS_3_4_3">if文</a><br />
+    3.4.4 <a
+href="programming_convention.html#SS_3_4_4">範囲for文</a><br />
+    3.4.5 <a
+href="programming_convention.html#SS_3_4_5">制御文のネスト</a><br />
+    3.4.6 <a
+href="programming_convention.html#SS_3_4_6">return文</a><br />
+    3.4.7 <a href="programming_convention.html#SS_3_4_7">goto文</a><br />
+    3.4.8 <a
+href="programming_convention.html#SS_3_4_8">ラムダ式</a><br />
+    3.4.9 <a
+href="programming_convention.html#SS_3_4_9">マクロの中の文</a><br />
+   3.5 <a href="programming_convention.html#SS_3_5">演算子</a><br />
+    3.5.1 <a
+href="programming_convention.html#SS_3_5_1">優先順位</a><br />
+    3.5.2 <a
+href="programming_convention.html#SS_3_5_2">代入演算</a><br />
+    3.5.3 <a
+href="programming_convention.html#SS_3_5_3">ビット演算</a><br />
+    3.5.4 <a
+href="programming_convention.html#SS_3_5_4">論理演算</a><br />
+    3.5.5 <a
+href="programming_convention.html#SS_3_5_5">三項演算子</a><br />
+    3.5.6 <a
+href="programming_convention.html#SS_3_5_6">メモリアロケーション</a><br />
+     3.5.6.1 <a
+href="programming_convention.html#SS_3_5_6_1">new</a><br />
+     3.5.6.2 <a
+href="programming_convention.html#SS_3_5_6_2">delete</a><br />
+     3.5.6.3 <a
+href="programming_convention.html#SS_3_5_6_3">メモリ制約が強いシステムでの::operator
+new</a><br />
+    3.5.7 <a href="programming_convention.html#SS_3_5_7">sizeof</a><br />
+    3.5.8 <a
+href="programming_convention.html#SS_3_5_8">ポインタ間の演算</a><br />
+    3.5.9 <a href="programming_convention.html#SS_3_5_9">RTTI</a><br />
+    3.5.10 <a
+href="programming_convention.html#SS_3_5_10">キャスト、暗黙の型変換</a><br />
+   3.6 <a
+href="programming_convention.html#SS_3_6">プリプロセッサ命令</a><br />
+    3.6.1 <a
+href="programming_convention.html#SS_3_6_1">関数型マクロ</a><br />
+    3.6.2 <a
+href="programming_convention.html#SS_3_6_2">マクロ定数</a><br />
+   3.7 <a
+href="programming_convention.html#SS_3_7">パッケージとその構成ファイル</a><br />
+    3.7.1 <a
+href="programming_convention.html#SS_3_7_1">パッケージの実装と公開</a><br />
+    3.7.2 <a
+href="programming_convention.html#SS_3_7_2">識別子の宣言、定義</a><br />
+    3.7.3 <a
+href="programming_convention.html#SS_3_7_3">依存関係</a><br />
+    3.7.4 <a
+href="programming_convention.html#SS_3_7_4">二重読み込みの防御</a><br />
+    3.7.5 <a
+href="programming_convention.html#SS_3_7_5">ヘッダファイル内の#include</a><br />
+    3.7.6 <a
+href="programming_convention.html#SS_3_7_6">#includeするファイルの順番</a><br />
+    3.7.7 <a
+href="programming_convention.html#SS_3_7_7">#includeで指定するパス名</a><br />
+   3.8 <a href="programming_convention.html#SS_3_8">スコープ</a><br />
+    3.8.1 <a
+href="programming_convention.html#SS_3_8_1">スコープの定義と原則</a><br />
+    3.8.2 <a
+href="programming_convention.html#SS_3_8_2">名前空間</a><br />
+    3.8.3 <a
+href="programming_convention.html#SS_3_8_3">using宣言/usingディレクティブ</a><br />
+    3.8.4 <a
+href="programming_convention.html#SS_3_8_4">ADLと名前空間による修飾の省略</a><br />
+    3.8.5 <a
+href="programming_convention.html#SS_3_8_5">名前空間のエイリアス</a><br />
+   3.9 <a
+href="programming_convention.html#SS_3_9">ランタイムの効率</a><br />
+    3.9.1 <a
+href="programming_convention.html#SS_3_9_1">前置/後置演算子の選択</a><br />
+    3.9.2 <a href="programming_convention.html#SS_3_9_2">operator
+X、operator x=の選択</a><br />
+    3.9.3 <a
+href="programming_convention.html#SS_3_9_3">関数の戻り値オブジェクト</a><br />
+    3.9.4 <a
+href="programming_convention.html#SS_3_9_4">move処理</a><br />
+    3.9.5 <a href="programming_convention.html#SS_3_9_5">std::string vs
+std::string const&amp; vs std::string_view</a><br />
+    3.9.6 <a href="programming_convention.html#SS_3_9_6">extern
+template</a><br />
+   3.10 <a
+href="programming_convention.html#SS_3_10">標準クラス、関数の使用制限</a><br />
+    3.10.1 <a href="programming_convention.html#SS_3_10_1">STL</a><br />
+     3.10.1.1 <a
+href="programming_convention.html#SS_3_10_1_1">スマートポインタの使用制限</a><br />
+     3.10.1.2 <a
+href="programming_convention.html#SS_3_10_1_2">配列系コンテナクラスの使用制限</a><br />
+     3.10.1.3 <a
+href="programming_convention.html#SS_3_10_1_3">std::stringの使用制限</a><br />
+     3.10.1.4 <a
+href="programming_convention.html#SS_3_10_1_4">std::string_viewの使用制限</a><br />
+    3.10.2 <a
+href="programming_convention.html#SS_3_10_2">POSIX系関数</a><br />
+     3.10.2.1 <a
+href="programming_convention.html#SS_3_10_2_1">使用禁止関数一覧</a><br />
+     3.10.2.2 <a
+href="programming_convention.html#SS_3_10_2_2">使用禁止関数の理由や注意点</a><br />
+      3.10.2.2.1 <a
+href="programming_convention.html#SS_3_10_2_2_1">バッファオーバーランを引き起こしやすい関数</a><br />
+      3.10.2.2.2 <a
+href="programming_convention.html#SS_3_10_2_2_2">コマンドインジェクション防止</a><br />
+      3.10.2.2.3 <a
+href="programming_convention.html#SS_3_10_2_2_3">obsolete関数</a><br />
+      3.10.2.2.4 <a
+href="programming_convention.html#SS_3_10_2_2_4">LEGACY関数</a><br />
+      3.10.2.2.5 <a
+href="programming_convention.html#SS_3_10_2_2_5">スレッドセーフでない関数</a><br />
+      3.10.2.2.6 <a
+href="programming_convention.html#SS_3_10_2_2_6">標準外関数等</a><br />
+      3.10.2.2.7 <a
+href="programming_convention.html#SS_3_10_2_2_7">扱いが難しい関数</a><br />
+     3.10.2.3 <a
+href="programming_convention.html#SS_3_10_2_3">典型的な注意点</a><br />
+      3.10.2.3.1 <a
+href="programming_convention.html#SS_3_10_2_3_1">リソースリークを引き起こしやすい関数</a><br />
+      3.10.2.3.2 <a
+href="programming_convention.html#SS_3_10_2_3_2">シンボリックリンクの検査</a><br />
+      3.10.2.3.3 <a
+href="programming_convention.html#SS_3_10_2_3_3">strncpy(),
+strncat()の終端</a><br />
+      3.10.2.3.4 <a
+href="programming_convention.html#SS_3_10_2_3_4">TOCTOU (Time Of Check,
+Time Of Use)</a><br />
+      3.10.2.3.5 <a
+href="programming_convention.html#SS_3_10_2_3_5">メモリアロケーション</a><br />
+      3.10.2.3.6 <a
+href="programming_convention.html#SS_3_10_2_3_6">非同期シグナル</a><br />
+   3.11 <a href="programming_convention.html#SS_3_11">その他</a><br />
+    3.11.1 <a
+href="programming_convention.html#SS_3_11_1">assertion</a><br />
+    3.11.2 <a
+href="programming_convention.html#SS_3_11_2">アセンブラ</a><br />
+    3.11.3 <a
+href="programming_convention.html#SS_3_11_3">言語拡張機能</a><br />
+   3.12 <a
+href="programming_convention.html#SS_3_12">特に重要なプログラミング規約</a></p>
+<p>  4 <a href="code_analysis.html#SS_4">コード解析</a><br />
+   4.1 <a
+href="code_analysis.html#SS_4_1">コンパイラによる静的解析</a><br />
+    4.1.1 <a href="code_analysis.html#SS_4_1_1">g++の警告機能</a><br />
+    4.1.2 <a
+href="code_analysis.html#SS_4_1_2">clang++の警告機能</a><br />
+   4.2 <a
+href="code_analysis.html#SS_4_2">scan-buildによる静的解析</a><br />
+   4.3 <a href="code_analysis.html#SS_4_3">cppcheck静的解析</a><br />
+   4.4 <a
+href="code_analysis.html#SS_4_4">sanitizerによる動的解析</a><br />
+   4.5 <a href="code_analysis.html#SS_4_5">まとめ</a></p>
+<p>  5 <a href="coding_style.html#SS_5">コーディングスタイル</a><br />
+   5.1 <a href="coding_style.html#SS_5_1">インデント</a><br />
+    5.1.1 <a href="coding_style.html#SS_5_1_1">インデント用文字</a><br />
+    5.1.2 <a
+href="coding_style.html#SS_5_1_2">if、for、while、do-whileのインデント</a><br />
+    5.1.3 <a
+href="coding_style.html#SS_5_1_3">ブロックのインデント</a><br />
+    5.1.4 <a
+href="coding_style.html#SS_5_1_4">case、defaultのインデント</a><br />
+   5.2 <a href="coding_style.html#SS_5_2">ブロック(波括弧({}))</a><br />
+   5.3 <a href="coding_style.html#SS_5_3">関数シグネチャ内の’()’</a><br />
+   5.4 <a href="coding_style.html#SS_5_4">クラスのアクセスレベル</a><br />
+   5.5 <a href="coding_style.html#SS_5_5">スペース</a><br />
+    5.5.1 <a href="coding_style.html#SS_5_5_1">文の後</a><br />
+    5.5.2 <a href="coding_style.html#SS_5_5_2">コンマの後</a><br />
+    5.5.3 <a
+href="coding_style.html#SS_5_5_3">単項演算子、二項演算子、三項演算子の前後</a><br />
+    5.5.4 <a
+href="coding_style.html#SS_5_5_4">不要なブランク文字</a><br />
+   5.6 <a href="coding_style.html#SS_5_6">三項演算子のスタイル</a><br />
+   5.7 <a
+href="coding_style.html#SS_5_7">ポインタ型やリファレンス型インスタンスの宣言、定義の*や&amp;の場所</a><br />
+   5.8 <a href="coding_style.html#SS_5_8">行数・桁数</a><br />
+    5.8.1 <a href="coding_style.html#SS_5_8_1">関数の行数</a><br />
+    5.8.2 <a href="coding_style.html#SS_5_8_2">行のカラム数</a><br />
+   5.9 <a href="coding_style.html#SS_5_9">ブロックの論理レベル</a><br />
+   5.10 <a href="coding_style.html#SS_5_10">名前空間</a><br />
+   5.11 <a href="coding_style.html#SS_5_11">clang-format</a></p>
+<p>  6 <a href="naming_practice.html#SS_6">命名規則</a><br />
+   6.1 <a href="naming_practice.html#SS_6_1">禁止事項</a><br />
+    6.1.1 <a href="naming_practice.html#SS_6_1_1">略語リスト</a><br />
+    6.1.2 <a href="naming_practice.html#SS_6_1_2">言葉の対称性</a><br />
+   6.2 <a
+href="naming_practice.html#SS_6_2">ファイル、ディレクトリの命名</a><br />
+    6.2.1 <a href="naming_practice.html#SS_6_2_1">ファイル名</a><br />
+    6.2.2 <a href="naming_practice.html#SS_6_2_2">ディレクトリ名</a><br />
+   6.3 <a href="naming_practice.html#SS_6_3">識別子の命名</a><br />
+    6.3.1 <a href="naming_practice.html#SS_6_3_1">型名</a><br />
+    6.3.2 <a href="naming_practice.html#SS_6_3_2">定数名</a><br />
+    6.3.3 <a
+href="naming_practice.html#SS_6_3_3">ローカル変数名(自動変数名、仮引数名、関数内static変数名)</a><br />
+    6.3.4 <a href="naming_practice.html#SS_6_3_4">メンバ変数名</a><br />
+    6.3.5 <a href="naming_practice.html#SS_6_3_5">メンバ関数名</a><br />
+    6.3.6 <a
+href="naming_practice.html#SS_6_3_6">Accessorメンバ関数名</a><br />
+    6.3.7 <a href="naming_practice.html#SS_6_3_7">関数名</a><br />
+    6.3.8 <a href="naming_practice.html#SS_6_3_8">名前空間名</a><br />
+    6.3.9 <a href="naming_practice.html#SS_6_3_9">テンプレート名</a><br />
+    6.3.10 <a
+href="naming_practice.html#SS_6_3_10">テンプレートの仮引数名</a><br />
+    6.3.11 <a href="naming_practice.html#SS_6_3_11">マクロ名</a><br />
+    6.3.12 <a href="naming_practice.html#SS_6_3_12">その他の命名則</a></p>
+<p>  7 <a href="comment.html#SS_7">コメント</a><br />
+   7.1 <a href="comment.html#SS_7_1">情報を付加しないコメント</a><br />
+   7.2 <a href="comment.html#SS_7_2">コメントのスタイル</a><br />
+    7.2.1 <a href="comment.html#SS_7_2_1">クラスのコメント</a><br />
+    7.2.2 <a href="comment.html#SS_7_2_2">関数のコメント</a><br />
+    7.2.3 <a href="comment.html#SS_7_2_3">enumのコメント</a><br />
+    7.2.4 <a href="comment.html#SS_7_2_4">型エイリアスのコメント</a><br />
+    7.2.5 <a href="comment.html#SS_7_2_5">template仮引数のコメント</a></p>
+<p>  8 <a href="solid.html#SS_8">SOLID</a><br />
+   8.1 <a href="solid.html#SS_8_1">単一責任の原則(SRP)</a><br />
+   8.2 <a
+href="solid.html#SS_8_2">オープン・クローズドの原則(OCP)</a><br />
+   8.3 <a href="solid.html#SS_8_3">リスコフの置換原則(LSP)</a><br />
+   8.4 <a
+href="solid.html#SS_8_4">インターフェース分離の原則(ISP)</a><br />
+   8.5 <a href="solid.html#SS_8_5">依存関係逆転の原則(DIP)</a><br />
+   8.6 <a href="solid.html#SS_8_6">まとめ</a></p>
+<p>  9 <a href="design_pattern.html#SS_9">デザインパターン</a><br />
+   9.1 <a href="design_pattern.html#SS_9_1">ガード節</a><br />
+   9.2 <a href="design_pattern.html#SS_9_2">BitmaskType</a><br />
+   9.3 <a href="design_pattern.html#SS_9_3">Pimpl</a><br />
+   9.4 <a href="design_pattern.html#SS_9_4">Accessor</a><br />
+   9.5 <a href="design_pattern.html#SS_9_5">Copy-And-Swap</a><br />
+   9.6 <a href="design_pattern.html#SS_9_6">Immutable</a><br />
+   9.7 <a
+href="design_pattern.html#SS_9_7">Clone(仮想コンストラクタ)</a><br />
+   9.8 <a href="design_pattern.html#SS_9_8">NVI(non virtual
+interface)</a><br />
+   9.9 <a href="design_pattern.html#SS_9_9">RAII(scoped guard)</a><br />
+   9.10 <a href="design_pattern.html#SS_9_10">Future</a><br />
+   9.11 <a href="design_pattern.html#SS_9_11">DI(dependency
+injection)</a><br />
+   9.12 <a href="design_pattern.html#SS_9_12">Singleton</a><br />
+   9.13 <a href="design_pattern.html#SS_9_13">State</a><br />
+   9.14 <a href="design_pattern.html#SS_9_14">Null Object</a><br />
+   9.15 <a href="design_pattern.html#SS_9_15">Templateメソッド</a><br />
+   9.16 <a href="design_pattern.html#SS_9_16">Factory</a><br />
+   9.17 <a href="design_pattern.html#SS_9_17">Named Constructor</a><br />
+   9.18 <a href="design_pattern.html#SS_9_18">Proxy</a><br />
+   9.19 <a href="design_pattern.html#SS_9_19">Strategy</a><br />
+   9.20 <a href="design_pattern.html#SS_9_20">Visitor</a><br />
+   9.21 <a href="design_pattern.html#SS_9_21">CRTP(curiously recurring
+template pattern)</a><br />
+   9.22 <a href="design_pattern.html#SS_9_22">Observer</a><br />
+   9.23 <a href="design_pattern.html#SS_9_23">MVC</a><br />
+   9.24 <a href="design_pattern.html#SS_9_24">Cでのクラス表現</a></p>
+<p>  10 <a href="architecture.html#SS_10">アーキテクチャ</a><br />
+   10.1 <a href="architecture.html#SS_10_1">アーキテクチャの定義</a><br />
+   10.2 <a href="architecture.html#SS_10_2">アーキテクチャの設計</a><br />
+   10.3 <a
+href="architecture.html#SS_10_3">アーキテクチャとファイル構造</a><br />
+   10.4 <a
+href="architecture.html#SS_10_4">アーキテクチャの見直し</a><br />
+    10.4.1 <a
+href="architecture.html#SS_10_4_1">パッケージが大きくなりすぎる</a><br />
+    10.4.2 <a
+href="architecture.html#SS_10_4_2">当初、想定していない依存関係が必要になる</a><br />
+    10.4.3 <a
+href="architecture.html#SS_10_4_3">コードクローンが避けられない</a><br />
+    10.4.4 <a
+href="architecture.html#SS_10_4_4">当初、想定していない非同期処理が必要になる</a><br />
+   10.5 <a
+href="architecture.html#SS_10_5">アーキテクチャの再構築</a><br />
+    10.5.1 <a
+href="architecture.html#SS_10_5_1">アーキテクチャ再構築の準備</a><br />
+    10.5.2 <a
+href="architecture.html#SS_10_5_2">アーキテクチャ再構築のチーム編成</a><br />
+    10.5.3 <a
+href="architecture.html#SS_10_5_3">アーキテクチャ再構築の手順</a><br />
+     10.5.3.1 <a
+href="architecture.html#SS_10_5_3_1">現在のソースコードをベースに再構築するかどうかを判断する</a><br />
+     10.5.3.2 <a
+href="architecture.html#SS_10_5_3_2">パッケージ間の依存関係を整理する</a><br />
+     10.5.3.3 <a
+href="architecture.html#SS_10_5_3_3">依存関係が整理されたパッケージ毎に単体テストを作る</a><br />
+     10.5.3.4 <a
+href="architecture.html#SS_10_5_3_4">統合テストプログラムを作る</a><br />
+     10.5.3.5 <a
+href="architecture.html#SS_10_5_3_5">単体テストや統合テストを自動実行できる環境を整える</a><br />
+     10.5.3.6 <a
+href="architecture.html#SS_10_5_3_6">リファクタリングを行う</a><br />
+     10.5.3.7 <a href="architecture.html#SS_10_5_3_7">まとめ</a></p>
+<p>  11 <a
+href="process_and_infra.html#SS_11">開発プロセスとインフラ</a><br />
+   11.1 <a href="process_and_infra.html#SS_11_1">プロセス</a><br />
+    11.1.1 <a
+href="process_and_infra.html#SS_11_1_1">ウォーターフォールモデル、V字モデル</a><br />
+    11.1.2 <a
+href="process_and_infra.html#SS_11_1_2">アジャイル系プロセス</a><br />
+    11.1.3 <a href="process_and_infra.html#SS_11_1_3">ウォーターフォール
+vs アジャイル</a><br />
+   11.2 <a
+href="process_and_infra.html#SS_11_2">アジャイル系プロセスのプラクティスとインフラ</a><br />
+    11.2.1 <a
+href="process_and_infra.html#SS_11_2_1">自動単体テスト</a><br />
+     11.2.1.1 <a
+href="process_and_infra.html#SS_11_2_1_1">自動単体テストとは？</a><br />
+     11.2.1.2 <a
+href="process_and_infra.html#SS_11_2_1_2">単体テストのメリット</a><br />
+     11.2.1.3 <a
+href="process_and_infra.html#SS_11_2_1_3">アーキテクチャと単体テスト</a><br />
+     11.2.1.4 <a
+href="process_and_infra.html#SS_11_2_1_4">単体テストのサポートツール</a><br />
+    11.2.2 <a
+href="process_and_infra.html#SS_11_2_2">リファクタリング</a><br />
+     11.2.2.1 <a
+href="process_and_infra.html#SS_11_2_2_1">リファクタリングのための回帰テスト</a><br />
+     11.2.2.2 <a
+href="process_and_infra.html#SS_11_2_2_2">ソースコードの改善</a><br />
+     11.2.2.3 <a
+href="process_and_infra.html#SS_11_2_2_3">リファクタリングの例</a><br />
+      11.2.2.3.1 <a
+href="process_and_infra.html#SS_11_2_2_3_1">オリジナルのソースコード</a><br />
+      11.2.2.3.2 <a
+href="process_and_infra.html#SS_11_2_2_3_2">機能追加によるソースコード品質劣化</a><br />
+      11.2.2.3.3 <a
+href="process_and_infra.html#SS_11_2_2_3_3">小規模なリファクタリング</a><br />
+      11.2.2.3.4 <a
+href="process_and_infra.html#SS_11_2_2_3_4">構造のリファクタリング</a><br />
+      11.2.2.3.5 <a
+href="process_and_infra.html#SS_11_2_2_3_5">単体テストの開発</a><br />
+      11.2.2.3.6 <a
+href="process_and_infra.html#SS_11_2_2_3_6">クラスの導入</a><br />
+      11.2.2.3.7 <a
+href="process_and_infra.html#SS_11_2_2_3_7">単体テストの変更</a><br />
+      11.2.2.3.8 <a
+href="process_and_infra.html#SS_11_2_2_3_8">MVCの導入</a><br />
+      11.2.2.3.9 <a
+href="process_and_infra.html#SS_11_2_2_3_9">単体テストの変更(単体テスト用クラス導入)</a><br />
+      11.2.2.3.10 <a
+href="process_and_infra.html#SS_11_2_2_3_10">DIの導入</a><br />
+      11.2.2.3.11 <a
+href="process_and_infra.html#SS_11_2_2_3_11">全クラスの単体テスト</a><br />
+    11.2.3 <a
+href="process_and_infra.html#SS_11_2_3">自動統合テスト</a><br />
+     11.2.3.1 <a
+href="process_and_infra.html#SS_11_2_3_1">自動統合テストとは？</a><br />
+     11.2.3.2 <a
+href="process_and_infra.html#SS_11_2_3_2">自動統合テストのための仕様追加</a><br />
+     11.2.3.3 <a
+href="process_and_infra.html#SS_11_2_3_3">自動統合テストのためのソースコード変更</a><br />
+     11.2.3.4 <a
+href="process_and_infra.html#SS_11_2_3_4">自動統合テスト用ソースコード変更のための単体テスト</a><br />
+     11.2.3.5 <a
+href="process_and_infra.html#SS_11_2_3_5">自動統合テストの実装</a><br />
+    11.2.4 <a href="process_and_infra.html#SS_11_2_4">TDD</a><br />
+    11.2.5 <a
+href="process_and_infra.html#SS_11_2_5">CI(継続的インテグレーション)</a><br />
+     11.2.5.1 <a
+href="process_and_infra.html#SS_11_2_5_1">バージョン管理システム</a><br />
+      11.2.5.1.1 <a
+href="process_and_infra.html#SS_11_2_5_1_1">gitのブランチモデル</a><br />
+      11.2.5.1.2 <a
+href="process_and_infra.html#SS_11_2_5_1_2">コードインスペクション</a><br />
+     11.2.5.2 <a
+href="process_and_infra.html#SS_11_2_5_2">CIとは？</a><br />
+     11.2.5.3 <a
+href="process_and_infra.html#SS_11_2_5_3">CIとワークフロー</a><br />
+     11.2.5.4 <a
+href="process_and_infra.html#SS_11_2_5_4">CI項目実行の長時間化と分割</a><br />
+     11.2.5.5 <a
+href="process_and_infra.html#SS_11_2_5_5">CI項目の例</a><br />
+   11.3 <a href="process_and_infra.html#SS_11_3">まとめ</a></p>
+<p>  12 <a href="concurrency.html#SS_12">並行処理</a><br />
+   12.1 <a
+href="concurrency.html#SS_12_1">ref_async_r5改善プログラムの要件</a><br />
+    12.1.1 <a href="concurrency.html#SS_12_1_1">Controller</a><br />
+    12.1.2 <a href="concurrency.html#SS_12_1_2">View</a><br />
+    12.1.3 <a href="concurrency.html#SS_12_1_3">Model</a><br />
+   12.2 <a href="concurrency.html#SS_12_2">非同期処理とその管理</a><br />
+    12.2.1 <a
+href="concurrency.html#SS_12_2_1">TwoPhaseTaskIF(TwoPhaseTaskPtr)</a><br />
+    12.2.2 <a href="concurrency.html#SS_12_2_2">Dispatcher</a><br />
+    12.2.3 <a
+href="concurrency.html#SS_12_2_3">TwoPhaseTaskPtrキュー管理機構</a><br />
+   12.3 <a href="concurrency.html#SS_12_3">ref_async_r6の構造</a><br />
+   12.4 <a href="concurrency.html#SS_12_4">まとめ</a></p>
+<p>  13 <a
+href="template_meta_programming.html#SS_13">テンプレートメタプログラミング</a><br />
+   13.1 <a
+href="template_meta_programming.html#SS_13_1">ログ取得ライブラリの開発</a><br />
+    13.1.1 <a
+href="template_meta_programming.html#SS_13_1_1">要件</a><br />
+    13.1.2 <a
+href="template_meta_programming.html#SS_13_1_2">ログ取得ライブラリのインターフェース</a><br />
+    13.1.3 <a
+href="template_meta_programming.html#SS_13_1_3">パラメータパック</a><br />
+     13.1.3.1 <a
+href="template_meta_programming.html#SS_13_1_3_1">パラメータパックの畳みこみ式</a><br />
+     13.1.3.2 <a
+href="template_meta_programming.html#SS_13_1_3_2">前から演算するパラメータパック</a><br />
+    13.1.4 <a
+href="template_meta_programming.html#SS_13_1_4">Loggerの実装</a><br />
+    13.1.5 <a
+href="template_meta_programming.html#SS_13_1_5">ユーザ定義型とそのoperator&lt;&lt;のname
+lookup</a><br />
+    13.1.6 <a
+href="template_meta_programming.html#SS_13_1_6">Ints_tのログ登録</a><br />
+     13.1.6.1 <a
+href="template_meta_programming.html#SS_13_1_6_1">operator&lt;&lt;をstd内で宣言する</a><br />
+     13.1.6.2 <a
+href="template_meta_programming.html#SS_13_1_6_2">operator&lt;&lt;をグローバル名前空間内で宣言する</a><br />
+     13.1.6.3 <a
+href="template_meta_programming.html#SS_13_1_6_3">operator&lt;&lt;をLogging内で宣言する</a><br />
+     13.1.6.4 <a
+href="template_meta_programming.html#SS_13_1_6_4">Logging::Logger::set_inner(ints)内でusing
+namespace Appを行う</a><br />
+     13.1.6.5 <a
+href="template_meta_programming.html#SS_13_1_6_5">Ints_tを構造体としてApp内に宣言する</a><br />
+     13.1.6.6 <a
+href="template_meta_programming.html#SS_13_1_6_6">operator&lt;&lt;を使わない</a><br />
+     13.1.6.7 <a
+href="template_meta_programming.html#SS_13_1_6_7">Ints_tのログ登録のまとめ</a><br />
+   13.2 <a
+href="template_meta_programming.html#SS_13_2">Nstdライブラリの開発</a><br />
+    13.2.1 <a
+href="template_meta_programming.html#SS_13_2_1">Nstdライブラリを使用したリファクタリング</a><br />
+    13.2.2 <a
+href="template_meta_programming.html#SS_13_2_2">安全なvector</a><br />
+    13.2.3 <a
+href="template_meta_programming.html#SS_13_2_3">安全な配列型コンテナ</a><br />
+    13.2.4 <a
+href="template_meta_programming.html#SS_13_2_4">初期化子リストの副作用</a><br />
+   13.3 <a
+href="template_meta_programming.html#SS_13_3">メタ関数のテクニック</a><br />
+    13.3.1 <a
+href="template_meta_programming.html#SS_13_3_1">STLのtype_traits</a><br />
+     13.3.1.1 <a
+href="template_meta_programming.html#SS_13_3_1_1">std::true_type/std::false_type</a><br />
+     13.3.1.2 <a
+href="template_meta_programming.html#SS_13_3_1_2">std::integral_constant</a><br />
+     13.3.1.3 <a
+href="template_meta_programming.html#SS_13_3_1_3">std::is_same</a><br />
+     13.3.1.4 <a
+href="template_meta_programming.html#SS_13_3_1_4">std::enable_if</a><br />
+     13.3.1.5 <a
+href="template_meta_programming.html#SS_13_3_1_5">std::conditional</a><br />
+     13.3.1.6 <a
+href="template_meta_programming.html#SS_13_3_1_6">std::is_void</a><br />
+    13.3.2 <a
+href="template_meta_programming.html#SS_13_3_2">is_void_xxxの実装</a><br />
+     13.3.2.1 <a
+href="template_meta_programming.html#SS_13_3_2_1">is_void_fの実装</a><br />
+     13.3.2.2 <a
+href="template_meta_programming.html#SS_13_3_2_2">is_void_sの実装</a><br />
+     13.3.2.3 <a
+href="template_meta_programming.html#SS_13_3_2_3">is_void_sfinae_fの実装</a><br />
+     13.3.2.4 <a
+href="template_meta_programming.html#SS_13_3_2_4">is_void_sfinae_sの実装</a><br />
+     13.3.2.5 <a
+href="template_meta_programming.html#SS_13_3_2_5">is_void_ena_sの実装</a><br />
+     13.3.2.6 <a
+href="template_meta_programming.html#SS_13_3_2_6">is_void_cond_sの実装</a><br />
+    13.3.3 <a
+href="template_meta_programming.html#SS_13_3_3">is_same_xxxの実装</a><br />
+     13.3.3.1 <a
+href="template_meta_programming.html#SS_13_3_3_1">is_same_fの実装</a><br />
+     13.3.3.2 <a
+href="template_meta_programming.html#SS_13_3_3_2">is_same_vの実装</a><br />
+     13.3.3.3 <a
+href="template_meta_programming.html#SS_13_3_3_3">is_same_sの実装</a><br />
+     13.3.3.4 <a
+href="template_meta_programming.html#SS_13_3_3_4">is_same_sfinae_fの実装</a><br />
+     13.3.3.5 <a
+href="template_meta_programming.html#SS_13_3_3_5">is_same_sfinae_sの実装</a><br />
+     13.3.3.6 <a
+href="template_meta_programming.html#SS_13_3_3_6">is_same_templの実装</a><br />
+     13.3.3.7 <a
+href="template_meta_programming.html#SS_13_3_3_7">IsSameSomeOfの実装</a><br />
+    13.3.4 <a
+href="template_meta_programming.html#SS_13_3_4">AreConvertibleXxxの実装</a><br />
+     13.3.4.1 <a
+href="template_meta_programming.html#SS_13_3_4_1">AreConvertibleの実装</a><br />
+     13.3.4.2 <a
+href="template_meta_programming.html#SS_13_3_4_2">AreConvertibleWithoutNarrowConvの実装</a><br />
+    13.3.5 <a
+href="template_meta_programming.html#SS_13_3_5">関数の存在の診断</a><br />
+     13.3.5.1 <a
+href="template_meta_programming.html#SS_13_3_5_1">exists_void_func_sfinae_fの実装</a><br />
+     13.3.5.2 <a
+href="template_meta_programming.html#SS_13_3_5_2">exists_void_func_sfinae_sの実装</a><br />
+     13.3.5.3 <a
+href="template_meta_programming.html#SS_13_3_5_3">exists_void_func_sfinae_s2の実装</a><br />
+     13.3.5.4 <a
+href="template_meta_programming.html#SS_13_3_5_4">exists_begin/exsits_endの実装</a><br />
+     13.3.5.5 <a
+href="template_meta_programming.html#SS_13_3_5_5">IsRangeの実装</a><br />
+     13.3.5.6 <a
+href="template_meta_programming.html#SS_13_3_5_6">exists_put_to_as_memberの実装</a><br />
+     13.3.5.7 <a
+href="template_meta_programming.html#SS_13_3_5_7">exists_put_to_as_non_memberの実装</a><br />
+     13.3.5.8 <a
+href="template_meta_programming.html#SS_13_3_5_8">ExistsPutToの実装</a><br />
+     13.3.5.9 <a
+href="template_meta_programming.html#SS_13_3_5_9">ValueTypeの実装</a><br />
+   13.4 <a
+href="template_meta_programming.html#SS_13_4">Nstdライブラリの開発2</a><br />
+    13.4.1 <a
+href="template_meta_programming.html#SS_13_4_1">SafeArray2の開発</a><br />
+    13.4.2 <a
+href="template_meta_programming.html#SS_13_4_2">Nstd::SafeIndexの開発</a><br />
+    13.4.3 <a
+href="template_meta_programming.html#SS_13_4_3">Nstd::SafeIndexのoperator&lt;&lt;の開発</a><br />
+    13.4.4 <a
+href="template_meta_programming.html#SS_13_4_4">コンテナ用Nstd::operator&lt;&lt;の開発</a><br />
+   13.5 <a
+href="template_meta_programming.html#SS_13_5">ログ取得ライブラリの開発2</a><br />
+   13.6 <a
+href="template_meta_programming.html#SS_13_6">その他のテンプレートテクニック</a><br />
+    13.6.1 <a
+href="template_meta_programming.html#SS_13_6_1">ユニバーサルリファレンスとstd::forward</a><br />
+    13.6.2 <a
+href="template_meta_programming.html#SS_13_6_2">ジェネリックラムダ</a><br />
+     13.6.2.1 <a
+href="template_meta_programming.html#SS_13_6_2_1">ジェネリックラムダの内部構造</a><br />
+     13.6.2.2 <a
+href="template_meta_programming.html#SS_13_6_2_2">std::variantとジェネリックラムダ</a><br />
+    13.6.3 <a
+href="template_meta_programming.html#SS_13_6_3">クラステンプレートと継承の再帰構造</a><br />
+    13.6.4 <a href="template_meta_programming.html#SS_13_6_4">constexpr
+if文</a><br />
+    13.6.5 <a
+href="template_meta_programming.html#SS_13_6_5">意図しないname
+lookupの防止</a><br />
+     13.6.5.1 <a
+href="template_meta_programming.html#SS_13_6_5_1">ジェネリックすぎるテンプレートを書かない</a><br />
+     13.6.5.2 <a
+href="template_meta_programming.html#SS_13_6_5_2">ADLが本当に必要でない限り名前を修飾する</a><br />
+     13.6.5.3 <a href="template_meta_programming.html#SS_13_6_5_3">ADL
+Firewallを使う</a><br />
+    13.6.6 <a
+href="template_meta_programming.html#SS_13_6_6">Nstd::Type2Strの開発</a><br />
+    13.6.7 <a
+href="template_meta_programming.html#SS_13_6_7">静的な文字列オブジェクト</a><br />
+     13.6.7.1 <a
+href="template_meta_programming.html#SS_13_6_7_1">StaticStringのヘルパークラスの開発</a><br />
+     13.6.7.2 <a
+href="template_meta_programming.html#SS_13_6_7_2">StaticStringの開発</a><br />
+     13.6.7.3 <a
+href="template_meta_programming.html#SS_13_6_7_3">整数をStaticStringに変換する関数の開発</a><br />
+     13.6.7.4 <a
+href="template_meta_programming.html#SS_13_6_7_4">ファイル位置を静的に保持したエクセプションクラスの開発</a><br />
+    13.6.8 <a
+href="template_meta_programming.html#SS_13_6_8">関数型をテンプレートパラメータで使う</a><br />
+   13.7 <a
+href="template_meta_programming.html#SS_13_7">注意点まとめ</a></p>
+<p>  14 <a
+href="dynamic_memory_allocation.html#SS_14">ダイナミックメモリアロケーション</a><br />
+   14.1 <a
+href="dynamic_memory_allocation.html#SS_14_1">malloc/freeの問題点</a><br />
+   14.2 <a
+href="dynamic_memory_allocation.html#SS_14_2">グローバルnew/deleteのオーバーロード</a><br />
+    14.2.1 <a
+href="dynamic_memory_allocation.html#SS_14_2_1">固定長メモリプール</a><br />
+    14.2.2 <a
+href="dynamic_memory_allocation.html#SS_14_2_2">グローバルnew/deleteのオーバーロードの実装</a><br />
+    14.2.3 <a
+href="dynamic_memory_allocation.html#SS_14_2_3">プレースメントnew</a><br />
+    14.2.4 <a
+href="dynamic_memory_allocation.html#SS_14_2_4">デバッグ用イテレータ</a><br />
+   14.3 <a
+href="dynamic_memory_allocation.html#SS_14_3">クラスnew/deleteのオーバーロード</a><br />
+   14.4 <a
+href="dynamic_memory_allocation.html#SS_14_4">STLコンテナのアロケーター</a><br />
+    14.4.1 <a
+href="dynamic_memory_allocation.html#SS_14_4_1">STLコンテナ用アロケータ</a><br />
+    14.4.2 <a
+href="dynamic_memory_allocation.html#SS_14_4_2">可変長メモリプール</a><br />
+    14.4.3 <a
+href="dynamic_memory_allocation.html#SS_14_4_3">デバッグ用イテレータ</a><br />
+    14.4.4 <a
+href="dynamic_memory_allocation.html#SS_14_4_4">エクセプション処理機構の変更</a></p>
+<p>  15 <a href="debug.html#SS_15">デバッグ</a><br />
+   15.1 <a href="debug.html#SS_15_1">デバッガの使用</a><br />
+   15.2 <a href="debug.html#SS_15_2">gitの使用</a><br />
+   15.3 <a href="debug.html#SS_15_3">TATの短縮</a><br />
+    15.3.1 <a href="debug.html#SS_15_3_1">ビルド時間の短縮</a><br />
+    15.3.2 <a href="debug.html#SS_15_3_2">依存関係の整理</a><br />
+   15.4 <a href="debug.html#SS_15_4">自動単体テストの実施</a><br />
+   15.5 <a href="debug.html#SS_15_5">自動統合テストの実施</a><br />
+   15.6 <a href="debug.html#SS_15_6">事後的デバッグ</a><br />
+    15.6.1 <a href="debug.html#SS_15_6_1">ログの取得</a><br />
+    15.6.2 <a href="debug.html#SS_15_6_2">モニター</a><br />
+     15.6.2.1 <a href="debug.html#SS_15_6_2_1">メモリ保護機能</a><br />
+     15.6.2.2 <a
+href="debug.html#SS_15_6_2_2">スタック消費量の計測</a><br />
+   15.7 <a href="debug.html#SS_15_7">潜在的バグの削減</a><br />
+   15.8 <a href="debug.html#SS_15_8">難しいバグの対処</a><br />
+   15.9 <a href="debug.html#SS_15_9">助成の依頼</a><br />
+    15.9.1 <a href="debug.html#SS_15_9_1">現象1 -
+不思議なハングアップ</a><br />
+    15.9.2 <a href="debug.html#SS_15_9_2">現象2 -
+グローバル変数の破壊</a><br />
+    15.9.3 <a href="debug.html#SS_15_9_3">現象3 -
+プロセスのスローダウン</a><br />
+    15.9.4 <a href="debug.html#SS_15_9_4">現象4 -
+バックトレースが見れない</a><br />
+    15.9.5 <a href="debug.html#SS_15_9_5">現象5 -
+newしたオブジェクトの破壊</a><br />
+    15.9.6 <a href="debug.html#SS_15_9_6">現象6 - STLのバグ?</a><br />
+    15.9.7 <a href="debug.html#SS_15_9_7">現象7 -
+解放後のrvalueへのアクセス</a><br />
+   15.10 <a href="debug.html#SS_15_10">まとめ</a></p>
+<p>  16 <a href="dev_tools.html#SS_16">開発ツール</a><br />
+   16.1 <a href="dev_tools.html#SS_16_1">コンパイラ</a><br />
+   16.2 <a href="dev_tools.html#SS_16_2">デバッガ</a><br />
+    16.2.1 <a href="dev_tools.html#SS_16_2_1">printfデバッグ</a><br />
+   16.3 <a href="dev_tools.html#SS_16_3">エディタ/IDE</a><br />
+   16.4 <a href="dev_tools.html#SS_16_4">筆者の開発ツール環境</a><br />
+    16.4.1 <a href="dev_tools.html#SS_16_4_1">vim/neovimの設定</a><br />
+     16.4.1.1 <a
+href="dev_tools.html#SS_16_4_1_1">設定ファイルと管理</a><br />
+     16.4.1.2 <a href="dev_tools.html#SS_16_4_1_2">ドキュメント</a><br />
+     16.4.1.3 <a href="dev_tools.html#SS_16_4_1_3">初期化</a><br />
+     16.4.1.4 <a
+href="dev_tools.html#SS_16_4_1_4">独自スクリプト</a><br />
+      16.4.1.4.1 <a
+href="dev_tools.html#SS_16_4_1_4_1">c/c++編集</a><br />
+      16.4.1.4.2 <a href="dev_tools.html#SS_16_4_1_4_2">bash起動</a><br />
+      16.4.1.4.3 <a href="dev_tools.html#SS_16_4_1_4_3">git連動</a><br />
+      16.4.1.4.4 <a
+href="dev_tools.html#SS_16_4_1_4_4">ファイルタイプ設定</a><br />
+      16.4.1.4.5 <a href="dev_tools.html#SS_16_4_1_4_5">その他</a><br />
+     16.4.1.5 <a
+href="dev_tools.html#SS_16_4_1_5">外部パッケージ</a><br />
+   16.5 <a href="dev_tools.html#SS_16_5">費用</a></p>
+<p>  17 <a href="deps.html#SS_17">deps</a><br />
+   17.1 <a href="deps.html#SS_17_1">depsの構造</a><br />
+   17.2 <a href="deps.html#SS_17_2">depsの使い方</a><br />
+    17.2.1 <a
+href="deps.html#SS_17_2_1">ユースケース-循環依存を発見した場合、非0でexitする</a><br />
+    17.2.2 <a
+href="deps.html#SS_17_2_2">ユースケース-C++のソースコードを含むディレクトリを探す</a><br />
+    17.2.3 <a
+href="deps.html#SS_17_2_3">ユースケース-ディレクトリをパッケージとみなして、パッケージとソースコードの関係を示す</a><br />
+    17.2.4 <a
+href="deps.html#SS_17_2_4">ユースケース-パッケージ間の依存関係を示す</a><br />
+    17.2.5 <a
+href="deps.html#SS_17_2_5">ユースケース-パッケージ間の依存関係を構造的に表す</a><br />
+    17.2.6 <a
+href="deps.html#SS_17_2_6">ユースケース-パッケージ間の依存関係をplant
+umlで表す</a><br />
+    17.2.7 <a
+href="deps.html#SS_17_2_7">ユースケース-ソースコード間の依存関係をplant
+umlで表す</a><br />
+    17.2.8 <a
+href="deps.html#SS_17_2_8">ユースケース-パッケージでないディレクトリをそれとみなさない</a><br />
+   17.3 <a href="deps.html#SS_17_3">makeによる依存関係の維持</a></p>
+<p>  18 <a href="term_explanation.html#SS_18">用語解説</a><br />
+   18.1 <a href="term_explanation.html#SS_18_1">型とインスタンス</a><br />
+    18.1.1 <a href="term_explanation.html#SS_18_1_1">算術型</a><br />
+    18.1.2 <a href="term_explanation.html#SS_18_1_2">汎整数型</a><br />
+    18.1.3 <a href="term_explanation.html#SS_18_1_3">整数型</a><br />
+    18.1.4 <a href="term_explanation.html#SS_18_1_4">算術変換</a><br />
+    18.1.5 <a href="term_explanation.html#SS_18_1_5">汎整数拡張</a><br />
+    18.1.6 <a href="term_explanation.html#SS_18_1_6">POD</a><br />
+    18.1.7 <a
+href="term_explanation.html#SS_18_1_7">標準レイアウト型</a><br />
+    18.1.8 <a
+href="term_explanation.html#SS_18_1_8">トリビアル型</a><br />
+    18.1.9 <a href="term_explanation.html#SS_18_1_9">underlying
+type</a><br />
+    18.1.10 <a href="term_explanation.html#SS_18_1_10">不完全型</a><br />
+    18.1.11 <a href="term_explanation.html#SS_18_1_11">完全型</a><br />
+    18.1.12 <a
+href="term_explanation.html#SS_18_1_12">ポリモーフィックなクラス</a><br />
+    18.1.13 <a
+href="term_explanation.html#SS_18_1_13">インターフェースクラス</a><br />
+    18.1.14 <a
+href="term_explanation.html#SS_18_1_14">constインスタンス</a><br />
+    18.1.15 <a
+href="term_explanation.html#SS_18_1_15">constexprインスタンスと関数</a><br />
+    18.1.16 <a
+href="term_explanation.html#SS_18_1_16">ユーザ定義リテラル演算子</a><br />
+    18.1.17 <a
+href="term_explanation.html#SS_18_1_17">std::string型リテラル</a><br />
+   18.2 <a
+href="term_explanation.html#SS_18_2">オブジェクトと生成</a><br />
+    18.2.1 <a
+href="term_explanation.html#SS_18_2_1">特殊メンバ関数</a><br />
+    18.2.2 <a
+href="term_explanation.html#SS_18_2_2">初期化子リストコンストラクタ</a><br />
+    18.2.3 <a
+href="term_explanation.html#SS_18_2_3">継承コンストラクタ</a><br />
+    18.2.4 <a
+href="term_explanation.html#SS_18_2_4">委譲コンストラクタ</a><br />
+    18.2.5 <a
+href="term_explanation.html#SS_18_2_5">非explitなコンストラクタによる暗黙の型変換</a><br />
+    18.2.6 <a href="term_explanation.html#SS_18_2_6">NSDMI</a><br />
+    18.2.7 <a href="term_explanation.html#SS_18_2_7">一様初期化</a><br />
+    18.2.8 <a href="term_explanation.html#SS_18_2_8">AAAスタイル</a><br />
+    18.2.9 <a
+href="term_explanation.html#SS_18_2_9">オブジェクトの所有権</a><br />
+     18.2.9.1 <a
+href="term_explanation.html#SS_18_2_9_1">オブジェクトの排他所有</a><br />
+     18.2.9.2 <a
+href="term_explanation.html#SS_18_2_9_2">オブジェクトの共有所有</a><br />
+    18.2.10 <a
+href="term_explanation.html#SS_18_2_10">オブジェクトのライフタイム</a><br />
+    18.2.11 <a
+href="term_explanation.html#SS_18_2_11">クラスのレイアウト</a><br />
+   18.3 <a
+href="term_explanation.html#SS_18_3">オブジェクトのコピー</a><br />
+    18.3.1 <a
+href="term_explanation.html#SS_18_3_1">シャローコピー</a><br />
+    18.3.2 <a
+href="term_explanation.html#SS_18_3_2">ディープコピー</a><br />
+    18.3.3 <a
+href="term_explanation.html#SS_18_3_3">スライシング</a><br />
+   18.4 <a href="term_explanation.html#SS_18_4">name
+lookupと名前空間</a><br />
+    18.4.1 <a
+href="term_explanation.html#SS_18_4_1">ルックアップ</a><br />
+    18.4.2 <a href="term_explanation.html#SS_18_4_2">name lookup</a><br />
+    18.4.3 <a href="term_explanation.html#SS_18_4_3">two phase name
+lookup</a><br />
+    18.4.4 <a
+href="term_explanation.html#SS_18_4_4">実引数依存探索</a><br />
+    18.4.5 <a href="term_explanation.html#SS_18_4_5">ADL</a><br />
+    18.4.6 <a
+href="term_explanation.html#SS_18_4_6">関連名前空間</a><br />
+    18.4.7 <a href="term_explanation.html#SS_18_4_7">SFINAE</a><br />
+    18.4.8 <a href="term_explanation.html#SS_18_4_8">name-hiding</a><br />
+    18.4.9 <a href="term_explanation.html#SS_18_4_9">ドミナンス</a><br />
+     18.4.9.1 <a
+href="term_explanation.html#SS_18_4_9_1">ダイヤモンド継承を含まない場合</a><br />
+     18.4.9.2 <a
+href="term_explanation.html#SS_18_4_9_2">ダイヤモンド継承かつそれが仮想継承でない場合</a><br />
+     18.4.9.3 <a
+href="term_explanation.html#SS_18_4_9_3">ダイヤモンド継承かつそれが仮想継承である場合</a><br />
+    18.4.10 <a
+href="term_explanation.html#SS_18_4_10">ダイヤモンド継承</a><br />
+    18.4.11 <a href="term_explanation.html#SS_18_4_11">仮想継承</a><br />
+    18.4.12 <a href="term_explanation.html#SS_18_4_12">仮想基底</a><br />
+    18.4.13 <a href="term_explanation.html#SS_18_4_13">using宣言</a><br />
+    18.4.14 <a
+href="term_explanation.html#SS_18_4_14">usingディレクティブ</a><br />
+   18.5 <a
+href="term_explanation.html#SS_18_5">expressionと値カテゴリ</a><br />
+    18.5.1 <a href="term_explanation.html#SS_18_5_1">expression</a><br />
+    18.5.2 <a href="term_explanation.html#SS_18_5_2">lvalue</a><br />
+    18.5.3 <a href="term_explanation.html#SS_18_5_3">rvalue</a><br />
+     18.5.3.1 <a href="term_explanation.html#SS_18_5_3_1">xvalue</a><br />
+     18.5.3.2 <a
+href="term_explanation.html#SS_18_5_3_2">prvalue</a><br />
+    18.5.4 <a href="term_explanation.html#SS_18_5_4">rvalue修飾</a><br />
+    18.5.5 <a href="term_explanation.html#SS_18_5_5">lvalue修飾</a><br />
+    18.5.6 <a
+href="term_explanation.html#SS_18_5_6">リファレンス修飾</a><br />
+    18.5.7 <a href="term_explanation.html#SS_18_5_7">decltype</a><br />
+   18.6 <a href="term_explanation.html#SS_18_6">リファレンス</a><br />
+    18.6.1 <a
+href="term_explanation.html#SS_18_6_1">ユニバーサルリファレンス</a><br />
+    18.6.2 <a
+href="term_explanation.html#SS_18_6_2">forwardingリファレンス</a><br />
+    18.6.3 <a href="term_explanation.html#SS_18_6_3">perfect
+forwarding</a><br />
+    18.6.4 <a
+href="term_explanation.html#SS_18_6_4">リファレンスcollapsing</a><br />
+    18.6.5 <a
+href="term_explanation.html#SS_18_6_5">danglingリファレンス</a><br />
+    18.6.6 <a
+href="term_explanation.html#SS_18_6_6">danglingポインタ</a><br />
+   18.7 <a
+href="term_explanation.html#SS_18_7">エクセプション安全性の保証</a><br />
+    18.7.1 <a href="term_explanation.html#SS_18_7_1">no-fail保証</a><br />
+    18.7.2 <a href="term_explanation.html#SS_18_7_2">強い保証</a><br />
+    18.7.3 <a href="term_explanation.html#SS_18_7_3">基本保証</a><br />
+   18.8 <a
+href="term_explanation.html#SS_18_8">シンタックス、セマンティクス</a><br />
+    18.8.1 <a
+href="term_explanation.html#SS_18_8_1">等価性のセマンティクス</a><br />
+    18.8.2 <a
+href="term_explanation.html#SS_18_8_2">copyセマンティクス</a><br />
+    18.8.3 <a
+href="term_explanation.html#SS_18_8_3">moveセマンティクス</a><br />
+   18.9 <a href="term_explanation.html#SS_18_9">C++コンパイラ</a><br />
+    18.9.1 <a href="term_explanation.html#SS_18_9_1">g++</a><br />
+    18.9.2 <a href="term_explanation.html#SS_18_9_2">clang++</a><br />
+   18.10 <a href="term_explanation.html#SS_18_10">C++その他</a><br />
+    18.10.1 <a
+href="term_explanation.html#SS_18_10_1">オーバーライドとオーバーロードの違い</a><br />
+    18.10.2 <a
+href="term_explanation.html#SS_18_10_2">実引数/仮引数</a><br />
+    18.10.3 <a href="term_explanation.html#SS_18_10_3">範囲for文</a><br />
+    18.10.4 <a href="term_explanation.html#SS_18_10_4">ラムダ式</a><br />
+    18.10.5 <a
+href="term_explanation.html#SS_18_10_5">ジェネリックラムダ</a><br />
+    18.10.6 <a
+href="term_explanation.html#SS_18_10_6">関数tryブロック</a><br />
+    18.10.7 <a href="term_explanation.html#SS_18_10_7">単純代入</a><br />
+    18.10.8 <a
+href="term_explanation.html#SS_18_10_8">ill-formed</a><br />
+    18.10.9 <a
+href="term_explanation.html#SS_18_10_9">well-formed</a><br />
+    18.10.10 <a href="term_explanation.html#SS_18_10_10">one-definition
+rule</a><br />
+    18.10.11 <a href="term_explanation.html#SS_18_10_11">ODR</a><br />
+    18.10.12 <a href="term_explanation.html#SS_18_10_12">RVO(Return Value
+Optimization)</a><br />
+    18.10.13 <a href="term_explanation.html#SS_18_10_13">SSO(Small String
+Optimization)</a><br />
+    18.10.14 <a href="term_explanation.html#SS_18_10_14">Most Vexing
+Parse</a><br />
+    18.10.15 <a href="term_explanation.html#SS_18_10_15">RTTI</a><br />
+    18.10.16 <a href="term_explanation.html#SS_18_10_16">Run-time Type
+Information</a><br />
+    18.10.17 <a
+href="term_explanation.html#SS_18_10_17">simple-declaration</a><br />
+    18.10.18 <a href="term_explanation.html#SS_18_10_18">typeid</a><br />
+    18.10.19 <a
+href="term_explanation.html#SS_18_10_19">トライグラフ</a><br />
+    18.10.20 <a
+href="term_explanation.html#SS_18_10_20">フリースタンディング環境</a><br />
+   18.11 <a
+href="term_explanation.html#SS_18_11">ソフトウェア一般</a><br />
+    18.11.1 <a href="term_explanation.html#SS_18_11_1">凝集度</a><br />
+    18.11.2 <a
+href="term_explanation.html#SS_18_11_2">サイクロマティック複雑度</a><br />
+    18.11.3 <a href="term_explanation.html#SS_18_11_3">Spurious
+Wakeup</a><br />
+    18.11.4 <a href="term_explanation.html#SS_18_11_4">副作用</a><br />
+    18.11.5 <a href="term_explanation.html#SS_18_11_5">is-a</a><br />
+    18.11.6 <a href="term_explanation.html#SS_18_11_6">has-a</a><br />
+    18.11.7 <a
+href="term_explanation.html#SS_18_11_7">is-implemented-in-terms-of</a><br />
+     18.11.7.1 <a
+href="term_explanation.html#SS_18_11_7_1">public継承によるis-implemented-in-terms-of</a><br />
+     18.11.7.2 <a
+href="term_explanation.html#SS_18_11_7_2">private継承によるis-implemented-in-terms-of</a><br />
+     18.11.7.3 <a
+href="term_explanation.html#SS_18_11_7_3">コンポジションによる(has-a)is-implemented-in-terms-of</a><br />
+   18.12 <a
+href="term_explanation.html#SS_18_12">非ソフトウェア用語</a><br />
+    18.12.1 <a
+href="term_explanation.html#SS_18_12_1">割れ窓理論</a><br />
+    18.12.2 <a
+href="term_explanation.html#SS_18_12_2">車輪の再発明</a></p>
+<p>  19 <a href="exercise_q.html#SS_19">演習</a><br />
+   19.1 <a href="exercise_q.html#SS_19_1">プログラミング規約(型)</a><br />
+    19.1.1 <a
+href="exercise_q.html#SS_19_1_1">演習-汎整数型の選択</a><br />
+    19.1.2 <a
+href="exercise_q.html#SS_19_1_2">演習-汎整数型の演算</a><br />
+    19.1.3 <a href="exercise_q.html#SS_19_1_3">演習-浮動小数点型</a><br />
+    19.1.4 <a href="exercise_q.html#SS_19_1_4">演習-定数列挙</a><br />
+    19.1.5 <a href="exercise_q.html#SS_19_1_5">演習-enum</a><br />
+    19.1.6 <a
+href="exercise_q.html#SS_19_1_6">演習-配列の範囲for文</a><br />
+    19.1.7 <a href="exercise_q.html#SS_19_1_7">演習-エイリアス</a><br />
+    19.1.8 <a href="exercise_q.html#SS_19_1_8">演習-constの意味</a><br />
+    19.1.9 <a
+href="exercise_q.html#SS_19_1_9">演習-const/constexpr</a><br />
+    19.1.10 <a
+href="exercise_q.html#SS_19_1_10">演習-危険なconst_cast</a><br />
+    19.1.11 <a href="exercise_q.html#SS_19_1_11">演習-リテラル</a><br />
+    19.1.12 <a
+href="exercise_q.html#SS_19_1_12">演習-適切なautoの使い方</a><br />
+    19.1.13 <a
+href="exercise_q.html#SS_19_1_13">演習-ポインタの初期化</a><br />
+    19.1.14 <a
+href="exercise_q.html#SS_19_1_14">演習-vector初期化</a><br />
+    19.1.15 <a
+href="exercise_q.html#SS_19_1_15">演習-インスタンスの初期化</a><br />
+   19.2 <a
+href="exercise_q.html#SS_19_2">プログラミング規約(クラス)</a><br />
+    19.2.1 <a href="exercise_q.html#SS_19_2_1">演習-凝集度の意味</a><br />
+    19.2.2 <a href="exercise_q.html#SS_19_2_2">演習-凝集度の向上</a><br />
+    19.2.3 <a
+href="exercise_q.html#SS_19_2_3">演習-メンバ変数の初期化方法の選択</a><br />
+    19.2.4 <a href="exercise_q.html#SS_19_2_4">演習-メンバの型</a><br />
+    19.2.5 <a
+href="exercise_q.html#SS_19_2_5">演習-メンバ変数の初期化</a><br />
+    19.2.6 <a href="exercise_q.html#SS_19_2_6">演習-スライシング</a><br />
+    19.2.7 <a
+href="exercise_q.html#SS_19_2_7">演習-オブジェクトの所有権</a><br />
+   19.3 <a
+href="exercise_q.html#SS_19_3">プログラミング規約(関数)</a><br />
+    19.3.1 <a
+href="exercise_q.html#SS_19_3_1">演習-非メンバ関数の宣言</a><br />
+    19.3.2 <a
+href="exercise_q.html#SS_19_3_2">演習-メンバ関数の修飾</a><br />
+    19.3.3 <a
+href="exercise_q.html#SS_19_3_3">演習-特殊メンバ関数の削除</a><br />
+    19.3.4 <a
+href="exercise_q.html#SS_19_3_4">演習-委譲コンストラクタ</a><br />
+    19.3.5 <a
+href="exercise_q.html#SS_19_3_5">演習-copyコンストラクタ</a><br />
+    19.3.6 <a
+href="exercise_q.html#SS_19_3_6">演習-moveコンストラクタ</a><br />
+    19.3.7 <a href="exercise_q.html#SS_19_3_7">演習-関数分割</a><br />
+    19.3.8 <a
+href="exercise_q.html#SS_19_3_8">演習-オーバーライド関数の修飾</a><br />
+    19.3.9 <a
+href="exercise_q.html#SS_19_3_9">演習-オーバーライド/オーバーロード</a><br />
+    19.3.10 <a
+href="exercise_q.html#SS_19_3_10">演習-オーバーロードによる誤用防止</a><br />
+    19.3.11 <a
+href="exercise_q.html#SS_19_3_11">演習-仮引数の修飾</a><br />
+    19.3.12 <a
+href="exercise_q.html#SS_19_3_12">演習-constexpr関数</a><br />
+    19.3.13 <a
+href="exercise_q.html#SS_19_3_13">演習-エクセプションの型</a><br />
+   19.4 <a
+href="exercise_q.html#SS_19_4">プログラミング規約(構文)</a><br />
+    19.4.1 <a
+href="exercise_q.html#SS_19_4_1">演習-コンテナの範囲for文</a><br />
+    19.4.2 <a href="exercise_q.html#SS_19_4_2">演習-ラムダ式</a><br />
+    19.4.3 <a
+href="exercise_q.html#SS_19_4_3">演習-ラムダ式のキャプチャ</a><br />
+   19.5 <a
+href="exercise_q.html#SS_19_5">プログラミング規約(演算子)</a><br />
+    19.5.1 <a href="exercise_q.html#SS_19_5_1">演習-三項演算子</a><br />
+    19.5.2 <a href="exercise_q.html#SS_19_5_2">演習-delete</a><br />
+    19.5.3 <a href="exercise_q.html#SS_19_5_3">演習-sizeof</a><br />
+    19.5.4 <a
+href="exercise_q.html#SS_19_5_4">演習-dynamic_castの削除</a><br />
+    19.5.5 <a href="exercise_q.html#SS_19_5_5">演習-キャスト</a><br />
+   19.6 <a
+href="exercise_q.html#SS_19_6">プログラミング規約(スコープ)</a><br />
+    19.6.1 <a
+href="exercise_q.html#SS_19_6_1">演習-usingディレクティブ</a><br />
+   19.7 <a
+href="exercise_q.html#SS_19_7">プログラミング規約(その他)</a><br />
+    19.7.1 <a
+href="exercise_q.html#SS_19_7_1">演習-アサーションの選択</a><br />
+    19.7.2 <a
+href="exercise_q.html#SS_19_7_2">演習-assert/static_assert</a><br />
+   19.8 <a href="exercise_q.html#SS_19_8">SOLID</a><br />
+    19.8.1 <a href="exercise_q.html#SS_19_8_1">演習-SRP</a><br />
+    19.8.2 <a href="exercise_q.html#SS_19_8_2">演習-OCP</a><br />
+    19.8.3 <a href="exercise_q.html#SS_19_8_3">演習-LSP</a><br />
+    19.8.4 <a href="exercise_q.html#SS_19_8_4">演習-ISP</a><br />
+    19.8.5 <a href="exercise_q.html#SS_19_8_5">演習-DIP</a><br />
+    19.8.6 <a href="exercise_q.html#SS_19_8_6">演習-SOLIDの定義</a><br />
+   19.9 <a href="exercise_q.html#SS_19_9">デザインパターン</a><br />
+    19.9.1 <a href="exercise_q.html#SS_19_9_1">演習-ガード節</a><br />
+    19.9.2 <a href="exercise_q.html#SS_19_9_2">演習-BitmaskType</a><br />
+    19.9.3 <a href="exercise_q.html#SS_19_9_3">演習-Pimpl</a><br />
+    19.9.4 <a
+href="exercise_q.html#SS_19_9_4">演習-Accessorの副作用</a><br />
+    19.9.5 <a href="exercise_q.html#SS_19_9_5">演習-Accessor</a><br />
+    19.9.6 <a
+href="exercise_q.html#SS_19_9_6">演習-Copy-And-Swap</a><br />
+    19.9.7 <a href="exercise_q.html#SS_19_9_7">演習-Immutable</a><br />
+    19.9.8 <a href="exercise_q.html#SS_19_9_8">演習-Clone</a><br />
+    19.9.9 <a href="exercise_q.html#SS_19_9_9">演習-NVI</a><br />
+    19.9.10 <a href="exercise_q.html#SS_19_9_10">演習-RAIIの効果</a><br />
+    19.9.11 <a href="exercise_q.html#SS_19_9_11">演習-RAII</a><br />
+    19.9.12 <a href="exercise_q.html#SS_19_9_12">演習-Future</a><br />
+    19.9.13 <a href="exercise_q.html#SS_19_9_13">演習-DI</a><br />
+    19.9.14 <a href="exercise_q.html#SS_19_9_14">演習-Singleton</a><br />
+    19.9.15 <a href="exercise_q.html#SS_19_9_15">演習-State</a><br />
+    19.9.16 <a href="exercise_q.html#SS_19_9_16">演習-Null
+Object</a><br />
+    19.9.17 <a
+href="exercise_q.html#SS_19_9_17">演習-Templateメソッド</a><br />
+    19.9.18 <a href="exercise_q.html#SS_19_9_18">演習-Factory</a><br />
+    19.9.19 <a href="exercise_q.html#SS_19_9_19">演習-Named
+Constructor</a><br />
+    19.9.20 <a href="exercise_q.html#SS_19_9_20">演習-Proxy</a><br />
+    19.9.21 <a href="exercise_q.html#SS_19_9_21">演習-Strategy</a><br />
+    19.9.22 <a href="exercise_q.html#SS_19_9_22">演習-Visitor</a><br />
+    19.9.23 <a href="exercise_q.html#SS_19_9_23">演習-CRTP</a><br />
+    19.9.24 <a href="exercise_q.html#SS_19_9_24">演習-Observer</a><br />
+    19.9.25 <a
+href="exercise_q.html#SS_19_9_25">演習-デザインパターン選択1</a><br />
+    19.9.26 <a
+href="exercise_q.html#SS_19_9_26">演習-デザインパターン選択2</a><br />
+    19.9.27 <a
+href="exercise_q.html#SS_19_9_27">演習-デザインパターン選択3</a><br />
+   19.10 <a
+href="exercise_q.html#SS_19_10">開発プロセスとインフラ(全般)</a><br />
+    19.10.1 <a
+href="exercise_q.html#SS_19_10_1">演習-プロセス分類</a><br />
+    19.10.2 <a href="exercise_q.html#SS_19_10_2">演習-V字モデル</a><br />
+    19.10.3 <a href="exercise_q.html#SS_19_10_3">演習-アジャイル</a><br />
+    19.10.4 <a href="exercise_q.html#SS_19_10_4">演習-自動化</a><br />
+    19.10.5 <a href="exercise_q.html#SS_19_10_5">演習-単体テスト</a><br />
+    19.10.6 <a
+href="exercise_q.html#SS_19_10_6">演習-リファクタリングに付随する活動</a><br />
+    19.10.7 <a
+href="exercise_q.html#SS_19_10_7">演習-リファクタリング対象コード</a><br />
+    19.10.8 <a href="exercise_q.html#SS_19_10_8">演習-CI</a><br />
+   19.11 <a
+href="exercise_q.html#SS_19_11">テンプレートメタプログラミング</a><br />
+    19.11.1 <a
+href="exercise_q.html#SS_19_11_1">演習-パラメータパック</a><br />
+    19.11.2 <a
+href="exercise_q.html#SS_19_11_2">演習-エイリアステンプレート</a><br />
+    19.11.3 <a
+href="exercise_q.html#SS_19_11_3">演習-名前空間による修飾不要なoperator&lt;&lt;</a><br />
+    19.11.4 <a
+href="exercise_q.html#SS_19_11_4">演習-std::arrayの継承</a><br />
+    19.11.5 <a
+href="exercise_q.html#SS_19_11_5">演習-SFINAEを利用しない関数テンプレートの特殊化によるis_void</a><br />
+    19.11.6 <a
+href="exercise_q.html#SS_19_11_6">演習-SFINAEを利用しないクラステンプレートの特殊化によるis_void</a><br />
+    19.11.7 <a
+href="exercise_q.html#SS_19_11_7">演習-SFINAEを利用した関数テンプレートの特殊化によるis_void</a><br />
+    19.11.8 <a
+href="exercise_q.html#SS_19_11_8">演習-SFINAEを利用したクラステンプレートの特殊化によるis_void</a><br />
+    19.11.9 <a
+href="exercise_q.html#SS_19_11_9">演習-テンプレートテンプレートパラメータ</a><br />
+    19.11.10 <a
+href="exercise_q.html#SS_19_11_10">演習-テンプレートパラメータを可変長にしたstd::is_same</a><br />
+    19.11.11 <a
+href="exercise_q.html#SS_19_11_11">演習-メンバ関数の存在の診断</a><br />
+    19.11.12 <a
+href="exercise_q.html#SS_19_11_12">演習-範囲for文のオペランドになれるかどうかの診断</a><br />
+    19.11.13 <a
+href="exercise_q.html#SS_19_11_13">演習-配列の長さの取り出し</a><br />
+    19.11.14 <a
+href="exercise_q.html#SS_19_11_14">演習-配列の次元の取り出し</a><br />
+    19.11.15 <a
+href="exercise_q.html#SS_19_11_15">演習-関数型のテンプレートパラメータを持つクラステンプレート</a></p>
+<p>  20 <a href="exercise_a.html#SS_20">解答</a><br />
+   20.1 <a href="exercise_a.html#SS_20_1">プログラミング規約(型)</a><br />
+    20.1.1 <a
+href="exercise_a.html#SS_20_1_1">解答-汎整数型の選択</a><br />
+    20.1.2 <a
+href="exercise_a.html#SS_20_1_2">解答例-汎整数型の演算</a><br />
+    20.1.3 <a
+href="exercise_a.html#SS_20_1_3">解答例-浮動小数点型</a><br />
+    20.1.4 <a href="exercise_a.html#SS_20_1_4">解答-定数列挙</a><br />
+    20.1.5 <a href="exercise_a.html#SS_20_1_5">解答例-enum</a><br />
+    20.1.6 <a
+href="exercise_a.html#SS_20_1_6">解答例-配列の範囲for文</a><br />
+    20.1.7 <a href="exercise_a.html#SS_20_1_7">解答例-エイリアス</a><br />
+    20.1.8 <a href="exercise_a.html#SS_20_1_8">解答-constの意味</a><br />
+    20.1.9 <a
+href="exercise_a.html#SS_20_1_9">解答例-const/constexpr</a><br />
+    20.1.10 <a
+href="exercise_a.html#SS_20_1_10">解答例-危険なconst_cast</a><br />
+    20.1.11 <a href="exercise_a.html#SS_20_1_11">解答例-リテラル</a><br />
+    20.1.12 <a
+href="exercise_a.html#SS_20_1_12">解答-適切なautoの使い方</a><br />
+    20.1.13 <a
+href="exercise_a.html#SS_20_1_13">解答-ポインタの初期化</a><br />
+    20.1.14 <a
+href="exercise_a.html#SS_20_1_14">解答-vector初期化</a><br />
+    20.1.15 <a
+href="exercise_a.html#SS_20_1_15">解答例-インスタンスの初期化</a><br />
+   20.2 <a
+href="exercise_a.html#SS_20_2">プログラミング規約(クラス)</a><br />
+    20.2.1 <a href="exercise_a.html#SS_20_2_1">解答-凝集度の意味</a><br />
+    20.2.2 <a
+href="exercise_a.html#SS_20_2_2">解答例-凝集度の向上</a><br />
+    20.2.3 <a
+href="exercise_a.html#SS_20_2_3">解答-メンバ変数の初期化方法の選択</a><br />
+    20.2.4 <a href="exercise_a.html#SS_20_2_4">解答-メンバの型</a><br />
+    20.2.5 <a
+href="exercise_a.html#SS_20_2_5">解答例-メンバ変数の初期化</a><br />
+    20.2.6 <a
+href="exercise_a.html#SS_20_2_6">解答例-スライシング</a><br />
+    20.2.7 <a
+href="exercise_a.html#SS_20_2_7">解答例-オブジェクトの所有権</a><br />
+   20.3 <a
+href="exercise_a.html#SS_20_3">プログラミング規約(関数)</a><br />
+    20.3.1 <a
+href="exercise_a.html#SS_20_3_1">解答例-非メンバ関数の宣言</a><br />
+    20.3.2 <a
+href="exercise_a.html#SS_20_3_2">解答例-メンバ関数の修飾</a><br />
+    20.3.3 <a
+href="exercise_a.html#SS_20_3_3">解答例-特殊メンバ関数の削除</a><br />
+    20.3.4 <a
+href="exercise_a.html#SS_20_3_4">解答例-委譲コンストラクタ</a><br />
+    20.3.5 <a
+href="exercise_a.html#SS_20_3_5">解答例-copyコンストラクタ</a><br />
+    20.3.6 <a
+href="exercise_a.html#SS_20_3_6">解答例-moveコンストラクタ</a><br />
+    20.3.7 <a href="exercise_a.html#SS_20_3_7">解答例-関数分割</a><br />
+    20.3.8 <a
+href="exercise_a.html#SS_20_3_8">解答-オーバーライド関数の修飾</a><br />
+    20.3.9 <a
+href="exercise_a.html#SS_20_3_9">解答例-オーバーライド/オーバーロード</a><br />
+    20.3.10 <a
+href="exercise_a.html#SS_20_3_10">解答例-オーバーロードによる誤用防止</a><br />
+    20.3.11 <a
+href="exercise_a.html#SS_20_3_11">解答例-仮引数の修飾</a><br />
+    20.3.12 <a
+href="exercise_a.html#SS_20_3_12">解答例-constexpr関数</a><br />
+    20.3.13 <a
+href="exercise_a.html#SS_20_3_13">解答-エクセプションの型</a><br />
+   20.4 <a
+href="exercise_a.html#SS_20_4">プログラミング規約(構文)</a><br />
+    20.4.1 <a
+href="exercise_a.html#SS_20_4_1">解答例-コンテナの範囲for文</a><br />
+    20.4.2 <a href="exercise_a.html#SS_20_4_2">解答例-ラムダ式</a><br />
+    20.4.3 <a
+href="exercise_a.html#SS_20_4_3">解答例-ラムダ式のキャプチャ</a><br />
+   20.5 <a
+href="exercise_a.html#SS_20_5">プログラミング規約(演算子)</a><br />
+    20.5.1 <a href="exercise_a.html#SS_20_5_1">解答例-三項演算子</a><br />
+    20.5.2 <a href="exercise_a.html#SS_20_5_2">解答例-delete</a><br />
+    20.5.3 <a href="exercise_a.html#SS_20_5_3">解答例-sizeof</a><br />
+    20.5.4 <a
+href="exercise_a.html#SS_20_5_4">解答例-dynamic_castの削除</a><br />
+    20.5.5 <a href="exercise_a.html#SS_20_5_5">解答-キャスト</a><br />
+   20.6 <a
+href="exercise_a.html#SS_20_6">プログラミング規約(スコープ)</a><br />
+    20.6.1 <a
+href="exercise_a.html#SS_20_6_1">解答-usingディレクティブ</a><br />
+   20.7 <a
+href="exercise_a.html#SS_20_7">プログラミング規約(その他)</a><br />
+    20.7.1 <a
+href="exercise_a.html#SS_20_7_1">解答-アサーションの選択</a><br />
+    20.7.2 <a
+href="exercise_a.html#SS_20_7_2">解答例-assert/static_assert</a><br />
+   20.8 <a href="exercise_a.html#SS_20_8">SOLID</a><br />
+    20.8.1 <a href="exercise_a.html#SS_20_8_1">解答例-SRP</a><br />
+    20.8.2 <a href="exercise_a.html#SS_20_8_2">解答例-OCP</a><br />
+    20.8.3 <a href="exercise_a.html#SS_20_8_3">解答例-LSP</a><br />
+    20.8.4 <a href="exercise_a.html#SS_20_8_4">解答例-ISP</a><br />
+    20.8.5 <a href="exercise_a.html#SS_20_8_5">解答例-DIP</a><br />
+    20.8.6 <a href="exercise_a.html#SS_20_8_6">解答-SOLIDの定義</a><br />
+   20.9 <a href="exercise_a.html#SS_20_9">デザインパターン</a><br />
+    20.9.1 <a href="exercise_a.html#SS_20_9_1">解答例-ガード節</a><br />
+    20.9.2 <a
+href="exercise_a.html#SS_20_9_2">解答例-BitmaskType</a><br />
+    20.9.3 <a href="exercise_a.html#SS_20_9_3">解答例-Pimpl</a><br />
+    20.9.4 <a
+href="exercise_a.html#SS_20_9_4">解答-Accessorの副作用</a><br />
+    20.9.5 <a href="exercise_a.html#SS_20_9_5">解答例-Accessor</a><br />
+    20.9.6 <a
+href="exercise_a.html#SS_20_9_6">解答例-Copy-And-Swap</a><br />
+    20.9.7 <a href="exercise_a.html#SS_20_9_7">解答例-Immutable</a><br />
+    20.9.8 <a href="exercise_a.html#SS_20_9_8">解答例-Clone</a><br />
+    20.9.9 <a href="exercise_a.html#SS_20_9_9">解答例-NVI</a><br />
+    20.9.10 <a href="exercise_a.html#SS_20_9_10">解答-RAIIの効果</a><br />
+    20.9.11 <a href="exercise_a.html#SS_20_9_11">解答例-RAII</a><br />
+    20.9.12 <a href="exercise_a.html#SS_20_9_12">解答例-Future</a><br />
+    20.9.13 <a href="exercise_a.html#SS_20_9_13">解答例-DI</a><br />
+    20.9.14 <a
+href="exercise_a.html#SS_20_9_14">解答例-Singleton</a><br />
+    20.9.15 <a href="exercise_a.html#SS_20_9_15">解答例-State</a><br />
+    20.9.16 <a href="exercise_a.html#SS_20_9_16">解答例-Null
+Object</a><br />
+    20.9.17 <a
+href="exercise_a.html#SS_20_9_17">解答例-Templateメソッド</a><br />
+    20.9.18 <a href="exercise_a.html#SS_20_9_18">解答例-Factory</a><br />
+    20.9.19 <a href="exercise_a.html#SS_20_9_19">解答例-Named
+Constructor</a><br />
+    20.9.20 <a href="exercise_a.html#SS_20_9_20">解答例-Proxy</a><br />
+    20.9.21 <a href="exercise_a.html#SS_20_9_21">解答例-Strategy</a><br />
+    20.9.22 <a href="exercise_a.html#SS_20_9_22">解答例-Visitor</a><br />
+    20.9.23 <a href="exercise_a.html#SS_20_9_23">解答例-CRTP</a><br />
+    20.9.24 <a href="exercise_a.html#SS_20_9_24">解答例-Observer</a><br />
+    20.9.25 <a
+href="exercise_a.html#SS_20_9_25">解答-デザインパターン選択1</a><br />
+    20.9.26 <a
+href="exercise_a.html#SS_20_9_26">解答-デザインパターン選択2</a><br />
+    20.9.27 <a
+href="exercise_a.html#SS_20_9_27">解答-デザインパターン選択3</a><br />
+   20.10 <a
+href="exercise_a.html#SS_20_10">開発プロセスとインフラ(全般)</a><br />
+    20.10.1 <a
+href="exercise_a.html#SS_20_10_1">解答-プロセス分類</a><br />
+    20.10.2 <a href="exercise_a.html#SS_20_10_2">解答-V字モデル</a><br />
+    20.10.3 <a href="exercise_a.html#SS_20_10_3">解答-アジャイル</a><br />
+    20.10.4 <a href="exercise_a.html#SS_20_10_4">解答-自動化</a><br />
+    20.10.5 <a href="exercise_a.html#SS_20_10_5">解答-単体テスト</a><br />
+    20.10.6 <a
+href="exercise_a.html#SS_20_10_6">解答-リファクタリングに付随する活動</a><br />
+    20.10.7 <a
+href="exercise_a.html#SS_20_10_7">解答-リファクタリング対象コード</a><br />
+    20.10.8 <a href="exercise_a.html#SS_20_10_8">解答-CI</a><br />
+   20.11 <a
+href="exercise_a.html#SS_20_11">テンプレートメタプログラミング</a><br />
+    20.11.1 <a
+href="exercise_a.html#SS_20_11_1">解答例-パラメータパック</a><br />
+    20.11.2 <a
+href="exercise_a.html#SS_20_11_2">解答例-エイリアステンプレート</a><br />
+    20.11.3 <a
+href="exercise_a.html#SS_20_11_3">解答例-名前空間による修飾不要なoperator&lt;&lt;</a><br />
+    20.11.4 <a
+href="exercise_a.html#SS_20_11_4">解答例-std::arrayの継承</a><br />
+    20.11.5 <a
+href="exercise_a.html#SS_20_11_5">解答例-SFINAEを利用しない関数テンプレートの特殊化によるis_void</a><br />
+    20.11.6 <a
+href="exercise_a.html#SS_20_11_6">解答例-SFINAEを利用しないクラステンプレートの特殊化によるis_void</a><br />
+    20.11.7 <a
+href="exercise_a.html#SS_20_11_7">解答例-SFINAEを利用した関数テンプレートの特殊化によるis_void</a><br />
+    20.11.8 <a
+href="exercise_a.html#SS_20_11_8">解答例-SFINAEを利用したクラステンプレートの特殊化によるis_void</a><br />
+    20.11.9 <a
+href="exercise_a.html#SS_20_11_9">解答例-テンプレートテンプレートパラメータ</a><br />
+    20.11.10 <a
+href="exercise_a.html#SS_20_11_10">解答例-テンプレートパラメータを可変長にしたstd::is_same</a><br />
+    20.11.11 <a
+href="exercise_a.html#SS_20_11_11">解答例-メンバ関数の存在の診断</a><br />
+    20.11.12 <a
+href="exercise_a.html#SS_20_11_12">解答例-範囲for文のオペランドになれるかどうかの診断</a><br />
+    20.11.13 <a
+href="exercise_a.html#SS_20_11_13">解答例-配列の長さの取り出し</a><br />
+    20.11.14 <a
+href="exercise_a.html#SS_20_11_14">解答例-配列の次元の取り出し</a><br />
+    20.11.15 <a
+href="exercise_a.html#SS_20_11_15">解答例-関数型のテンプレートパラメータを持つクラステンプレート</a></p>
+<p>  21 <a href="bibliography.html#SS_21">参考文献</a><br />
+   21.1 <a
+href="bibliography.html#SS_21_1">プロセス・プラクティス</a><br />
+   21.2 <a href="bibliography.html#SS_21_2">設計・デザイン</a><br />
+   21.3 <a href="bibliography.html#SS_21_3">C++・C</a></p>
+<p>  22 <a href="afterword.html#SS_22">あとがき</a><br />
+   22.1 <a href="afterword.html#SS_22_1">インフラ</a><br />
+   22.2 <a href="afterword.html#SS_22_2">プロセス</a><br />
+   22.3 <a href="afterword.html#SS_22_3">プログラマ(人材)</a><br />
+   22.4 <a href="afterword.html#SS_22_4">まとめ</a></p>
+<p>  23 <a href="sample_code.html#SS_23">Sample Code</a><br />
+   23.1 <a href="sample_code.html#SS_23_1">vim</a><br />
+   23.2 <a href="sample_code.html#SS_23_2">C++</a><br />
+   23.3 <a href="sample_code.html#SS_23_3">etc</a></p>
+</body>
+</html>
