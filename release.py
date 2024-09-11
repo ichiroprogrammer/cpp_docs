@@ -158,9 +158,8 @@ def get_all_docs(dir):
 
     for ext in _DOCS_EXT:
         files_to_copy = glob.glob(os.path.join(content_o, f'*.{ext}'))
-        if len(files_to_copy) == 0 :
+        if len(files_to_copy) == 0 and not ext == "pdf":    # pdfは無くてもよい
             raise Exception(f"There is no *.{ext} !!:")
-
 
         all_docs[ext] = files_to_copy
 
