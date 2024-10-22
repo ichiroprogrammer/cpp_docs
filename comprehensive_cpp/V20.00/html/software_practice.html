@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.00)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.00)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/software_practice.md -->
+<h1 id="ソフトウェアプラクティス">ソフトウェアプラクティス
+<a id="SS_2"></a></h1>
+<p>ピーター・ドラッカーは「プロフェッショナルの条件」の中で、</p>
+<pre><code>    紀元前440年頃、ギリシャ彫刻家フェイディアスはアテネのパンテオンの庇に建つ彫刻郡を完成させたが、
+    フェイディアスの仕事の請求書に対して、アテネ会計官は「彫刻の背中は見えない。
+    見えない部分まで彫って請求してくるとは何事か」と全額の支払いを拒んだ。フェイディアスは言った。
+    「そんなことはない。人々が見えない彫刻の背中は、神々の目が見ている。」</code></pre>
+<p>ドラッカーはこの逸話を引用することで、
+プロフェッショナルとは外部からの承認や評価を超えて、
+自己の内なる基準に忠実であり、
+目に見えない部分にも最高の品質を求める人物であるべきだと説明している。
+つまり、プロフェッショナルは、自分の仕事に対する誠実さと完璧を追求することによって、
+自己の専門性と倫理観を高める人物であるとドラッカーは示している。
+この逸話は、プロフェッショナリズムの本質が単に技術的なスキルや知識にあるのではなく、
+仕事に対する深い献身と責任感にあることを強調している。</p>
+<p>ドラッカーの考えるプロフェッショナルに、
+ソフトウェアエンジニアがそのレベルに到達するために重要であると考えられる原則・法則を下記に紹介する。</p>
+<ul>
+<li>プログラマの行動に関する原則・法則
+<ul>
+<li><a href="software_practice.html#SS_2_1">DRYの原則</a></li>
+<li><a href="software_practice.html#SS_2_2">KISSの原則</a></li>
+<li><a href="software_practice.html#SS_2_3">ボーイスカウトの規則</a></li>
+<li><a href="software_practice.html#SS_2_4">YAGNIの原則</a></li>
+<li><a href="software_practice.html#SS_2_5">Name and Conquer</a></li>
+<li><a href="software_practice.html#SS_2_6">ノコギリの刃を研ぐ</a></li>
+<li><a href="software_practice.html#SS_2_7">推定有罪</a></li>
+</ul></li>
+<li>デザイン、プログラミングに関する原則・法則
+<ul>
+<li><a href="software_practice.html#SS_2_8">デメテルの法則</a></li>
+<li><a href="software_practice.html#SS_2_9">コンウェイの法則</a></li>
+<li><a href="software_practice.html#SS_2_10">Inside-Outの原則</a></li>
+<li><a href="software_practice.html#SS_2_11">SOLID</a></li>
+</ul></li>
+</ul>
+<p><a
+href="introduction.html#SS_1_7">このドキュメントの構成</a>に戻る。</p>
+<hr />
+<h2 id="dryの原則">DRYの原則 <a id="SS_2_1"></a></h2>
+<p>DRYとは、“Don’t repeat yourself.”の略であることから推測できるように、
+「ソフトウェア開発での繰り返し作業や成果物の重複を避けよ」という原則である。</p>
+<h3 id="作業の繰り返し">作業の繰り返し <a id="SS_2_1_1"></a></h3>
+<p>ソフトウェア開発におけるプログラマのワークフローは下記のようなものである。</p>
+<!-- pu:plant_uml/general_workflow.pu-->
+<p>
+<img src="data:image/png;base64,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" />
+</p>
+<p>ソフトウェア開発において、この流れの繰り返しは避けられないが、
+この一連の作業のうち、少なくとも「ソースコードのビルドとデプロイ」と、
+「新規ソースコード周辺の回帰テスト」での手作業のほとんどを自動化により回避可能である。</p>
+<p>もし、これらにまつわる作業のほとんどが手動で行われていれば、
+これらに多くの工数が奪われる。
+また、手作業によるミスは避けられず、それによりさらに多くの工数が奪われる。</p>
+<p>容易に推測できるように、これらの自動化は絶大な効果を発揮するため、
+生産性改善の必須項目となっている(「<a
+href="process_and_infra.html#SS_11_2_1">自動単体テスト</a>」、「<a
+href="process_and_infra.html#SS_11_2_3">自動統合テスト</a>」参照)。</p>
+<p>様々な自動化にスクリプト言語の習得が必要ならば、それを良い学習機会と捉えるべきである。
+その投資対効果は間違いなく、ポジティブである。</p>
+<h3 id="成果物の重複">成果物の重複 <a id="SS_2_1_2"></a></h3>
+<p>成果物の重複とは、</p>
+<ul>
+<li>コードクローン(ほぼ同じソースコードの断片)</li>
+<li>ソースコードに書いてあることをそのまま自然言語で説明したコメント</li>
+<li>ソースコードを読むことで容易にわかる詳細設計ドキュメント</li>
+</ul>
+<p>等を指す。</p>
+<p>成果物の重複の中で最も罪深いものはコードクローンである。コードクローンにより、</p>
+<ul>
+<li>ソースコード修正時にその箇所が多岐にわたるため、デグレードや修正漏れの原因になる。</li>
+<li>コードレビューの時間が延びる。</li>
+<li>ビルドが遅くなる。</li>
+<li>リポジトリが不要に大きくなる。</li>
+</ul>
+<p>等の様々な問題が発生する。また、コードクローンは、コードクローンの原因にもなるため、
+これらの問題は時とともに加速度的に大きくなる。</p>
+<p>言語仕様に精通し、プログラミングイデオムや、<a
+href="design_pattern.html#SS_9">デザインパターン</a>を学び、
+その知識を利用して定期的にリファクタリングを行うことでコードクローンの発生は軽減、回避可能である。</p>
+<h2 id="kissの原則">KISSの原則 <a id="SS_2_2"></a></h2>
+<p>“Keep it simple,
+stupid!”の頭文字からなる原則であり、意味は読んで字のごとしである。</p>
+<p>「フェルマーの最終定理」で有名なフェルマーは友人にあてた手紙の冒頭で、
+時間不足のため手紙が長くなることを謝った。
+手紙の推敲不足ならば謝罪で十分だろうが、対象が設計ドキュメントや、ソースコードの場合、
+謝罪では問題は解決しない。
+なぜなら、そのドキュメントやソースコードは次の開発のベースラインとなるからである。</p>
+<p>不要な複雑さを持ったそれらは、明日行うかもしれない次の開発を、間違いなく難しくさせる。
+この設計上の負債が一定量を上回れば、それ自体が不要な複雑さを増やす原因となり、
+問題はさらに複雑になる。</p>
+<p>残念ながら、一旦この負のスパイラルに陥ってしまえば、これを止め、逆転させることは極めて困難であり、
+スクラッチから作り直すよりも、多くの工数、スキルを要する。</p>
+<p>設計ドキュメントや、ソースコードから不要な複雑さを切り捨て、シンプルに保とう。
+時間的制約で、すぐにそれに取り掛かれない場合は、成果物にマーキングを行い、
+やるべきことを忘れないようにしよう(マーキングキーワードにはTBR(== to be
+refactored)を推奨)。
+時間ができた時には、そのキーワードを検索し、すぐに整理・整頓、リファクタリングに取り掛かろう。
+中国のことわざに「双葉のうちに刈らずんば、斧をもちうる」とある。
+斧が必要になる前に、必ずその問題を刈り取ろう。</p>
+<h2 id="ボーイスカウトの規則">ボーイスカウトの規則
+<a id="SS_2_3"></a></h2>
+<p>ボーイスカウトの規則の元々の意味は、
+「山に行ったときよりも、山から帰るときの方がきれいになるように行動せよ」
+というものである。転じて、 「チェックアウトされたソースコードよりも、
+コミットされるソースコードの方がきれいになるようにプログラミングせよ」
+という意味のソフトウェア開発における規則となった。</p>
+<p>この規則を守るために、まずはリポジトリへのコミット前に変更差分の自己レビューを行い、
+以下のような不要なコードが残っていないかチェックしよう。</p>
+<ul>
+<li>不要なコメント</li>
+<li>改行コードの違い</li>
+<li>タイポ</li>
+<li>不要なスペース文字</li>
+<li>printfデバッグの残骸</li>
+<li>一時的な#if 0/#if 1</li>
+</ul>
+<p>この規則には、もう一点重要な示唆が含まれている。
+グローバル変数の多さや、関数の大きさを指摘された時に、「最初から、汚くて．．．」
+というような言い訳をするプログラマは珍しくない。それはおそらく真実であろうが、
+それでも、もともと汚かったソースコードをさらに汚してしまったのでは、
+問題は大きくなるばかりである。
+従って、この規則には「グローバル変数やそれらへのアクセス箇所を増やさない」、
+「関数をこれ以上大きくしない」程度の努力は常にするべきである、ということも含まれている。</p>
+<h2 id="yagniの原則">YAGNIの原則 <a id="SS_2_4"></a></h2>
+<p>YAGNI(You ain’t gonna need
+it)とは、「機能(要件)は実際に必要となるまで実装しない」
+という原則である。これは、</p>
+<ul>
+<li>単なる思い付きや予想により、先回りして実装したコードの多くが不要である。</li>
+<li>その時点で必要でない機能は、それが存在するだけで工数を浪費する。
+<ul>
+<li>ビルド時間や単体テスト時間が余計にかかる。</li>
+<li>必要な機能追加に、余計な負担を与える(コードが不要に複雑になる)。</li>
+</ul></li>
+<li>本来やるべきことに集中した方が良い結果が得られる。</li>
+</ul>
+<p>といったエクストリームプログラミングのエクスパートたちの主張である。
+なお、上記の「単なる思い付きや予想」とは、演繹的推論とは異なる。
+演繹的推論により、</p>
+<ul>
+<li>近い将来その機能が必要になる。</li>
+<li>その機能の実装を必要になるまで先送りするよりも、
+今行った方が良い合理的な理由がある(記憶がホットである等)。</li>
+</ul>
+<p>というような場合は、この原則の限りではない。</p>
+<p>「<a
+href="software_practice.html#SS_2_9">コンウェイの法則</a>」でも述べるように、
+「レイヤに水平分割されたパッケージ構造を持つソフトウェア」を、
+「各チームや個人がそれぞれのパッケージ開発に責任を持つ組織」が開発を行う場合、
+レイヤ毎に開発が進められ、各パッケージの結合は後回しにされる。
+そのため、各パッケージの開発者は実際に必要になるかどうか確定しないものを開発することになる。
+このスタイルは明らかにYAGNIの原則に違反する。
+これが、「各チームや個人がそれぞれのパッケージの開発に責務を持つ組織」
+が非効率になってしまう理由の一つである。</p>
+<h2 id="name-and-conquer">Name and Conquer <a id="SS_2_5"></a></h2>
+<p>かつてデカルトは、「困難を分割せよ」といった。
+そのままでは複雑すぎて理解不可能な対象物を、分割して理解していく方法は、
+現在では「要素還元」や「divide-and-conquer(分割統治)」と呼ばれる。
+このdivide-and-conquerは、デカルト以前から、現在に至るまで、そして今後も、
+対象物を理解するための極めて有効な手段である。</p>
+<p>これと同等に強力な手法がname-and-conquer(命名統治)である。
+対象物が適切に命名されてなければ、我々はそれを正確に記憶することが難しい。
+正確に記憶できなければ正確に理解できない。
+仮に理解できたとしても他者とその理解を共有することは難しい。
+一方、それに適切な名前を付けることで、その対象物の理解が始まり、他者との理解の共有が可能となる。
+「クラウド・コンピューティング」という命名がその好例である。</p>
+<p>以下のような事に気を付け、自分たちが使う概念やソフトウェア構成物に、適切な命名をしよう。</p>
+<ul>
+<li>その名前が持つ意味の揺らぎをプロジェクトから排除する。</li>
+<li>すでにグローバルスタンダードとして存在する名前を別の用途で使わない。</li>
+<li>自分たちが必要とする概念が、すでにグローバルスタンダードな名前を持つのであれば、
+それをそのまま使用する。</li>
+<li>新規概念を理解できていないか、それ自体が大きすぎれば、それへの命名は難しい。
+その場合、その概念を分割し、分割された部分に命名する。</li>
+<li>命名に誤りはつきものである。一旦定めた名前よりも適切なものが見つかった場合、
+その修正を躊躇してはならない。</li>
+<li>XXXコントローラや、XXXマネージャ等の命名は、それらの責務が限定されない場合が多い
+(こういった名前を、「強すぎる名前」と呼ぶ)。もっと限定的な(弱い)名前を付ける。</li>
+</ul>
+<p>「<a
+href="naming_practice.html#SS_6">命名規則</a>」に詳細をまとめたので参照してほしい。</p>
+<h2 id="ノコギリの刃を研ぐ">ノコギリの刃を研ぐ <a id="SS_2_6"></a></h2>
+<p>まずは、「<a
+href="https://ja.wikipedia.org/wiki/7%E3%81%A4%E3%81%AE%E7%BF%92%E6%85%A3">7つの習慣</a>」
+からの引用を紹介する。</p>
+<pre><code>    森の中で木を倒そうと、一生懸命ノコギリを挽いている樵(きこり)に出会ったとしよう。
+      「何をしているんですか」
+    とあなたは訊く。すると
+    「見れば分かるだろう」
+    と、無愛想な返事が返ってくる。
+      「この木を倒そうとしているんだ」
+      「すごく疲れているようですが．．．。いつからやっているんですか」
+    あなたは大声で尋ねる。
+      「かれこれもう五時間だ。くたくたさ。大変な作業だよ」
+      「それじゃ、少し休んで、ついでにそのノコギリの刃を研いだらどうですか。
+        そうすれば仕事がもっと早く片付くと思いますけど」
+    あなたはアドバイスをする。
+      「刃を研いでいる暇なんてないさ。切るだけで精一杯だ」
+    と強く言い返す。</code></pre>
+<p>残念ながら、ソフトウェア開発現場でも、この滑稽な状況を頻繁に目にする。
+このようになりたくなければ、定期的にノコギリの刃を研ぐことである。
+そのヒントを下記する。この他にもたくさんあるはずである。</p>
+<ul>
+<li>タッチタイピングや開発ツールのショートカットを身に着ける。</li>
+<li>すぐれたエディタやIDEを使いこなす。</li>
+<li>printfデバッグのみに頼ることはやめて、すぐれたデバッガ(「<a
+href="debug.html#SS_15_1">デバッガの使用</a>」参照)を使う。</li>
+<li>「<a
+href="software_practice.html#SS_2_1">DRYの原則</a>」を実践し、繰り返しの手作業をなくすためのツールを導入、開発する。</li>
+<li>静的・動的解析ツールを利用し、最小の努力でバグやバグの元になる質の悪いコードを見つけ改善する。</li>
+<li>オープンソースを利用する。</li>
+<li>新しい言語や、使い慣れた言語の最新機能を学ぶ。</li>
+<li>効率的なプロセスを理解し、導入する。</li>
+<li>定期的に書籍やウェブから最新技術情報を入手する。</li>
+</ul>
+<p>こういったことに何一つ取り掛からないのであれば、「時間がない」とつぶやきながら、
+切れないノコギリを挽き続けることになる。</p>
+<h2 id="推定有罪">推定有罪 <a id="SS_2_7"></a></h2>
+<p>言うまでもなく、<strong>推定無罪</strong>とは「何人も、有罪を宣告されない限り無罪である」という原則であり、
+この順守は近代国家であるための必要条件となっている。
+これは人権を守るといった観点のみでなく、 「<a
+href="https://ja.wikipedia.org/wiki/%E6%82%AA%E9%AD%94%E3%81%AE%E8%A8%BC%E6%98%8E">悪魔の証明</a>」
+という言葉で表されるような「多くの場合、無罪の証明は技術的に困難である」
+といった観点でも重要な原則である。
+我々がそういった原則を順守している国家に属していることは大変結構なことではあるが、
+この原則はソフトウェア開発においては当てはまらない。
+にもかかわらず、これをソフトウェア開発に持ち込むプログラマがいる。</p>
+<p>そういったプログラマの行動パターンは以下のようなものである。</p>
+<ul>
+<li>プログラミングルールを守らない。</li>
+<li>ソフトウェア工学的に良くないことだと知りつつ、下記のようなことを行う
+(おそらく、下記が良くないことであると知らないプログラマはいないだろう)。
+<ul>
+<li>グローバル変数を作る。</li>
+<li>巨大なソフトウェア構成物(ファイル、クラス、関数等)を作る。</li>
+<li>コピー&amp;ペースト・プログラミングをする(コードクローンを作る)。</li>
+<li>コンパイラや静的解析ツールの警告を無視する。</li>
+</ul></li>
+<li>ソースコードのコミットに際して、プログラマが当然すべき以下のような作業をしない。
+<ul>
+<li>コミット予定のソースコードの自己レビューをする。</li>
+<li>コミット予定のソースコード周辺の回帰テストをする。</li>
+<li>コミット後、それを別のリポジトリにチェックアウトする等して、
+コミットに抜け漏れが無いかを確認する。</li>
+<li>コミット後のデグレード発生に対して、リポジトリ先頭の品質を回復させる。</li>
+</ul></li>
+<li>会議等の時間を守らない。</li>
+<li>自分のスキルの低さを気にしない。</li>
+</ul>
+<p>等々挙げればきりがない。
+これらの行動は、どの一つをとっても、組織やその組織の成果物を直ちに棄損したと証明することは難しいため、
+推定無罪の原則を適用すれば、このプログラマの行動は無罪である。</p>
+<p>良識あるプログラマから見れば、明らかに有罪である行動が無罪になる理由は、
+その論拠となる原則が間違っているからである。
+ソフトウェア開発の現場においては、常に<strong>推定有罪</strong>「無罪を証明しない限り有罪」の原則が正しい。
+とは言え、先に書いたようにそれは「悪魔の証明」をすることになり、実践的には不可能である。</p>
+<p>故にソフトウェア開発の現場における推定有罪の原則とは、
+「無罪であると演繹推論できるものは無罪という前提の元、無罪を証明しない限り有罪である」
+というようなものである。</p>
+<p>この観点に従って、上記推定無罪プログラマの行動パターンを矯正すると下記のようになるだろう。</p>
+<ul>
+<li>プログラミングルールを守る。</li>
+<li>ソフトウェア工学的に良くないことはしない。</li>
+<li>ソースコードのコミットに際して、最低でも下記のような作業を行う。
+<ul>
+<li>コミット予定のソースコードの自己レビューをする。</li>
+<li>コミット予定のソースコード周辺の回帰テストをする。</li>
+<li>コミット後、それを別のリポジトリにチェックアウトする等して、
+コミットに抜け漏れが無いかを確認する。</li>
+<li>コミット後のデグレード発生に対して、リポジトリ先頭の品質を回復させる。</li>
+</ul></li>
+<li>会議等の時間は守るか、守れない場合は前もって、その旨を開催者に伝える。</li>
+<li>自分のスキルに気を配り、常に向上に努める。</li>
+</ul>
+<p>当たり前のことであるが、意外なほど多くのプログラマが出来ていない。</p>
+<h2 id="デメテルの法則">デメテルの法則 <a id="SS_2_8"></a></h2>
+<p>最小知識の原則(Principle of Least Knowledge)とも呼ばれ、</p>
+<ul>
+<li>オブジェクトは、それ以外の構造やプロパティに対して(他のオブジェクトに対して)持っている知識、
+前提を最小限にすべきである。</li>
+</ul>
+<p>という設計上の制約である。</p>
+<p>クラスAから生成されたオブジェクトaが、クラスBから生成されたオブジェクトbのメンバ関数
+「void*
+B::f()」を呼び出し、戻りのポインタを何らかの型にキャストして使用するようなコードは、
+この法則違反となる。
+当然ながら、型付けの厳格なC++の仕様の裏をかくこのような記述は避けなければならない。</p>
+<p>オブジェクトaが、オブジェクトbのメンバ関数「C&amp;
+B::f()」を呼び出すことにより、
+クラスCから生成されたオブジェクトcにアクセスし、
+そのメンバ関数「C::g()」を呼び出す「a.f().g()」のような多重の呼び出しもこの法則違反となるが、
+この例でのクラスCがstd::string
+constのように状態が不変で安定した仕様を持つならば、
+このような多重呼び出しが問題になることは稀である。
+一方で、この法則に従うと、クラスBにC::g()のラッパー関数を作ることになるため、
+これをプロジェクト全体で守れば、多量のラッパー関数を作らざるを得なくなる。
+その結果として、多くのクラスの凝集性(「<a
+href="programming_convention.html#SS_3_2_2_3">凝集度</a>」参照)が低下する。</p>
+<p>これらを総合して考えると、
+上記オブジェクトcが「ミュータブルである」、
+もしくは「仕様が流動的である」ときのみにこの法則を適用するべきである。</p>
+<h2 id="コンウェイの法則">コンウェイの法則 <a id="SS_2_9"></a></h2>
+<p><a
+href="https://en.wikipedia.org/wiki/Conway&#39;s_law">コンウェイの法則</a>とは、
+「システムを設計する組織は、その構造をそっくりまねた構造の設計を生み出してしまう」
+現象を説明するものである。</p>
+<p>ソフトウェア開発を行う組織は、ドメイン知識に基づいた組織構造
+(GUIチーム、ミドルウエアチーム、ドライバチーム等）を持つことが多い。
+こういった組織が、コンウェイの法則に陥ってしまうと、</p>
+<ul>
+<li>ソフトウェア全体を、水平にパッケージ分割したアーキテクチャを構築する</li>
+<li>ドメイン組織に基づいたチームは、このパッケージの開発責任を持つ</li>
+</ul>
+<p>ことになる。これは合理的な組織統治に思えるが、以下のような避けがたい問題を生み出す。</p>
+<ul>
+<li>パッケージのインターフェースや責務の修正には、組織間での調整会議が必要となる。
+この会議には、多くの意思決定者が参加することになるが、
+この会議参加者のインセンティブはさまざまであるため
+(自分のチームの責任範囲を小さくしたいという意図も働く)、
+この会議での意思決定が技術的最適解になることは稀である。</li>
+<li>大規模なソフトウェア開発では、パッケージのこのような修正は不可避であり、
+そのたびに上記会議を招集することになる。参加者全員が理解できる言語は自然言語のみであるため、
+この会議の趣旨を説明するためのパワーポイント資料を作ることになる。
+このパワーポイント資料を作ることができる人員は、通常、優秀なプログラマであるため、
+ただでさえ不足しがちな優良なヒューマンリソースをさらに不足させてしまう
+(この状態が定常化しパワポ資料ばかりを作っている、
+かつて優秀だった元プログラマをパワーポッターと呼ぶ）。</li>
+</ul>
+<p>また、このような組織構造は、各チームを担当パッケージの開発に集中させてしまうため、
+ソフトウェア全体の開発責務(要件開発責務)の所在があいまいになる。
+これにより、以下のような問題も生み出す。</p>
+<ul>
+<li>ソフトウェア全体として統一的に必要な要件(ログ、独自のアサート機能、共通ライブラリ)
+がおざなりにされ、パッケージごとにそのためのライブラリが作られるか、
+そのようなものは一切作られないことになる。
+何れにしても全体として統一感のないソースコードが出来上がる。</li>
+<li>「<a
+href="software_practice.html#SS_2_4">YAGNIの原則</a>」に違反するため、要件の実装とは無関係なコードが作られる。</li>
+<li>下位パッケージに依存する上位パッケージは、下位パッケージの進捗に強い影響を受け、
+上位パッケージほど進捗が遅れる。</li>
+<li>全パッケージが完成するまでソフトウェア全体のテストができないため、
+ソフトウェア全体の進捗率を正しく計測することができない。</li>
+</ul>
+<p>かくして、このような組織は、</p>
+<ul>
+<li>長いミーティングが多く、そこでの意思決定は技術的最適解には程遠い。</li>
+<li>かつて優秀だったプログラマは、今ではパワーポイント資料作りを主な業務とするパワーポッター。</li>
+<li>進捗率が、人の意思によってきめられており、進捗遅れが頻発する。</li>
+<li>統一感がなく、不要に複雑で、クローンだらけのソースコードを作る。</li>
+</ul>
+<p>これを防ぐためには、「ドメイン知識に基づいた組織構造をそのままソフトウェア開発に持ち込む」
+ことをやめなければならない。</p>
+<h2 id="inside-outの原則">Inside-Outの原則 <a id="SS_2_10"></a></h2>
+<p>「Inside-Outの原則」というキーワードは「7つの習慣」でも使用されている。
+この名著のそれは、
+「何らかの問題が起こったときに、それを他責にすることなく(環境や他人の問題)、
+まずは自分の管理可能なこと(自分の性格、物事の捉え方、感じ方、動機)に目を向けて対処する」
+ことを求める。これは、これで重要な行動規範であるが、
+ここで説明する「Inside-Outの原則」はこれとは異なる
+(もしかすると、「7つの習慣」からの引用かもしれないが）。</p>
+<p>この原則は、GUIアプリケーションを「<a
+href="design_pattern.html#SS_9_23">MVC</a>」系のアーキテクチャで開発する場合
+(それ以外の方法があるとは思えないが)、
+「開発はGUI(View)からではなく、Modelから始めよ」という開発手順への制約である。</p>
+<p>ViewはModelの画面への表出であり、Viewを表すためにModelがあるわけではない。
+まずはModelの関係性を見極めることは、すぐれたGUIアプリケーション開発の要諦である。</p>
+<p>ところが、多くのプログラマはGUIから作りたがる。これがModelに悪影響を与え
+(もしくは、Viewの中にModelを作りこみ、ViewとModelが癒着した構造を作る)、
+容易にデグレードを引き起こす不安定なソフトウェアを作り出す。
+このような悪構造は、 「<a
+href="software_practice.html#SS_2_1">DRYの原則</a>」で述べたような「回帰テストの自動化」もほとんど不可能にさせる。</p>
+<p>Modelから開発を始め、それを外部の「回帰テスト用ソフトウェア」から実行できるようにしよう。
+その後、それをViewと組み合わせて実行できるようにすれば、
+MVCに基づいたアーキテクチャと、
+それを自動テストできるソフトウェアを入手できる。</p>
+<h2 id="solid">SOLID <a id="SS_2_11"></a></h2>
+<p><a
+href="https://ja.wikipedia.org/wiki/SOLID">SOLID</a>とは下記に示す5つの原則である。</p>
+<ul>
+<li><a href="solid.html#SS_8_1">単一責任の原則(SRP)</a></li>
+<li><a href="solid.html#SS_8_2">オープン・クローズドの原則(OCP)</a></li>
+<li><a href="solid.html#SS_8_3">リスコフの置換原則(LSP)</a></li>
+<li><a href="solid.html#SS_8_4">インターフェース分離の原則(ISP)</a></li>
+<li><a href="solid.html#SS_8_5">依存関係逆転の原則(DIP)</a></li>
+</ul>
+<p>この5原則はオブジェクト指向(OOD/OOP)プログラミングにおいて特に重要なものであり、
+すべてのプログラマはこれらに従って開発することが求められる。</p>
+<p>これらの解説は、「<a
+href="programming_convention.html#SS_3">プログラミング規約</a>」の説明を行った後、
+「<a
+href="design_pattern.html#SS_9">デザインパターン</a>」の直前で行う。</p>
+</body>
+</html>

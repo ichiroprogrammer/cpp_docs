@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.00)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.00)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/naming_practice.md -->
+<h1 id="命名規則">命名規則 <a id="SS_6"></a></h1>
+<p>平凡なプログラマでもソースコードを介してコンパイラにその意図を伝えることはできる。
+優れたプログラマはそれに加えて、
+ソースコードを「他のプログラマに自分の意図を伝えるためのコミュニケーション手段」と位置づけ、
+「ソフトウェア構成物(識別子、ファイル等)への適切な命名」
+を重要なプログラミング技法の一つであると考える。</p>
+<p>適切な命名とは、少なくとも下記のようなものである。</p>
+<ul>
+<li>「<a href="software_practice.html#SS_2_5">Name and
+Conquer</a>」に書かれている内容を守っている。</li>
+<li>ソフトウェア構成物の意味や責務、性質を容易に想起できる。
+<ul>
+<li>一般に使用されている、もしくはプロジェクトで定義(「<a
+href="naming_practice.html#SS_6_1_1">略語リスト</a>」参照)
+されている略語以外の略語は使用しない(特に母音の省略は悪習慣である)。</li>
+<li>対称的な概念には、対称的な名前を付ける(「<a
+href="naming_practice.html#SS_6_1_2">言葉の対称性</a>」参照)。</li>
+<li>変数名、クラス名等は「人(er)」や「もの」にする(と適切な場合が多い)。
+また、単数、複数形に気をつける。</li>
+<li>メンバ関数名は動詞から始める(と適切な場合が多い)。</li>
+</ul></li>
+<li>非常識、時代遅れのルールに従っていない(ハンガリアン記法による命名は時代遅れ)。</li>
+<li>違う概念の構成物に同じような(紛らわしい)名前を付けない。</li>
+</ul>
+<p>このような技法は、簡単に習得できることではないが、
+すべてのプログラマは、このことに細心の注意を払い、
+可読性の高いソースコードを作り出すための努力を怠ってはならない。</p>
+<p>なお、これ以降この章では、主に名前の形式についてのルールを定める。</p>
+<hr />
+<p><strong>この章の構成</strong></p>
+<p>   <a href="naming_practice.html#SS_6_1">禁止事項</a><br />
+    <a href="naming_practice.html#SS_6_1_1">略語リスト</a><br />
+    <a href="naming_practice.html#SS_6_1_2">言葉の対称性</a></p>
+<p>   <a href="naming_practice.html#SS_6_2">識別子の命名</a><br />
+    <a
+href="naming_practice.html#SS_6_2_1">ファイル、ディレクトリの命名</a><br />
+    <a href="naming_practice.html#SS_6_2_2">ファイル名</a><br />
+    <a href="naming_practice.html#SS_6_2_3">ディレクトリ名</a><br />
+    <a href="naming_practice.html#SS_6_2_4">型名</a><br />
+    <a href="naming_practice.html#SS_6_2_5">定数名</a><br />
+    <a
+href="naming_practice.html#SS_6_2_6">ローカル変数名(自動変数名、仮引数名、関数内static変数名)</a><br />
+    <a href="naming_practice.html#SS_6_2_7">メンバ変数名</a><br />
+    <a href="naming_practice.html#SS_6_2_8">メンバ関数名</a><br />
+    <a href="naming_practice.html#SS_6_2_9">Accessorメンバ関数名</a><br />
+    <a href="naming_practice.html#SS_6_2_10">関数名</a><br />
+    <a href="naming_practice.html#SS_6_2_11">名前空間名</a><br />
+    <a href="naming_practice.html#SS_6_2_12">テンプレート名</a><br />
+    <a
+href="naming_practice.html#SS_6_2_13">テンプレートの仮引数名</a><br />
+    <a href="naming_practice.html#SS_6_2_14">マクロ名</a><br />
+    <a href="naming_practice.html#SS_6_2_15">その他の命名則</a></p>
+<p><a
+href="introduction.html#SS_1_7">このドキュメントの構成</a>に戻る。</p>
+<hr />
+<h2 id="禁止事項">禁止事項 <a id="SS_6_1"></a></h2>
+<ul>
+<li>[定義] 以下のような識別子は、C++の予約語であるため使用しない。
+<ul>
+<li>グローバルスコープを持ち、’_’で始まる識別子</li>
+<li>’_’で始まり、その次が大文字の識別子</li>
+<li>‘__’を<strong>含む</strong>識別子(Cでは、’__’で<strong>始まる</strong>識別子)</li>
+</ul></li>
+<li>C++の予約語と紛らわしいため、’_’で始まる名前は使用しない。</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 12</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span>     _max<span class="op">;</span>           <span class="co">// NG</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span>     max<span class="op">;</span>            <span class="co">// OK</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span>        _func<span class="op">();</span>        <span class="co">// NG</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span>        func<span class="op">();</span>         <span class="co">// OK</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define     _FOO_BAR_H_     </span><span class="co">// NG</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define     FOO_BAR_H_      </span><span class="co">// OK</span></span></code></pre></div>
+<ul>
+<li>システムハンガリアン的な命名は、不要な変更を発生させるため使用しない。</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 25</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> s32_read_counter<span class="op">;</span>  <span class="co">// NG</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> read_counter<span class="op">;</span>      <span class="co">// OK</span></span></code></pre></div>
+<ul>
+<li>エイリアス(typedef)を除き、同じ物に複数の名前をつけない。
+特に、同じ構造の型を複数定義することは不要な混乱を招くだけでなく、
+コードクローンの原因になる
+(こういったソースコードを意図的に書くプログラマは、「型とインスタンスを明確に区別する」、
+「委譲や継承を使う」といった基本的スキルへの理解が足りていない可能性が高い)。</li>
+<li>名前に列挙のための数字をつけない。</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 32</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> name1<span class="op">;</span>         <span class="co">// NG</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> name2<span class="op">;</span>         <span class="co">// NG</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> utf16code<span class="op">;</span>     <span class="co">// OK</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> storage1K<span class="op">;</span>     <span class="co">// OK</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span>    image1_onoff<span class="op">;</span>  <span class="co">// image1が正式な名前ならOK</span></span></code></pre></div>
+<ul>
+<li>母音等を省略しない。</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 42</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> acnt<span class="op">;</span>            <span class="co">// NG</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> account<span class="op">;</span>         <span class="co">// OK</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> sig_handler<span class="op">;</span>     <span class="co">// NG</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> signal_handler<span class="op">;</span>  <span class="co">// OK</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// その他やってしまいがちな例</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ctrl     -&gt;  control</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// no       -&gt; number</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ttl      -&gt; total</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// cb       -&gt; callback</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// fn       -&gt; function, func</span></span></code></pre></div>
+<ul>
+<li>英文字の大小で識別子を区別しない。 ただし、「<a
+href="design_pattern.html#SS_9_8">NVI(non virtual
+interface)</a>」を使用するメンバ関数名は例外とする。</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 59</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// NGの例 一見同じに見える</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> XxxCallBack <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> XxxCallback <span class="op">{</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<ul>
+<li>一般的でない略語を使わない。
+一般的でない略語をプロジェクト横断的に定義したい場合には、略語リストを作り、それに定義する
+(「<a href="naming_practice.html#SS_6_1_1">略語リスト</a>」参照)。</li>
+<li>対照的概念に非対称な名前(startとend、topとdown等)を付けない (「<a
+href="naming_practice.html#SS_6_1_2">言葉の対称性</a>」参照)。</li>
+</ul>
+<h3 id="略語リスト">略語リスト <a id="SS_6_1_1"></a></h3>
+<p>プロジェクト独自の略語については下記のようなテーブルを作り、
+ソースコードと同じリポジトリで管理する。</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">略語</th>
+<th style="text-align: left;">正式名称</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cmd</td>
+<td style="text-align: left;">command</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">fd</td>
+<td style="text-align: left;">file descriptor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">lhs</td>
+<td style="text-align: left;">left-hand side</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">num</td>
+<td style="text-align: left;">number</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">prev</td>
+<td style="text-align: left;">previous</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">proc</td>
+<td style="text-align: left;">process</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ptr</td>
+<td style="text-align: left;">pointer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rhs</td>
+<td style="text-align: left;">right-hand side</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">str</td>
+<td style="text-align: left;">std::stringのオブジェクト名</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">thd</td>
+<td style="text-align: left;">std::threadのオブジェクト名</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">uniq</td>
+<td style="text-align: left;">unique</td>
+</tr>
+</tbody>
+</table>
+<h3 id="言葉の対称性">言葉の対称性 <a id="SS_6_1_2"></a></h3>
+<p>「始まり」に対しては「終わり」であり、「開始」に対しては「終了」である。
+これと同様に対称的な意味をもつ識別子に対して、
+正確な対義語を使うことは重要であり、良い命名をするための一つの方法である。</p>
+<p>プログラミングにおいてよく使われる対義語リストを下記する。</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">対応語</th>
+<th style="text-align: left;">意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">add/subtract</td>
+<td style="text-align: left;">加減算</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">add/delete</td>
+<td style="text-align: left;">追加／削除</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">attach/detach</td>
+<td style="text-align: left;">オブサーバ登録／解除</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">begin/end</td>
+<td style="text-align: left;">位置</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">first/last</td>
+<td style="text-align: left;">順番</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">front/back</td>
+<td style="text-align: left;">位置</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">get/set</td>
+<td style="text-align: left;">Accessor</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lock/unlock</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">new/old</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">open/close</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">previous(prev)/next</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">push/pop</td>
+<td style="text-align: left;">スタック処理</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">send/receive(recv)</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set up/tear down</td>
+<td style="text-align: left;">　　　</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">source/destination(src/dst)</td>
+<td style="text-align: left;">「先」と「元」</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">start/stop</td>
+<td style="text-align: left;">開始／停止</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">under/over</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">up/down</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">upper/lower</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lhs/rhs</td>
+<td style="text-align: left;">左右</td>
+</tr>
+</tbody>
+</table>
+<h2 id="識別子の命名">識別子の命名 <a id="SS_6_2"></a></h2>
+<p>コードの可読性に大きな影響を与える識別子名はパッケージ外部(「パッケージの実装と公開」参照)
+に公開されるクラス名、関数名、名前空間名である。</p>
+<p>クラス名、関数名、名前空間名に良い名前を与えるためにこの章が存在するのだが、
+執筆中にchatgptが公開されため、
+識別子名の体裁(キャメルスタイル等)を決めること以外に説明することがほとんどなくなった。</p>
+<p>筆者がよく使う「識別子の命名をするためのchatgptでのプロンプト」を紹介する。</p>
+<ul>
+<li>クラスの説明
+<ul>
+<li>責務を２，３個挙げる</li>
+<li>主なメンバ関数のやることを２，３個挙げる。名前以外のシグネチャを決める</li>
+</ul></li>
+<li>非メンバ関数
+<ul>
+<li>その非メンバ関数のやることを２，３個挙げる</li>
+<li>その非メンバ関数の名前以外のシグネチャを決める</li>
+</ul></li>
+</ul>
+<p>[依頼1]上記の説明にふさわしいクラス名、関数名をそれぞれ２，３個づつ挙げよ。</p>
+<p>納得できる名前を挙げるまで繰り返すことになるが、通常２，３回の施行で良い名前が決められる。
+トライ&amp;エラーに備えて、できればcopiloteでなくchatgptを使うべきだろう。</p>
+<p>[依頼2]「上記で定めたクラス名、関数名」を宣言するための名前空間名を考えよ。</p>
+<p>以下は命名についての議論ではないが、AIの使い方に触れたので、コード生成についても少し言及する。</p>
+<p>クラス名、関数名まで決められれば、セッションをそのまま使用しコードの生成をさせることができる。
+この際、<a href="comment.html#SS_7_2_1">クラスのコメント</a>、<a
+href="comment.html#SS_7_2_2">関数のコメント</a>のフォーマットをchapgptに伝えれば、
+より良いコードが作られる。問題点を修正し、それをchatgptにに張り付け、
+単体テストをgtestで書くように依頼すれば、単体テスト付きのコードが入手できる。</p>
+<h3 id="ファイルディレクトリの命名">ファイル、ディレクトリの命名
+<a id="SS_6_2_1"></a></h3>
+<p>ファイル名、ディレクトリ名は、ソフトウェアを構成するパッケージや、
+それらの構造から強い影響を受けるため、「<a
+href="programming_convention.html#SS_3_7">パッケージとその構成ファイル</a>」
+で定めたルールが守られていなければ、ファイル、ディレクトリへの適切な命名は困難である。
+従って、ここで定める命名ルールに従っていないソースコードをベースとした開発、
+保守を行っているプログラマが、そのソースコードをここでの名称ルールに従わせる場合、
+まずは「<a
+href="programming_convention.html#SS_3_7">パッケージとその構成ファイル</a>」の順守から始めなければならない。</p>
+<p>[注意]
+ほとんどのバージョン管理システムはファイル名、ディレクトリ名の大文字小文字を区別するが、
+OSによっては、その区別がないものがあるため、この違いがトラブルを発生させることがある。
+それを避けるために、ファイル名、ディレクトリ名には大文字を使わない方が良い。</p>
+<h3 id="ファイル名">ファイル名 <a id="SS_6_2_2"></a></h3>
+<ul>
+<li>ファイル名は、以下のような形式の文字列にするか、それらを’_’によって連結した文字列にする。
+<ul>
+<li>正規表現[a-z][a-z0-9]+で表される文字列</li>
+</ul></li>
+<li>ファイル名は、下記のようにクラス名から生成する「<a
+href="programming_convention.html#SS_3_2_1">ファイルの使用方法</a>」参照)。</li>
+<li>単体テストのソースコードのファイル名はテスト対象のファイル名(.cpp)
+のベース名末尾に”_ut”を挿入することで生成する。</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// クラス名</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> XxxController<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ファイル名</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    xxx_controller<span class="op">.</span>cpp       <span class="co">// OK XxxControllerの定義</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    xxx_controller<span class="op">.</span>h         <span class="co">// OK XxxControllerの宣言、定義</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    XxxController<span class="op">.</span>cpp        <span class="co">// NG</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    XxxController<span class="op">.</span>h          <span class="co">// NG</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    xxx_controller_ut<span class="op">.</span>cpp    <span class="co">// OK xxx_controller.cppの単体テストのソースコードのファイル名</span></span></code></pre></div>
+<h3 id="ディレクトリ名">ディレクトリ名 <a id="SS_6_2_3"></a></h3>
+<ul>
+<li>クラス名からファイル名を生成する方法と同様に、 パッケージ名(==
+名前空間名)からディレクトリ名を生成する
+(パッケージ名がXxxYyyであれば、そのディレクトリ名はxxx_yyyである)。</li>
+</ul>
+<h3 id="型名">型名 <a id="SS_6_2_4"></a></h3>
+<ul>
+<li>型(class、struct、enum、それらのエイリアス)の名前は、以下のような形式の文字列にするか、
+それらを連結した文字列にする。
+ただし、文字列の連結部が大文字の連続になる場合はそれらを’_’によって区切る。
+<ul>
+<li>正規表現[A-Z][a-z0-9]+で表される文字列</li>
+<li>正規表現[A-Z][A-Z0-9]+で表される文字列(慣習的に小文字を使わない文字列のみ。TCP等)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 73</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> XxxController<span class="op">;</span>                     <span class="co">// OK</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> xxx_control<span class="op">;</span>                       <span class="co">// NG</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> SomeStruct<span class="op">;</span>                       <span class="co">// OK</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">enum</span> <span class="kw">class</span> SomeEnumeration<span class="op">;</span>              <span class="co">// OK</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">enum</span> <span class="kw">class</span> some_enumeration<span class="op">;</span>             <span class="co">// OK</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">using</span> Container <span class="op">=</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int32_t</span><span class="op">&gt;;</span>  <span class="co">// OK</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> TCP_IP<span class="op">;</span>                            <span class="co">// OK</span></span></code></pre></div>
+<ul>
+<li>責務がわかる名前をつける。
+クラスには「xxxする人」、「yyyするもの」のような命名が適している場合が多い。</li>
+</ul>
+<h3 id="定数名">定数名 <a id="SS_6_2_5"></a></h3>
+<ul>
+<li>クラスや構造体のpublicな定数や、外部リンケージを持つ定数、定数テンプレートの名前は、
+型名と同じルールで生成する。</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 86</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">constexpr</span> <span class="dt">int</span> SOME_CONSTANT<span class="op">{</span><span class="dv">0</span><span class="op">};</span>  <span class="co">// NG  定数</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">constexpr</span> <span class="dt">int</span> SomeConstant<span class="op">{</span><span class="dv">0</span><span class="op">};</span>   <span class="co">// OK  定数</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> Xxx <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> <span class="dt">int</span> SOME_CONSTANT<span class="op">{</span><span class="dv">0</span><span class="op">};</span>  <span class="co">// NG  定数</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> <span class="dt">int</span> SomeConstant<span class="op">{</span><span class="dv">0</span><span class="op">};</span>   <span class="co">// OK  定数</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">constexpr</span> <span class="dt">bool</span> IsSameAsXxxV <span class="op">=</span> <span class="bu">std::</span>is_same_v<span class="op">&lt;</span>Xxx<span class="op">,</span> T<span class="op">&gt;;</span>  <span class="co">// OK 定数テンプレート</span></span></code></pre></div>
+<h3
+id="ローカル変数名自動変数名仮引数名関数内static変数名">ローカル変数名(自動変数名、仮引数名、関数内static変数名)
+<a id="SS_6_2_6"></a></h3>
+<ul>
+<li>ローカル変数名は、以下のような形式の文字列にするか、
+それらを’_’によって連結した文字列にする。
+<ul>
+<li>正規表現[a-z][a-z0-9]+で表される文字列</li>
+<li>正規表現[a-z]で表される1文字
+(デカルト座標でのxやy、ループ変数iやj、std::string::c_str()のc等のみ)</li>
+<li>正規表現[A-Z][A-Z0-9]+で表される文字列(慣習的に小文字を使わない文字列のみ。TCP等)</li>
+</ul></li>
+<li>数字と見分けが難しい文字は単独では使用しない(o、l、_o、_l等は0や1と区別が困難)。</li>
+</ul>
+<h3 id="メンバ変数名">メンバ変数名 <a id="SS_6_2_7"></a></h3>
+<ul>
+<li>クラスのメンバ変数(static const、static
+constexprメンバ定数を含む)の名前は、
+ローカル変数名と同じルールで生成した文字列の末尾に’_‘を加えることにより生成する
+(visual
+studioで開発を行うプロジェクトを除きメンバ変数をm’_’で始めことはしない)。</li>
+<li>構造体のメンバ変数の名前は、ローカル変数名と同じルールで生成する(末尾に’_’はつけない)。</li>
+</ul>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 102</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Foo <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> read_counter<span class="op">;</span>   <span class="co">// NG</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> <span class="va">read_counter_</span><span class="op">;</span>  <span class="co">// OK</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> <span class="va">m_ReadCounter</span><span class="op">;</span>  <span class="co">// NG</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> Hoo <span class="op">{</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> bar<span class="op">;</span>   <span class="co">// OK</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> <span class="va">bar_</span><span class="op">;</span>  <span class="co">// NG</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<ul>
+<li>enumのメンバ名は、型名と同じルールで生成する。</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 117</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">enum</span> <span class="kw">class</span> SignalType <span class="op">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        RED<span class="op">,</span>    <span class="co">// NG</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        Green<span class="op">,</span>  <span class="co">// OK</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        yellow  <span class="co">// NG</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<h3 id="メンバ関数名">メンバ関数名 <a id="SS_6_2_8"></a></h3>
+<ul>
+<li>メンバ関数はオブジェクトの振る舞いを定義するためのものであるため、
+名前は動詞から始める(と良い場合が多いが、std::string::c_str()のように例外も多い)。</li>
+<li>非同期なサービスを駆動するためのメンバ関数の名前には末尾にasyncをつける。</li>
+<li>publicメンバ関数の名前は、型名と同じルールで生成する。</li>
+<li>private、protectedメンバ関数の名前は、ローカル変数名と同じルールで生成する。</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 125</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Fee <span class="op">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> PrintMessage<span class="op">();</span>   <span class="co">// OK</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> Print_Message<span class="op">();</span>  <span class="co">// NG _は不要</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> WatchdogExit<span class="op">();</span>   <span class="co">// NG ExitByWatchdog等の方が良い</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> DoSomething<span class="op">();</span>    <span class="co">// OK</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> doSomething<span class="op">();</span>    <span class="co">// NG</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> print_system_message_async<span class="op">();</span>  <span class="co">// OK privateで非同期</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> do_something<span class="op">();</span>                <span class="co">// OK</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<h3 id="accessorメンバ関数名">Accessorメンバ関数名
+<a id="SS_6_2_9"></a></h3>
+<ul>
+<li>慣習に従うと機能が類推しやすいため、 一般的な<a
+href="design_pattern.html#SS_9_4">Accessor</a>メンバ関数には、以下のような接頭語をつける。</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 31%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">接頭語</th>
+<th style="text-align: left;">意味</th>
+<th style="text-align: left;">例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">is</td>
+<td style="text-align: left;">xxxか？</td>
+<td style="text-align: left;">signal.IsRed()</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">get</td>
+<td style="text-align: left;">xxxを返せ</td>
+<td style="text-align: left;">signal.GetSignal()</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set</td>
+<td style="text-align: left;">xxxを設定せよ</td>
+<td style="text-align: left;">signal.SetSignal(signal_color)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">can</td>
+<td style="text-align: left;">xxxはできるか？</td>
+<td style="text-align: left;">signal.CanTurnOn()</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">has</td>
+<td style="text-align: left;">xxxを持っているか？</td>
+<td style="text-align: left;">signal.HasLed()</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>IsXXX(), CanXXX(),
+HasXXX()等は、戻り型boolのconstメンバ関数と宣言、定義する。</li>
+<li>戻り値の意味を明示できないため、bool
+CheckXxx()のような名前は使用しない。</li>
+<li>変更対象であるメンバ変数を明示するためにsetterメンバ関数の仮引数は、
+変更対象の変数名の末尾から’_’を除いた名前にする。</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 140</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Fii <span class="op">{</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> GetFoo<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span><span class="op">;</span>      <span class="co">// OK 変数の値の取得</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span>    SetFoo<span class="op">(</span><span class="dt">int32_t</span> foo<span class="op">)</span> <span class="kw">noexcept</span>  <span class="co">// OK 変数に値を設定</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            <span class="va">foo_</span> <span class="op">=</span> foo<span class="op">;</span>  <span class="co">// OK setterの仮引数はメンバ名から&#39;\_&#39;を除いたもの</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> IsCurrency<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span><span class="op">;</span>        <span class="co">// OK bool値の問い合わせ</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> IsGettableMemory<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span><span class="op">;</span>  <span class="co">// OK</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> HasHoge<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span><span class="op">;</span>           <span class="co">// OK</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> CanGet<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span><span class="op">;</span>            <span class="co">// OK</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> CheckHoge<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span><span class="op">;</span>         <span class="co">// NG true/falseの意味が明確でない</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int32_t</span> <span class="va">foo_</span><span class="op">;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<h3 id="関数名">関数名 <a id="SS_6_2_10"></a></h3>
+<ul>
+<li>非メンバ関数の名前は、型名と同じルールで生成する。</li>
+</ul>
+<h3 id="名前空間名">名前空間名 <a id="SS_6_2_11"></a></h3>
+<ul>
+<li>名前空間名は、型名と同じルールで生成する。</li>
+<li>ディレクトリが階層を持つならば、名前空間もそれと同相にする。
+パッケージXxx(パッケージを構成するディレクトリ名はxxx)が、
+サブパッケージYyy(ディレクトリ名はyyy、相対パスはxxx/yyy)を内包するのであれば、
+それらパッケージの名前空間名は、それぞれXxx、Xxx::Yyyである。</li>
+</ul>
+<h3 id="テンプレート名">テンプレート名 <a id="SS_6_2_12"></a></h3>
+<ul>
+<li>ファイル外部から参照されるテンプレートの名前は、型名と同じルールで生成する。</li>
+<li>ファイル外部から参照されないテンプレート(「<a
+href="programming_convention.html#SS_3_8_2">名前空間</a>」参照)の名前は、
+ローカル変数名と同じルールで生成する。</li>
+</ul>
+<h3 id="テンプレートの仮引数名">テンプレートの仮引数名
+<a id="SS_6_2_13"></a></h3>
+<ul>
+<li>templateの仮引数名は、以下のような形式の文字列にするか、定数名と同じルールで生成する。
+<ul>
+<li>正規表現[A-Z][0-9]?で表される文字列(慣習的にはTやその周辺の大文字SやU等)</li>
+</ul></li>
+</ul>
+<h3 id="マクロ名">マクロ名 <a id="SS_6_2_14"></a></h3>
+<ul>
+<li>二重読み込みの防御用以外のマクロの名前は、定数名と同じルールで生成する。</li>
+<li>二重読み込みの防御用のマクロの名前は、「<a
+href="programming_convention.html#SS_3_7_4">二重読み込みの防御</a>」で定めたルールで生成する。</li>
+</ul>
+<h3 id="その他の命名則">その他の命名則 <a id="SS_6_2_15"></a></h3>
+<ul>
+<li>コレクションクラスやコンテナクラス、それらのインスタンスに対しては、
+その名前に以下のような工夫をすることにより、物の集まりであることを示す。
+<ul>
+<li>複数形にする。</li>
+<li>集合、群等を名前に取り入れる。</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 160</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> StringCollector <span class="op">{</span>  <span class="co">// OK 文字列の集合を扱うことを示す</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> <span class="at">const</span><span class="op">&amp;</span> GetStrings<span class="op">()</span> <span class="at">const</span><span class="op">;</span>  <span class="co">// OK 戻り値が集合であることを示す</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> <span class="at">const</span><span class="op">&amp;</span> GetString<span class="op">()</span> <span class="at">const</span><span class="op">;</span>   <span class="co">// NG 複数形にしてvectorであることを</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                                                             <span class="co">//    示すべき</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> <span class="va">strings_</span><span class="op">;</span>  <span class="co">// OK インスタンスが集合であることを示す</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> <span class="va">string_</span><span class="op">;</span>   <span class="co">// NG</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<ul>
+<li>名前を構成する単語は、概念が大きい順番に左から並べる。</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 175</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 下記例のXXX_YYY_R0は、XXX回路のYYYサブ回路のR0レジスタを表す。</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">volatile</span> <span class="kw">auto</span><span class="op">&amp;</span> XXX_YYY_R0 <span class="op">=</span> <span class="op">*</span><span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="dt">uint32_t</span><span class="op">*&gt;(</span><span class="bn">0x1300&#39;0000</span><span class="op">);</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">volatile</span> <span class="kw">auto</span><span class="op">&amp;</span> XXX_YYY_R1 <span class="op">=</span> <span class="op">*</span><span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="dt">uint32_t</span><span class="op">*&gt;(</span><span class="bn">0x1300&#39;0100</span><span class="op">);</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">volatile</span> <span class="kw">auto</span><span class="op">&amp;</span> XXX_YYY_Q0 <span class="op">=</span> <span class="op">*</span><span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="dt">uint32_t</span><span class="op">*&gt;(</span><span class="bn">0x1300&#39;0200</span><span class="op">);</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">volatile</span> <span class="kw">auto</span><span class="op">&amp;</span> XXX_ZZZ_R0 <span class="op">=</span> <span class="op">*</span><span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="dt">uint32_t</span><span class="op">*&gt;(</span><span class="bn">0x1400&#39;0200</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// @@@ example/etc/naming.cpp 183</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// OK DataFormatterという概念のインターフェース クラス</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> DataFormatterIF <span class="op">{</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// OK DataFormatterという概念の具象クラスDataFormatterXml。XmlDataFormatterとしない。</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> DataFormatterXml <span class="kw">final</span> <span class="op">:</span> <span class="kw">public</span> DataFormatterIF <span class="op">{</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// OK DataFormatterという概念の具象クラスDataFormatterCsv。CsvDataFormatterとしない。</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> DataFormatterCsv <span class="kw">final</span> <span class="op">:</span> <span class="kw">public</span> DataFormatterIF <span class="op">{</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+</body>
+</html>

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.00)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.00)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/dev_tools.md -->
+<h1 id="開発ツール">開発ツール <a id="SS_16"></a></h1>
+<p>この章で触れる開発ツールとは、以下の3つである。</p>
+<ul>
+<li>コンパイラ</li>
+<li>デバッガ</li>
+<li>エディタ/IDE</li>
+</ul>
+<p>開発ツールはプログラマの生産性に大きく影響を及ぼすため、
+ソフトウェア開発プロジェクトにとって極めて重要なファクターである。</p>
+<hr />
+<p><strong>この章の構成</strong></p>
+<p>   <a href="dev_tools.html#SS_16_1">コンパイラ</a><br />
+   <a href="dev_tools.html#SS_16_2">デバッガ</a><br />
+    <a href="dev_tools.html#SS_16_2_1">printfデバッグ</a></p>
+<p>   <a href="dev_tools.html#SS_16_3">エディタ/IDE</a><br />
+   <a href="dev_tools.html#SS_16_4">筆者の開発ツール環境</a><br />
+    <a href="dev_tools.html#SS_16_4_1">vim/neovimの設定</a></p>
+<p>   <a href="dev_tools.html#SS_16_5">費用</a></p>
+<h2 id="コンパイラ">コンパイラ <a id="SS_16_1"></a></h2>
+<p>コンパイラの要件とは、以下のようなものである。</p>
+<ul>
+<li>C++11以上の規約に準拠している。</li>
+<li>バグが少なく、その修正も早い。</li>
+<li>静的、動的検査機能が豊富である(「<a
+href="code_analysis.html#SS_4">コード解析</a>」参照)。
+<ul>
+<li>静的検査とはコンパイル時の警告や、clangのscan-buildのようなものを指す。</li>
+<li>動的検査とはg++/clang++に置けるsanitizerのようなものを指す。</li>
+</ul></li>
+<li>コンパイルが速い。</li>
+<li>カバレッジの計測ができる(「<a
+href="process_and_infra.html#SS_11_2_1_4">単体テストのサポートツール</a>」参照)。</li>
+</ul>
+<p>当然の事柄のように思えるかもしれないが、ある大手半導体メーカ純正のコンパイラ(IDE)は、
+言語規約に準拠しておらず、下記のようなコードが警告すらなくコンパイルできた。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> f<span class="op">(</span><span class="dt">char</span> <span class="at">const</span><span class="op">*</span> arg<span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span><span class="op">*</span> arg_local <span class="op">=</span> arg<span class="op">;</span>  <span class="co">// &lt;- これがコンパイルできてしまう。</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>さらに驚くことに、組み込みソフトウェア専用のコンパイラであるにもかかわらず、
+上記constをvolatileとしても同様にコンパイルできた。</p>
+<p>これらバグは指摘しても修正されず、少なくとも数年にわたって放置された。
+筆者がこのコンパイラを使う機会をなくしたため、修正されたかどうかは未確認である。
+プログラマのちょっとしたミスを指摘できない、このようなコンパイラを使ってはならない。</p>
+<p>私がお勧めするのは以下のコンパイラである。</p>
+<ul>
+<li>gcc/g++</li>
+<li>clang/clang++</li>
+<li>Visual Studioコンパイラ(少々納得できない仕様もあるが)</li>
+</ul>
+<p>他にもたくさんあるはずである。
+コンパイラの選定は重要な事項と心得て慎重に選んでほしい。</p>
+<p>なお、windowsアプリケーションの開発にもclang/clang++は適用でき、
+その場合、sanitizerを使用できる。Visual Studio 19でもaddress
+sanitizerは使用できるようなので、
+windowsアプリケーションの開発にはsanitizerを用いることことを強く推奨する。</p>
+<h2 id="デバッガ">デバッガ <a id="SS_16_2"></a></h2>
+<p>当然ながらデバッガは下記を選択するのが良いだろう。</p>
+<ul>
+<li>gcc/g++に対してはgdb</li>
+<li>clang/clang++に対してはlldb</li>
+<li>Visual Studioではそれに同梱されてるもの</li>
+</ul>
+<p>組み込みソフトウェアに関しては少々事情が異なる。
+本ドキュメントでは、組み込みソフトウェアに関して、
+PC上のコンパイラを使用した単体テストを推奨している(「<a
+href="process_and_infra.html#SS_11_2_1_4">単体テストのサポートツール</a>」参照)。
+これに従うのであれば、単体テストのコンパイル、デバッグには、
+通常のアプリケーション開発と同様に上記の3つの組み合わせのいずれかを使うのが良いだろう。</p>
+<p>組み込みソフトウェアのターゲットのデバッグに関しては、gdb等のリモート機能を使える場合もあるが、
+多くの場合jtagデバッガを使う必要がある。専用のハードウェアが必要なため多少高価になるが、
+工数の方がよほど高価であることを忘れてはならない
+(ただし、半導体メーカ純正品よりもサードパーティ品の方が、数分の一の費用である場合があるので注意)。</p>
+<h3 id="printfデバッグ">printfデバッグ <a id="SS_16_2_1"></a></h3>
+<p>printfデバッグとは、printf()やstd::coutを使ったデバッグ手法のことである。
+これ自体はそれなりに有効な手段であり、完全に否定はできないが、
+これ以外にデバッグ手法を知らないプログラマに出会うと、
+現在に蘇ったネアンデルタールに見えてしまう。
+ホモ・サピエンスの名に恥じないプログラマになるために最新のデバッガを導入しよう。
+導入でロスした時間はデバッグの効率化でお釣りが来る。</p>
+<h2 id="エディタide">エディタ/IDE <a id="SS_16_3"></a></h2>
+<p>エディタ/IDEの良し悪しについて語ることには、宗教論争ような危険が伴う。
+「宗論はどちら負けても釈迦の恥」というように、不毛な戦いは避けるべきであるが、
+とはいえ、各プログラマにその選択の全権を与えるのも問題である。</p>
+<p>開発プロジェクトでは、下記の要件を満たすようなエディタ/IDEを使い、
+それらの設定ファイル等もバージョン管理システムで管理し、
+同一エディタ/IDEを使うメンバが共有できるようにするべきである。</p>
+<p>以下にエディタ/IDEに求められる要件を上げる。</p>
+<ul>
+<li>他の開発ツールとの連動
+<ul>
+<li>ビルドができる(「<a
+href="architecture.html#SS_10_3">アーキテクチャとファイル構造</a>」参照)。</li>
+<li>デバッガを起動し、エディタ/IDEソースコード画面上でのデバッグができる。</li>
+<li>バージョン管理システムとの連携ができる。</li>
+<li>単体テストを実行できる。</li>
+<li>エディタ/IDE画面上でshell/ターミナルを使用できる。</li>
+<li>OSの任意のコマンドを実行できる。</li>
+</ul></li>
+<li>実行環境等
+<ul>
+<li>windows/linuxを含む複数のOSで動作する。</li>
+<li>動作が軽い。</li>
+<li>プラグイン等の拡張機能をサポートしている。また、追加費用なしで使えるプラグインが豊富である。</li>
+<li>多言語対応、UTF-8対応している。</li>
+</ul></li>
+<li>プログラム編集
+<ul>
+<li>コード補完機能やタグジャンプができる。</li>
+<li>ショートカットキー等が豊富にあり、習熟すれば効率化できる。
+また、マウスを使わなくても、ほぼすべての機能が使える。</li>
+<li>多プログラミング言語対応(カラーリング等)をしている。</li>
+<li>UMLやマークダウン等の設計ドキュメントの編集もサポートしている。</li>
+</ul></li>
+<li>その他
+<ul>
+<li>世界的に評価が高い、もしくは評価がある。</li>
+<li>盛んに開発が行われている。</li>
+<li>ライセンス費がフリーか、安価である。</li>
+<li>help機能、ネットドキュメント、書籍が充実している。</li>
+<li>設定ファイルの管理が簡単である。windows版のエディタ/IDEによっては、
+<ul>
+<li>設定をレジストリに保存しエクスポート機能もないため、
+環境の再現や共有に時間がかかるものがある。</li>
+<li>設定ファイルから絶対パスの記述を排除できないものがある。
+このようなIDEを使用すると、作業ディレクトリが固定化されてしまう。</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>多くの要件を上げたが、このような条件をほぼ満たすエディタ/IDEは少なくない。
+例を上げる。</p>
+<ul>
+<li>Visual Studio</li>
+<li>Visual Studio Code</li>
+<li>Eclipse</li>
+<li>Sublime Text</li>
+<li>Atom</li>
+<li>vim/neovim</li>
+<li>emacs</li>
+</ul>
+<p>少なく見積もってもこれだけの選択肢があるのであるから、
+間違っても日本国内でのみで流通しているようなローカルなエディタ/IDEを使ってはならない。</p>
+<h2 id="筆者の開発ツール環境">筆者の開発ツール環境
+<a id="SS_16_4"></a></h2>
+<p>筆者は、windows、cygwin、linuxでソフトウェアを開発する必要があるため、一般のプログラマと比べ、
+少々事情は異なると思うが、参考のためC++での開発ツールを紹介する。</p>
+<ul>
+<li>windowsアプリケーションの開発にはVisual Studioを使用している。</li>
+<li>Macでの本格的な開発経験がないので推奨できる開発ツールはないが、おそらくlinuxと同じで問題ない。</li>
+<li>linuuxアプリケーションの開発には下記を使用している。
+<ul>
+<li>コンパイラ
+<ul>
+<li>gcc/g++もしくはclang/clang++</li>
+</ul></li>
+<li>デバッガ
+<ul>
+<li>gdbもしくはlldb</li>
+</ul></li>
+<li>エディタ/IDE
+<ul>
+<li>Visual Studio Code</li>
+<li>vim/neovim</li>
+</ul></li>
+</ul></li>
+<li>組み込みアプリケーションの開発では下記のようにしている。
+<ul>
+<li>単体テスト(「<a
+href="process_and_infra.html#SS_11_2_1_4">単体テストのサポートツール</a>」参照)に関してはlinuxと同じ。</li>
+<li>ターゲットは様々であるためクロスコンパイラの推奨は難しいが、
+オプションや警告機能のレベルがgcc/g++と近いものを選ぶと良い。</li>
+<li>デバッガも同様にこれと決まったものはないが、jtagデバッガは必須である。</li>
+</ul></li>
+<li>このドキュメントの作成にはコードも合わせて下記を使用している
+<ul>
+<li>g++/clang++</li>
+<li>gdb</li>
+<li>vim/neovim</li>
+</ul></li>
+</ul>
+<h3 id="vimneovimの設定">vim/neovimの設定 <a id="SS_16_4_1"></a></h3>
+<p>参考のため、このドキュメントを作成するために筆者が使用しているvim/neovimの設定やプラグイン、
+その管理方法を紹介する。 vim/neovimの設定について興味がなければ、「<a
+href="dev_tools.html#SS_16_5">費用</a>」まで飛んでほしい。</p>
+<h4 id="設定ファイルと管理">設定ファイルと管理
+<a id="SS_16_4_1_1"></a></h4>
+<p>このドキュメント作成時、cygwinパッケージにはneovimは存在せず、
+優れたコード補完機能はneovimでなければ動作しない。
+このドキュメントのコードはcygwin、linux両方でビルドでき、
+少なくともg++でのバイナリはそれぞれの環境で正常動作できるようにしなければならない。
+開発とは関係ないが、windows上での複雑なテキスト編集にはwindows版gvim(gui
+vim)を使用したい。 また、「<a
+href="software_practice.html#SS_2_1">DRYの原則</a>」の通り、それぞれの環境でそれぞれの設定をしたくない。</p>
+<p>これからの条件を満たすためのvim/neovimの設定ファイルは、</p>
+<ul>
+<li>cygwin上のvim</li>
+<li>windows上のgvim</li>
+<li>linux(実際にはWSL ubuntu)上のneovim</li>
+</ul>
+<p>を正しく初期化できる必要がある。
+また、これらが別々に進化しないように一つのリポジトリで管理できるのが良い。
+筆者の場合は、クラウド上のgitでvim_configリポジトリとして管理している。</p>
+<p>以下、順を追ってvim_configリポジトリとして管理しているファイルについて簡単に説明する。
+詳細については「<a
+href="sample_code.html#SS_24_1">vim</a>」を参照してほしい。</p>
+<h4 id="ドキュメント">ドキュメント <a id="SS_16_4_1_2"></a></h4>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_1">vim_config/README.md</a></td>
+<td style="text-align: left;">リポジトリの説明、インストール手順</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_12">vim_config/nvim/cheatsheet.md</a></td>
+<td style="text-align: left;">自分用ヘルプやtodo</td>
+</tr>
+</tbody>
+</table>
+<h4 id="初期化">初期化 <a id="SS_16_4_1_3"></a></h4>
+<table>
+<colgroup>
+<col style="width: 64%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_16">vim_config/nvim/init.vim</a></td>
+<td style="text-align: left;">nvim初期化</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_17">vim_config/nvim/org.vim</a></td>
+<td style="text-align: left;">基本設定</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_18">vim_config/nvim/package.vim</a></td>
+<td style="text-align: left;">外部パッケージ初期化</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_36">vim_config/vim/gvimrc</a></td>
+<td style="text-align: left;">gvim初期化</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_37">vim_config/vim/vimrc</a></td>
+<td style="text-align: left;">vim初期化</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_35">vim_config/vim.sh</a></td>
+<td style="text-align: left;">エイリアス等の設定</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_2">vim_config/inputrc</a></td>
+<td style="text-align: left;">gdb設定</td>
+</tr>
+</tbody>
+</table>
+<h4 id="独自スクリプト">独自スクリプト <a id="SS_16_4_1_4"></a></h4>
+<h5 id="cc編集">c/c++編集 <a id="SS_16_4_1_4_1"></a></h5>
+<table>
+<colgroup>
+<col style="width: 59%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_9">vim_config/nvim/autoload/next_file.vim</a></td>
+<td style="text-align: left;">xxx.cpp xxx.h xxx_ut.cpp切り替え</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_29">vim_config/nvim/plugin/next_file.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_22">vim_config/nvim/plugin/ctags_ext.vim</a></td>
+<td style="text-align: left;">ctags作成</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_23">vim_config/nvim/plugin/dev_env.vim</a></td>
+<td style="text-align: left;">開発用画面設定</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_11">vim_config/nvim/autoload/termdbg.vim</a></td>
+<td style="text-align: left;">gdb連動</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_33">vim_config/nvim/plugin/termdbg.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+</tbody>
+</table>
+<h5 id="bash起動">bash起動 <a id="SS_16_4_1_4_2"></a></h5>
+<table>
+<colgroup>
+<col style="width: 76%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_10">vim_config/nvim/autoload/term.vim</a></td>
+<td style="text-align: left;">:terminal設定</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_32">vim_config/nvim/plugin/term.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+</tbody>
+</table>
+<h5 id="git連動">git連動 <a id="SS_16_4_1_4_3"></a></h5>
+<table>
+<colgroup>
+<col style="width: 68%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_5">vim_config/nvim/autoload/git_diff.vim</a></td>
+<td style="text-align: left;">git diffをvimdiffで表示</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_24">vim_config/nvim/plugin/git_diff.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_6">vim_config/nvim/autoload/git_session.vim</a></td>
+<td style="text-align: left;">mksessionやpath設定</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_25">vim_config/nvim/plugin/git_session.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+</tbody>
+</table>
+<h5 id="ファイルタイプ設定">ファイルタイプ設定
+<a id="SS_16_4_1_4_4"></a></h5>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_13">vim_config/nvim/ftplugin/c.vim</a></td>
+<td style="text-align: left;">c/c++ファイルのインデント等</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_14">vim_config/nvim/ftplugin/python.vim</a></td>
+<td style="text-align: left;">pythonファイルのインデント等</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_15">vim_config/nvim/ftplugin/ruby.vim</a></td>
+<td style="text-align: left;">rubyファイルのインデント等</td>
+</tr>
+</tbody>
+</table>
+<h5 id="その他">その他 <a id="SS_16_4_1_4_5"></a></h5>
+<table>
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ファイル</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_3">vim_config/nvim/autoload/buffers.vim</a></td>
+<td style="text-align: left;">バッファエクスプロー</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_19">vim_config/nvim/plugin/buffers.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_7">vim_config/nvim/autoload/grep.vim</a></td>
+<td style="text-align: left;">grep</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_26">vim_config/nvim/plugin/grep.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_4">vim_config/nvim/autoload/cd.vim</a></td>
+<td style="text-align: left;">カレントディレクトリの変更</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_20">vim_config/nvim/plugin/cd.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_8">vim_config/nvim/autoload/multi_hl.vim</a></td>
+<td style="text-align: left;">マルチハイライト</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_28">vim_config/nvim/plugin/multi_hl.vim</a></td>
+<td style="text-align: left;">同上</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_21">vim_config/nvim/plugin/clear_undo.vim</a></td>
+<td style="text-align: left;">undo履歴クリア</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_27">vim_config/nvim/plugin/keybind.vim</a></td>
+<td style="text-align: left;">キーバインドの設定</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_31">vim_config/nvim/plugin/scratch.vim</a></td>
+<td style="text-align: left;">スクラッチウインド</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_30">vim_config/nvim/plugin/path_set.vim</a></td>
+<td style="text-align: left;">pathの追加</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="sample_code.html#SS_24_1_34">vim_config/nvim/rplugin/python3/next_file.py</a></td>
+<td style="text-align: left;">pythonでのプラグイン例</td>
+</tr>
+</tbody>
+</table>
+<h4 id="外部パッケージ">外部パッケージ <a id="SS_16_4_1_5"></a></h4>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">パッケージ</th>
+<th style="text-align: left;">機能</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Shougo/dein.vim</td>
+<td style="text-align: left;">外部パッケージ管理</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">roxma/nvim-yarp</td>
+<td style="text-align: left;">補完</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">roxma/vim-hug-neovim-rpc</td>
+<td style="text-align: left;">補完</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shougo/deoplete.nvim</td>
+<td style="text-align: left;">補完</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">zchee/deoplete-clang</td>
+<td style="text-align: left;">C++補完</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shougo/neoinclude.vim</td>
+<td style="text-align: left;">補完</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tpope/vim-fugitive</td>
+<td style="text-align: left;">Git連動</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">reireias/vim-cheatsheet</td>
+<td style="text-align: left;">自分用ヘルプ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mattn/vim-maketable</td>
+<td style="text-align: left;">MDテーブル</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">aklt/plantuml-syntax</td>
+<td style="text-align: left;">Plant Umlサポート</td>
+</tr>
+</tbody>
+</table>
+<h2 id="費用">費用 <a id="SS_16_5"></a></h2>
+<p>コンパイラ、デバッガ、エディタ/IDEの費用は、
+ライセンス形態によっては総額が単価×プログラマの人数となるため、
+プロジェクトやそのプロジェクトを所有する事業体にとっては重荷になる。</p>
+<p>それでも人件費に比べれば一桁以上安いはずなので、
+金を出し惜しんでプログラマの生産性を落としては本末転倒であるが、
+その金を管理する人々にはそのことが理解できないため、予算申請が却下されることは珍しくない。</p>
+<p>そうならないためには、プログラマといえども会計の知識が必要である
+(とはいえ、基本的知識のみで十分である)。</p>
+<p>一般にプロジェクトに必要なお金は2つに分けられる。</p>
+<ul>
+<li>経費</li>
+<li>固定資産の購入費</li>
+</ul>
+<p>プロジェクトの経費には、</p>
+<ul>
+<li>人件費</li>
+<li>少額物品(10万円未満)の購入費</li>
+<li>固定資産の償却費</li>
+</ul>
+<p>等が含まれる。固定資産の償却費とは、長く使用するもの(通常は高額)を年割で費用化したものである。
+これだけでは、初見の人には何のことか全くわからないので例を上げる。</p>
+<p>あるプロジェクトのために固定資産の購入費を使用し100万円のコンパイラを買ったとする。
+話を単純にするため、会社では定額償却するとした場合(実際には定額と定率がある)、
+コンパイラの耐用年数は5年(税法で決まっている)であるため、100万円÷5年で、
+一年間20万円の費用が掛かると考える。これが固定資産の償却費である。
+最初に100万円払ったのにまた払うのかと思うかもしれないが、
+最初の100万円は同じ価値の固定資産(コンパイラ)になっただけであるため、
+経費会計上、費用は掛かっていないと考えることになっているので矛盾はない。</p>
+<p>実際にはコンパイラの代金100万円はこの会社からコンパイラ販売会社に支払われるため、
+会社が持っているキャッシュは100万円減る。
+が、上記したようにプロジェクトの初年度には20万円しか使っていないことになる
+(キャッシュが無くなれば会社は倒産するのだから、これが黒字倒産の仕組みである)。</p>
+<p>このような仕組みがあるため、キャッシュが少ない会社では固定資産の申請は却下されやすい
+(キャッシュリッチな会社でも上場している場合は、固定資産の増加を嫌う傾向がある)。</p>
+<p>一方で、このコンパイラをサブスクリプションで月額16,667円の契約した場合(5年で100万円)、
+この費用はプロジェクトの経費に組み込まれる。</p>
+<p>ここまででツール購入の会計知識は十分である。</p>
+<p>ここで考えてほしいのは、一括購入100万円とサブスク16,667円/月のどちらが予算申請を通りやすいのか、
+ということである。通常の会社では100万円の決済は課長レベルではできないが、16,667円/月の決済ならば、
+チームリーダーレベルでできるはずである。
+自分たちが使うツールはサブスクができないとの意見もあるだろうが、
+リース会社を通すことでほとんどのツールはサブスク化可能である
+(この場合少し費用が高くなるが、万事うまく行く案等そうそうない)。</p>
+<p>費用レスで十分な機能をもつツールが多いのだから、なるべくそれらを使うべきだと思うが、
+どうしても必要な高額ツールの購入には、こういった方法を駆使してプログラマの生産性向上を図ってほしい。</p>
+</body>
+</html>
