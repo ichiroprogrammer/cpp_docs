@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.03)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.03)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/cpp_improve.md -->
+<h1 id="cの進化と主な変更点">C++の進化と主な変更点
+<a id="SS_18"></a></h1>
+<p>C++は、時代と共に進化を続け、その表現力と効率性が大きく向上してきた。
+この章では、C++11以降にて導入された主要な機能や変更点を概観し、各バージョンがもたらした技術的な進展を示す。</p>
+<hr />
+<p><strong>この章の構成</strong></p>
+<p>   <a href="cpp_improve.html#SS_18_1">C++11の主な新規機能</a><br />
+    <a href="cpp_improve.html#SS_18_1_1">一般機能</a><br />
+    <a href="cpp_improve.html#SS_18_1_2">型に対する機能</a><br />
+    <a
+href="cpp_improve.html#SS_18_1_3">テンプレートに対する機能</a><br />
+    <a href="cpp_improve.html#SS_18_1_4">スレッドに関する機能</a><br />
+    <a href="cpp_improve.html#SS_18_1_5">その他のユーティリティ</a><br />
+    <a href="cpp_improve.html#SS_18_1_6">stdの変更、追加</a></p>
+<p>   <a href="cpp_improve.html#SS_18_2">C++14の主な新規機能</a><br />
+    <a href="cpp_improve.html#SS_18_2_1">stdの変更、追加</a></p>
+<p>   <a href="cpp_improve.html#SS_18_3">C++17の主な新規機能</a><br />
+    <a href="cpp_improve.html#SS_18_3_1">新機能、規制緩和</a></p>
+<p>   <a href="cpp_improve.html#SS_18_4">C++20の主な新規機能</a><br />
+    <a href="cpp_improve.html#SS_18_4_1">構文の新機能、規制緩和</a><br />
+    <a
+href="cpp_improve.html#SS_18_4_2">構文の新機能、規制緩和の例</a><br />
+    <a href="cpp_improve.html#SS_18_4_3">template関連</a><br />
+    <a
+href="cpp_improve.html#SS_18_4_4">template関連の新機能、規制緩和の例</a></p>
+<p>   <a href="cpp_improve.html#SS_18_5">C++23の主な新規機能</a></p>
+<p><a
+href="introduction.html#SS_1_7">このドキュメントの構成</a>に戻る。</p>
+<hr />
+<h2 id="c11の主な新規機能">C++11の主な新規機能 <a id="SS_18_1"></a></h2>
+<h3 id="一般機能">一般機能 <a id="SS_18_1_1"></a></h3>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_12">型推論</a>(auto)</td>
+<td style="text-align: left;">変数や、式の型の推論</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_12_2">decltype</a></td>
+<td style="text-align: left;">式の型を取得</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_7_3">範囲for文</a></td>
+<td style="text-align: left;">インデックス変数なしのfor文</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_5_3">初期化子リストコンストラクタ</a></td>
+<td style="text-align: left;">vector<int> v = {1, 2, 3}; など。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_5_2">一様初期化</a> 　</td>
+<td
+style="text-align: left;">コンストラクタの呼び出しを、波カッコで行う。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_14_3">rvalue</a>/<a
+href="term_explanation.html#SS_19_17_3">moveセマンティクス</a></td>
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_5_7">オブジェクトの所有権</a>の移転、高速化。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_8_3">ラムダ式</a></td>
+<td style="text-align: left;">関数オブジェクトをその場に書く</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_16_4">noexcept</a></td>
+<td
+style="text-align: left;">関数の例外指定、例外を投げる可能性のある式かbool値を返す演算子</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_4">constexpr</a></td>
+<td style="text-align: left;">定数式やconstexpr関数の定義</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nullptr</td>
+<td style="text-align: left;">ヌルポインタを表すポインタ<a
+href="term_explanation.html#SS_19_6">リテラル</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">インライン名前空間</td>
+<td
+style="text-align: left;">ネストした名前空間に透過的にアクセスする。「<a
+href="programming_convention.html#SS_3_8_2">名前空間</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_6">ユーザー定義リテラル</a></td>
+<td
+style="text-align: left;">ユーザにより定義されたリテラル。標準ライブラリでは_sや_svなど</td>
+</tr>
+</tbody>
+</table>
+<h3 id="型に対する機能">型に対する機能 <a id="SS_18_1_2"></a></h3>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_3_1">特殊メンバ関数</a>のdefault/delete
+宣言</td>
+<td style="text-align: left;">自動定義される特殊関数の制御</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_5_5">委譲コンストラクタ</a></td>
+<td
+style="text-align: left;">コンストラクタから他のコンストラクタに処理を委譲する</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_5_6_1">NSDMI</a></td>
+<td
+style="text-align: left;">非staticメンバ変数の宣言と同時に初期値指定する</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_5_4">継承コンストラクタ</a></td>
+<td style="text-align: left;">基底クラスのコンストラクタの継承</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">virtual関数のoverride/final宣言</td>
+<td style="text-align: left;">「<a
+href="programming_convention.html#SS_3_3_2_7">オーバーライド</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">変換演算子のオーバーロードの<a
+href="term_explanation.html#SS_19_13">explicit</a>宣言</td>
+<td style="text-align: left;">「 <a
+href="programming_convention.html#SS_3_3_3_4">演算子オーバーロード</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">friend 宣言の対象を拡張</td>
+<td style="text-align: left;">テンプレートパラメータ、エイリアスfriend
+宣言できるように</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">メンバ関数の<a
+href="term_explanation.html#SS_19_14_4">rvalue修飾</a>/<a
+href="term_explanation.html#SS_19_14_5">lvalue修飾</a></td>
+<td style="text-align: left;">オブジェクトの<a
+href="term_explanation.html#SS_19_14">expressionと値カテゴリ</a>での呼び出し可能であることの指定</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_2_2">スコープドenum</a></td>
+<td style="text-align: left;">スコープを持ち、型付の強いenum。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">unionの保持できるオブジェクトの拡張</td>
+<td
+style="text-align: left;">unionでクラスオブジェクトをもつことを許可</td>
+</tr>
+</tbody>
+</table>
+<h3 id="テンプレートに対する機能">テンプレートに対する機能
+<a id="SS_18_1_3"></a></h3>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td
+style="text-align: left;">テンプレート引数の指定に&gt;&gt;の許可</td>
+<td style="text-align: left;">vector&lt;list<int>&gt;
+のような記述の許可。「<a
+href="template_meta_programming.html#SS_13">テンプレートメタプログラミング</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="programming_convention.html#SS_3_9_6">extern template</a></td>
+<td style="text-align: left;">テンプレートのインスタンス化の抑止</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_8">エイリアステンプレート</a></td>
+<td style="text-align: left;">エイリアスをテンプレート化できる</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="template_meta_programming.html#SS_13_1_3">パラメータパック</a></td>
+<td
+style="text-align: left;">任意の数のテンプレートパラメータを受け取れるようにする</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">テンプレートパラメータ型の制限の緩和</td>
+<td
+style="text-align: left;">ローカル型と無名型を、テンプレート引数として使用することを許可</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">任意の式による<a
+href="term_explanation.html#SS_19_11_1">SFINAE</a></td>
+<td style="text-align: left;">特定の式が<a
+href="term_explanation.html#SS_19_18_5">ill-formed</a>か否かで、その関数をオーバーロード解決に含めるかどうかを決定する</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">テンプレートのエクスポート機能</td>
+<td style="text-align: left;">削除</td>
+</tr>
+</tbody>
+</table>
+<h3 id="スレッドに関する機能">スレッドに関する機能
+<a id="SS_18_1_4"></a></h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">スレッドローカルストレージ</td>
+<td
+style="text-align: left;">スレッドごとに異なる静的記憶域に保持される変数</td>
+</tr>
+<tr class="even">
+<td
+style="text-align: left;">ブロックスコープのstatic変数初期化のスレッドセーフ化</td>
+<td
+style="text-align: left;">関数ローカルで定義したstatic変数の初期化をスレッドセーフに。「<a
+href="design_pattern.html#SS_9_12">Singleton</a>」参照</td>
+</tr>
+</tbody>
+</table>
+<h3 id="その他のユーティリティ">その他のユーティリティ
+<a id="SS_18_1_5"></a></h3>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">戻り値の型を後置する関数宣言構文</td>
+<td style="text-align: left;">「<a
+href="programming_convention.html#SS_3_3_3_7">戻り値型</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">コンパイル時アサート</td>
+<td
+style="text-align: left;">コンパイル時に条件式が真であることをassertする。「<a
+href="programming_convention.html#SS_3_11_1">assertion</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_1">生文字列リテラル</a></td>
+<td
+style="text-align: left;">文字列リテラルにRプレフィックスを付けることで、エスケープシーケンスを無視する。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">char16_tとchar32_t</td>
+<td style="text-align: left;">UTF-16とUTF-32の文字型</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UTF-8文字列リテラル</td>
+<td style="text-align: left;">char
+の文字列をUTF-8エンコーディングするプレフィックス</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_7_1">属性構文</a></td>
+<td
+style="text-align: left;">[[attr]]構文による属性指定。[[noreturn]]など。「<a
+href="programming_convention.html#SS_3_4_7">return文</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">alignas</td>
+<td style="text-align: left;">アライメントを指定する。「<a
+href="dynamic_memory_allocation.html#SS_14_2_1">固定長メモリプール</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">alignof</td>
+<td style="text-align: left;">アライメントを取得する。「<a
+href="dynamic_memory_allocation.html#SS_14_2_1">固定長メモリプール</a>」参照</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stdの変更追加">stdの変更、追加 <a id="SS_18_1_6"></a></h3>
+<h4 id="stdコンテナ">stdコンテナ <a id="SS_18_1_6_1"></a></h4>
+<p><a href="term_explanation.html#SS_19_9_2">コンテナ</a>全般が<a
+href="term_explanation.html#SS_19_17_3">moveセマンティクス</a>に対応したため、
+テンプレートのパラメータTが、コピー構築可能(<code>is_copy_constructible&lt;T&gt; == true</code>)な型だけでなく、
+ムーブ構築(is_move_constructible)のみ可能な型も受け付けるられるようになった。
+push_back()やinsert()等の要素追加のためのメンバ関数が、
+新たな要素のコピーだけでなく、emplace() 、emplace_back()
+、emplace_front()のような名称のメンバ関数は、 <a
+href="term_explanation.html#SS_19_14_3">rvalue</a>オブジェクトも受け取れて、
+move挿入ができるようになった(「<a
+href="template_meta_programming.html#SS_13_7">その他のテンプレートテクニック</a>」参照)。</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">std::array</td>
+<td style="text-align: left;">このコンテナは固定長配列クラスを表す「<a
+href="programming_convention.html#SS_3_1_7">配列</a>」参照)。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_9_2_1_1">std::forward_list</a></td>
+<td
+style="text-align: left;">このは単方向リンクリストの実装である。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_9_2_3_2">std::unordered_map</a></td>
+<td
+style="text-align: left;">同一キーの要素を複数格納しない、格納順が規定されていない連想配列の実装であるである。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_9_2_3_1">std::unordered_set</a></td>
+<td
+style="text-align: left;">同一キーの要素を複数格納できず、格納順が規定されていないコンテナである。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_9_2_3_3">std::type_index</a></td>
+<td
+style="text-align: left;">型情報型を連想コンテナのキーとして使用するためのクラス。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="c14の主な新規機能">C++14の主な新規機能 <a id="SS_18_2"></a></h2>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_2">2進数リテラル</a></td>
+<td
+style="text-align: left;">2進数を表す0bもしくは0Bプレフィックスを付けた数値リテラルの記述を可能に</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_12_5">関数の戻り値型auto</a></td>
+<td
+style="text-align: left;">戻り値の型を後置する関羽鵜テンプレート/関数定義とラムダ式の戻り値型にautoに</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_12_3">decltype(auto)</a></td>
+<td style="text-align: left;">decltypeの規則による変数の<a
+href="term_explanation.html#SS_19_12">型推論</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_8_3">ラムダ式</a>の初期化キャプチャ</td>
+<td
+style="text-align: left;">キャプチャに代入構文を導入し、一つの変数に複数のキャプチャ方法を指定可能にする</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_4">ジェネリックラムダ</a></td>
+<td style="text-align: left;">ラムダ式のパラメータを auto
+にすることで、ジェネリックな関数呼び出しに</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_7">変数テンプレート</a></td>
+<td style="text-align: left;">変数定義時のテンプレート指定を可能に</td>
+</tr>
+<tr class="odd">
+<td
+style="text-align: left;">constexpr関数内での条件分岐とループの文を許可</td>
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_9">constexpr if文</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">structの<a
+href="term_explanation.html#SS_19_5_6_1">NSDMI</a>の対応</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td
+style="text-align: left;">structのネストする初期化における波カッコ省略を許可</td>
+<td
+style="text-align: left;">一様初期化と初期化子リストを組み合わせた際、二重に波カッコが不要に</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[[deprecated]]属性</td>
+<td style="text-align: left;">「<a
+href="term_explanation.html#SS_19_7_1">属性構文</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_3">数値リテラル</a>の桁区切り文字</td>
+<td
+style="text-align: left;">シングルクォーテーションで数値リテラルを桁区切りする</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">サイズ付きデアロケーション</td>
+<td style="text-align: left;"><a
+href="dynamic_memory_allocation.html#SS_14_2_2">グローバルnew/deleteのオーバーロードの実装</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_18_15">heap allocation elision</a></td>
+<td style="text-align: left;">動的メモリ確保の省略(heap allocation
+elision)の許可</td>
+</tr>
+</tbody>
+</table>
+<h3 id="stdの変更追加-1">stdの変更、追加 <a id="SS_18_2_1"></a></h3>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">std::make_unique&lt;&gt;()</td>
+<td style="text-align: left;">「<a
+href="programming_convention.html#SS_3_5_6">メモリアロケーション</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">std::exchange()</td>
+<td style="text-align: left;">二つの値を入れ替える。「<a
+href="design_pattern.html#SS_9_5">Copy-And-Swap</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_2_1_1_1">std::integer_sequence</a></td>
+<td style="text-align: left;">コンパイル時整数シーケンス</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_2_1_1_2">std::get()のオーバーロード</a>を追加</td>
+<td
+style="text-align: left;">タプルを型の集合と見なし、型を指定して対応する値を取得する</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>&lt;type_traits&gt;</code></td>
+<td
+style="text-align: left;">xxx_t、xxx_vなどのエイリアステンプレート、定数テンプレート</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_6_2">std::string型リテラル</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_6_3">std::chronoのリテラル</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_6_4">std::complexリテラル</a></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="c14stdの追加使用例">C++14/stdの追加使用例
+<a id="SS_18_2_1_1"></a></h4>
+<h5 id="stdinteger_sequence">std::integer_sequence
+<a id="SS_18_2_1_1_1"></a></h5>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp14_ut.cpp 11</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> Tuple<span class="op">,</span> <span class="bu">std::</span>size_t<span class="op">...</span> I<span class="op">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string tuple2string<span class="op">(</span><span class="at">const</span> Tuple<span class="op">&amp;</span> t<span class="op">,</span> <span class="bu">std::</span>index_sequence<span class="op">&lt;</span>I<span class="op">...&gt;)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>ostringstream os<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">((</span>os <span class="op">&lt;&lt;</span> <span class="bu">std::</span>get<span class="op">&lt;</span>I<span class="op">&gt;(</span>t<span class="op">)</span> <span class="op">&lt;&lt;</span> <span class="st">&quot; &quot;</span><span class="op">),</span> <span class="op">...);</span>  <span class="co">// Tupleの各要素を出力</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> os<span class="op">.</span>str<span class="op">();</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span><span class="op">...</span> Args<span class="op">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string process_tuple<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>tuple<span class="op">&lt;</span>Args<span class="op">...&gt;&amp;</span> t<span class="op">)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> tuple2string<span class="op">(</span>t<span class="op">,</span> <span class="bu">std::</span>index_sequence_for<span class="op">&lt;</span>Args<span class="op">...&gt;{});</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp14_ut.cpp 32</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>tuple<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">double</span><span class="op">,</span> <span class="at">const</span> <span class="dt">char</span><span class="op">*&gt;</span> t<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="fl">2.5</span><span class="op">,</span> <span class="st">&quot;test&quot;</span><span class="op">);</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> ret <span class="op">=</span> process_tuple<span class="op">(</span>t<span class="op">);</span>  <span class="co">// タプルの要素を出力 (1, 2.5, test)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span><span class="st">&quot;1 2.5 test &quot;</span><span class="op">,</span> ret<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="bu">std::</span>get<span class="op">&lt;</span><span class="dv">0</span><span class="op">&gt;(</span>t<span class="op">));</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span><span class="fl">2.5</span><span class="op">,</span> <span class="bu">std::</span>get<span class="op">&lt;</span><span class="dv">1</span><span class="op">&gt;(</span>t<span class="op">));</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    ASSERT_STREQ<span class="op">(</span><span class="st">&quot;test&quot;</span><span class="op">,</span> <span class="bu">std::</span>get<span class="op">&lt;</span><span class="dv">2</span><span class="op">&gt;(</span>t<span class="op">));</span></span></code></pre></div>
+<h5 id="stdgetのオーバーロード">std::get()のオーバーロード
+<a id="SS_18_2_1_1_2"></a></h5>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp14_ut.cpp 46</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>tuple<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">float</span><span class="op">,</span> <span class="bu">std::</span>string<span class="op">&gt;</span> my_tuple<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="fl">3.14</span><span class="bu">f</span><span class="op">,</span> <span class="st">&quot;hello&quot;</span><span class="op">);</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 異なる型のオーバーロードされた std::get を使用</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span><span class="bu">std::</span>get<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;(</span>my_tuple<span class="op">),</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ASSERT_FLOAT_EQ<span class="op">(</span><span class="bu">std::</span>get<span class="op">&lt;</span><span class="dt">float</span><span class="op">&gt;(</span>my_tuple<span class="op">),</span> <span class="fl">3.14</span><span class="bu">f</span><span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span><span class="bu">std::</span>get<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>my_tuple<span class="op">),</span> <span class="st">&quot;hello&quot;</span><span class="op">);</span></span></code></pre></div>
+<h2 id="c17の主な新規機能">C++17の主な新規機能 <a id="SS_18_3"></a></h2>
+<h3 id="新機能規制緩和">新機能、規制緩和 <a id="SS_18_3_1"></a></h3>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_5">16進浮動小数点数リテラル</a></td>
+<td
+style="text-align: left;">16進数表記で浮動小数点数リテラルを記述できるようにする</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">インライン変数</td>
+<td style="text-align: left;">inline
+指定をすることで翻訳単位を跨いでひとつのオブジェクトになる変数を定義する</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">構造化束縛</td>
+<td style="text-align: left;">「<a
+href="programming_convention.html#SS_3_3_3_7">戻り値型</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_3_1_1">単一要素の波カッコ初期化を非配列とする</a></td>
+<td
+style="text-align: left;">リストによる直接初期化の型推論の規則が変更された</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[[maybe_unused]]属性</td>
+<td style="text-align: left;">「<a
+href="term_explanation.html#SS_19_7_1">属性構文</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[[nodiscard]]属性</td>
+<td style="text-align: left;">「<a
+href="term_explanation.html#SS_19_7_1">属性構文</a>」、<a
+href="dynamic_memory_allocation.html#SS_14_2_2">グローバルnew/deleteのオーバーロードの実装</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_18_13">RVO(Return Value
+Optimization)</a></td>
+<td
+style="text-align: left;">右辺値を変数の初期化のために使用する場合、コピーもムーブも省略することを保証</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_18_2">演算子のオペランドの評価順位</a></td>
+<td
+style="text-align: left;">C++14まで未規定であった部分式の評価順序を規定</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">enum class変数の初期値のルール変更</td>
+<td style="text-align: left;">「<a
+href="term_explanation.html#SS_19_2_2">スコープドenum</a>」、 「<a
+href="term_explanation.html#SS_19_2_3">underlying type</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_3_1_2">newのアライメント指定</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_7_5">初期化付きif/switch文</a></td>
+<td
+style="text-align: left;">if文とswitch文の条件式と初期化を分離する構文</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">[[fallthrough]]属性</td>
+<td style="text-align: left;">「<a
+href="term_explanation.html#SS_19_7_1">属性構文</a>」参照</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_9">constexpr if文</a></td>
+<td style="text-align: left;">if constexpr(cond) とすることで、その if
+文はコンパイル時に処理</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_3_1_3">範囲for文のイテレータ型の不一致の許可</a></td>
+<td
+style="text-align: left;">std::istream_iteratorとstd::istreamに利用</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_3_1_4">ラムダ式での*thisのコピーキャプチャ</a></td>
+<td style="text-align: left;">キャプチャリストに*this
+を指定することで、*thisをコピーキャプチャする</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_4_7">constexprラムダ</a></td>
+<td
+style="text-align: left;">ラムダ式の関数オブジェクトのconstexpr指定を可能に</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_9_3">std::optional</a></td>
+<td
+style="text-align: left;">関数の戻り値の無効表現を行うためのクラステンプレート</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_9_4">std::variant</a></td>
+<td
+style="text-align: left;">型安全なunion機能を提供するクラステンプレート</td>
+</tr>
+</tbody>
+</table>
+<h4
+id="単一要素の波カッコ初期化を非配列とする">単一要素の波カッコ初期化を非配列とする
+<a id="SS_18_3_1_1"></a></h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 16</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#if 1  </span><span class="co">// C++17からリストによる直接初期化の型推論の規則が変更された</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> a0 <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">};</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> a1 <span class="op">=</span> <span class="op">{</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">};</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> a2<span class="op">{</span><span class="dv">0</span><span class="op">};</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">static_assert</span><span class="op">(</span><span class="bu">std::</span>is_same_v<span class="op">&lt;</span><span class="kw">decltype</span><span class="op">(</span>a0<span class="op">),</span> <span class="bu">std::</span>initializer_list<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;);</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">static_assert</span><span class="op">(</span><span class="bu">std::</span>is_same_v<span class="op">&lt;</span><span class="kw">decltype</span><span class="op">(</span>a1<span class="op">),</span> <span class="bu">std::</span>initializer_list<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;);</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">static_assert</span><span class="op">(</span><span class="bu">std::</span>is_same_v<span class="op">&lt;</span><span class="kw">decltype</span><span class="op">(</span>a2<span class="op">),</span> <span class="dt">int</span><span class="op">&gt;);</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#else</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">        auto ill_formd0 = {0, 1.0};  // ill-formed: int と double からは推論できない</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">        auto ill_formd0{0, 1};       // C++17からill-formd</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">    </span><span class="pp">#endif</span></span></code></pre></div>
+<h4 id="newのアライメント指定">newのアライメント指定
+<a id="SS_18_3_1_2"></a></h4>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 34</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> <span class="kw">alignas</span><span class="op">(</span><span class="dv">64</span><span class="op">)</span> AlignedStruct <span class="op">{</span>  <span class="co">// C++17 newのアライメント指定</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> x<span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 44</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        AlignedStruct<span class="op">*</span> ptr <span class="op">=</span> <span class="kw">new</span> AlignedStruct<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        ASSERT_EQ<span class="op">(</span><span class="kw">reinterpret_cast</span><span class="op">&lt;</span><span class="bu">std::</span>uintptr_t<span class="op">&gt;(</span>ptr<span class="op">)</span> <span class="op">%</span> <span class="dv">64</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span>  <span class="co">// アライメントの確認</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> ptr<span class="op">;</span></span></code></pre></div>
+<h4
+id="範囲for文のイテレータ型の不一致の許可">範囲for文のイテレータ型の不一致の許可
+<a id="SS_18_3_1_3"></a></h4>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 57</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">namespace</span> org <span class="op">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> custom_iterator <span class="op">{</span>  <span class="co">// カスタムイテレータの定義</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> <span class="dt">int</span><span class="op">*</span> ptr<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        custom_iterator<span class="op">(</span><span class="at">const</span> <span class="dt">int</span><span class="op">*</span> p<span class="op">)</span> <span class="op">:</span> ptr<span class="op">(</span>p<span class="op">)</span> <span class="op">{}</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span>             <span class="kw">operator</span><span class="op">!=(</span><span class="at">const</span> custom_iterator<span class="op">&amp;</span> other<span class="op">)</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> ptr <span class="op">!=</span> other<span class="op">.</span>ptr<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">const</span> <span class="dt">int</span><span class="op">&amp;</span>       <span class="kw">operator</span><span class="op">*()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> <span class="op">*</span>ptr<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        custom_iterator<span class="op">&amp;</span> <span class="kw">operator</span><span class="op">++()</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">++</span>ptr<span class="op">;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">*</span><span class="kw">this</span><span class="op">;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> <span class="dt">int</span><span class="op">*</span> begin<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&amp;</span> vec<span class="op">)</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> vec<span class="op">.</span>data<span class="op">();</span>  <span class="co">// 通常のポインタを返す</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 配列の終端はカスタムイテレータを返すend関数</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    custom_iterator end<span class="op">(</span><span class="at">const</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&amp;</span> vec<span class="op">)</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> custom_iterator<span class="op">(</span>vec<span class="op">.</span>data<span class="op">()</span> <span class="op">+</span> vec<span class="op">.</span>size<span class="op">());</span>  <span class="co">// カスタムイテレータを返す</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> vec_int <span class="op">:</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">{};</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  <span class="co">// namespace org</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 91</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    org<span class="op">::</span>vec_int       nums<span class="op">{{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">}};</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>ostringstream os<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// std::begin&lt;T&gt;, std::end&lt;T&gt;の戻り型が異なることの証明</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(!</span><span class="bu">std::</span>is_same_v<span class="op">&lt;</span><span class="kw">decltype</span><span class="op">(</span>org<span class="op">::</span>begin<span class="op">(</span>nums<span class="op">)),</span> <span class="kw">decltype</span><span class="op">(</span>org<span class="op">::</span>end<span class="op">(</span>nums<span class="op">))&gt;);</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> num <span class="op">:</span> nums<span class="op">)</span> <span class="op">{</span>  <span class="co">// 範囲for文でポインタとカスタムイテレータの不一致を許容</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        os <span class="op">&lt;&lt;</span> num <span class="op">&lt;&lt;</span> <span class="st">&quot; &quot;</span><span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span><span class="st">&quot;1 2 3 4 5 &quot;</span><span class="op">,</span> os<span class="op">.</span>str<span class="op">());</span></span></code></pre></div>
+<h4
+id="ラムダ式でのthisのコピーキャプチャ">ラムダ式での*thisのコピーキャプチャ
+<a id="SS_18_3_1_4"></a></h4>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 107</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> MyStruct <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> value <span class="op">=</span> <span class="dv">42</span><span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> getValue<span class="op">()</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">[*</span><span class="kw">this</span><span class="op">]()</span> <span class="op">{</span> <span class="cf">return</span> value<span class="op">;</span> <span class="op">};</span>  <span class="co">// *thisをコピーキャプチャ</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp17_ut.cpp 121</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        MyStruct obj<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span>     lambda <span class="op">=</span> obj<span class="op">.</span>getValue<span class="op">();</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        obj<span class="op">.</span>value       <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// コピーキャプチャされたため、影響を受けない</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        ASSERT_EQ<span class="op">(</span>lambda<span class="op">(),</span> <span class="dv">42</span><span class="op">);</span>  <span class="co">// コピーキャプチャの影響で元の値が保持される</span></span></code></pre></div>
+<h2 id="c20の主な新規機能">C++20の主な新規機能 <a id="SS_18_4"></a></h2>
+<h3 id="構文の新機能規制緩和">構文の新機能、規制緩和
+<a id="SS_18_4_1"></a></h3>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_6_8_4">三方比較演算子</a></td>
+<td
+style="text-align: left;"><code>&lt;=&gt;</code>/<code>==</code>による比較演算子の自動定義</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ビットフィールドのメンバ変数初期化</td>
+<td
+style="text-align: left;">ビットフィールドメンバ変数のデフォルト値を設定する構文を追加</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_13_4">explicit(COND)</a></td>
+<td style="text-align: left;">explicit(true/false) のように explicit
+にboolパラメータを指定できるようにする</td>
+</tr>
+<tr class="even">
+<td
+style="text-align: left;">const修飾されたメンバポインタの制限を修正</td>
+<td style="text-align: left;"><code>.*</code>演算子での<a
+href="term_explanation.html#SS_19_14_2">lvalue</a>のconstメンバ関数呼び出しを許可</td>
+</tr>
+<tr class="odd">
+<td
+style="text-align: left;">デフォルトコピーコンストラクタの規約のバグ修正</td>
+<td
+style="text-align: left;">デフォルトのコピーコンストラクタと引数が非constなコンストラクタが衝突する問題を修正</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">特殊化のアクセスチェック</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">[[no_unique_address]]属性追加</td>
+<td
+style="text-align: left;">空の型のオブジェクトをほかのオブジェクトと共有する最適化を許可。「<a
+href="term_explanation.html#SS_19_7_1">属性構文</a>」参照</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_2_1">friend指定された関数内から構造化束縛</a></td>
+<td
+style="text-align: left;">構造化束縛でのメンバ変数へアクセスルールの変更</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_2_2">構造化束縛カスタマイゼーションルール変更</a></td>
+<td
+style="text-align: left;">構造化束縛がカスタマイゼーションポイントを見つけるルールを緩和</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">関数の戻り値型の抽象型のチェック</td>
+<td
+style="text-align: left;">関数の宣言段階では、パラメータや戻り値型が抽象型かどうかをチェックしない</td>
+</tr>
+<tr class="odd">
+<td
+style="text-align: left;">可変長データを扱うクラスの効率的なdelete</td>
+<td
+style="text-align: left;">クラスのdelete演算子が呼び出される前にデストラクタが呼ばれないようにするオプションを追加</td>
+</tr>
+<tr class="even">
+<td
+style="text-align: left;">条件付きで特殊メンバ関数をトリビアルに定義</td>
+<td
+style="text-align: left;">制約によってトリビアルな特殊メンバ関数と非トリビアルな特殊メンバ関数をオーバーロード可に</td>
+</tr>
+<tr class="odd">
+<td
+style="text-align: left;">未初期化領域への暗黙的なオブジェクト構築</td>
+<td
+style="text-align: left;">未初期化領域の利用時に自動的にトリビアルな型のオブジェクトを構築する</td>
+</tr>
+</tbody>
+</table>
+<h3 id="構文の新機能規制緩和の例">構文の新機能、規制緩和の例
+<a id="SS_18_4_2"></a></h3>
+<h4
+id="friend指定された関数内から構造化束縛">friend指定された関数内から構造化束縛
+<a id="SS_18_4_2_1"></a></h4>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 9</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> A <span class="op">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        A<span class="op">(</span><span class="dt">int</span> a0<span class="op">,</span> <span class="dt">int</span> b0<span class="op">)</span> <span class="op">:</span> <span class="va">a0_</span><span class="op">{</span>a0<span class="op">},</span> <span class="va">b0_</span><span class="op">{</span>b0<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> <span class="va">a0_</span><span class="op">;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> <span class="va">b0_</span><span class="op">;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">friend</span> <span class="bu">std::</span>pair<span class="op">&lt;</span><span class="dt">int</span><span class="op">,</span> <span class="dt">int</span><span class="op">&gt;</span> f<span class="op">(</span>A <span class="at">const</span><span class="op">&amp;</span> a<span class="op">)</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">auto</span> <span class="op">[</span>a_a<span class="op">,</span> a_b<span class="op">]</span> <span class="op">=</span> a<span class="op">;</span>  <span class="co">// fがfriendであるため、構造化束縛可能</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">{</span>a_a<span class="op">,</span> a_b<span class="op">};</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 30</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> a <span class="op">=</span> A<span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">};</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> <span class="op">[</span>a0<span class="op">,</span> a1<span class="op">]</span> <span class="op">=</span> f<span class="op">(</span>a<span class="op">);</span>  <span class="co">// fはA::a0_、a1_にアクセスできる</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>a0<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>a1<span class="op">,</span> <span class="dv">2</span><span class="op">);</span></span></code></pre></div>
+<h4
+id="構造化束縛カスタマイゼーションルール変更">構造化束縛カスタマイゼーションルール変更
+<a id="SS_18_4_2_2"></a></h4>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 42</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> Point2D <span class="op">{</span>  <span class="co">// C++17でも動作する例</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> x<span class="op">,</span> y<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Point3D <span class="op">{</span>  <span class="co">// C++20で改善された例</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        Point3D<span class="op">(</span><span class="dt">int</span> x<span class="op">,</span> <span class="dt">int</span> y<span class="op">,</span> <span class="dt">int</span> z<span class="op">)</span> <span class="op">:</span> <span class="va">x_</span><span class="op">{</span>x<span class="op">},</span> <span class="va">y_</span><span class="op">{</span>y<span class="op">},</span> <span class="va">z_</span><span class="op">{</span>z<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">template</span> <span class="op">&lt;</span><span class="bu">std::</span>size_t I<span class="op">&gt;</span>  <span class="co">// 構造化束縛カスタマイゼーションポイント</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> get<span class="op">()</span> <span class="at">const</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">constexpr</span> <span class="op">(</span>I <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="va">x_</span><span class="op">;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="cf">if</span> <span class="kw">constexpr</span> <span class="op">(</span>I <span class="op">==</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="va">y_</span><span class="op">;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="cf">if</span> <span class="kw">constexpr</span> <span class="op">(</span>I <span class="op">==</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="va">z_</span><span class="op">;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> <span class="va">x_</span><span class="op">,</span> <span class="va">y_</span><span class="op">,</span> <span class="va">z_</span><span class="op">;</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">namespace</span> std <span class="op">{</span>  <span class="co">// 例外的にstdへの追加が認められている</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;&gt;</span>      <span class="co">// 構造化束縛のためのカスタマイゼーションポイント</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> tuple_size<span class="op">&lt;</span>Point3D<span class="op">&gt;</span> <span class="op">:</span> <span class="bu">std::</span>integral_constant<span class="op">&lt;</span><span class="bu">std::</span>size_t<span class="op">,</span> <span class="dv">3</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="bu">std::</span>size_t I<span class="op">&gt;</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> tuple_element<span class="op">&lt;</span>I<span class="op">,</span> Point3D<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>        <span class="kw">using</span> type <span class="op">=</span> <span class="dt">int</span><span class="op">;</span></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  <span class="co">// namespace std</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 82</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// C++17までのスタイル</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    Point2D p2d<span class="op">{</span><span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">};</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> <span class="op">[</span>x2d<span class="op">,</span> y2d<span class="op">]</span> <span class="op">=</span> p2d<span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>x2d<span class="op">,</span> <span class="dv">10</span><span class="op">);</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>y2d<span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// C++20から</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    Point3D p3d<span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">};</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> <span class="op">[</span>p3d_x<span class="op">,</span> p3d_y<span class="op">,</span> p3d_z<span class="op">]</span> <span class="op">=</span> p3d<span class="op">;</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>p3d_x<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>p3d_y<span class="op">,</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    ASSERT_EQ<span class="op">(</span>p3d_z<span class="op">,</span> <span class="dv">3</span><span class="op">);</span></span></code></pre></div>
+<h3 id="template関連">template関連 <a id="SS_18_4_3"></a></h3>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">機能</th>
+<th style="text-align: left;">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_2">コンセプト</a></td>
+<td
+style="text-align: left;">キーワードconcept、requiresの導入。テンプレートパラメータの制約。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_10">autoパラメータによる関数テンプレートの簡易定義</a></td>
+<td style="text-align: left;"><a
+href="term_explanation.html#SS_19_11_4">ジェネリックラムダ</a>と同様に関数パラメータをの型をautoにできる。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_4_1">型の文脈でtypenameの省略を許可</a></td>
+<td
+style="text-align: left;">型しか現れない文脈では、typenameの省略を可能に</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_4_2">非型テンプレートパラメータとしてクラス型を許可</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ADLのバグ修正</td>
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_4_3">関数テンプレートに明示的に型指定した場合にADLで見つからない問題を修正</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_4_5">structテンプレートのテンプレート引数推論</a></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">テンプレート引数推論の改善</td>
+<td style="text-align: left;"><a
+href="cpp_improve.html#SS_18_4_4_4">エイリアステンプレート経由でのクラステンプレートのテンプレート引数推論</a></td>
+</tr>
+</tbody>
+</table>
+<h3
+id="template関連の新機能規制緩和の例">template関連の新機能、規制緩和の例
+<a id="SS_18_4_4"></a></h3>
+<h4 id="型の文脈でtypenameの省略を許可">型の文脈でtypenameの省略を許可
+<a id="SS_18_4_4_1"></a></h4>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 102</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> Ommit <span class="op">{</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">using</span> <span class="dt">value_type</span> <span class="op">=</span> T<span class="op">::</span><span class="dt">value_type</span><span class="op">;</span>  <span class="co">// C++20では typename を省略できる</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value_type</span> get_first_element<span class="op">(</span><span class="at">const</span> T<span class="op">&amp;</span> container<span class="op">)</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> container<span class="op">[</span><span class="dv">0</span><span class="op">];</span> <span class="op">}</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<h4
+id="非型テンプレートパラメータとしてクラス型を許可">非型テンプレートパラメータとしてクラス型を許可
+<a id="SS_18_4_4_2"></a></h4>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 123</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> X1 <span class="op">{</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span>   i<span class="op">;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span> f<span class="op">;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">friend</span> <span class="dt">bool</span> <span class="kw">operator</span><span class="op">==(</span><span class="at">const</span> X1<span class="op">&amp;,</span> <span class="at">const</span> X1<span class="op">&amp;)</span> <span class="op">=</span> <span class="cf">default</span><span class="op">;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> X2 <span class="op">{</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span>   i<span class="op">;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span> f<span class="op">;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">constexpr</span> X2<span class="op">(</span><span class="dt">int</span> i<span class="op">,</span> <span class="dt">float</span> f<span class="op">)</span> <span class="op">:</span> i<span class="op">{</span>i<span class="op">},</span> f<span class="op">{</span>f<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">friend</span> <span class="dt">bool</span> <span class="kw">operator</span><span class="op">==(</span><span class="at">const</span> X2<span class="op">&amp;,</span> <span class="at">const</span> X2<span class="op">&amp;)</span> <span class="op">=</span> <span class="cf">default</span><span class="op">;</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="dt">int</span> N<span class="op">&gt;</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> C1 <span class="op">{</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> <span class="dt">int</span> value <span class="op">=</span> N<span class="op">;</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="dt">float</span> N<span class="op">&gt;</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> C2 <span class="op">{</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> <span class="dt">float</span> value <span class="op">=</span> N<span class="op">;</span>  <span class="co">// N を保持</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span>X1 x1<span class="op">,</span> X2 x2<span class="op">&gt;</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> C3 <span class="op">{</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> X1 value1 <span class="op">=</span> x1<span class="op">;</span>  <span class="co">// X1 の値を保持</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> X2 value2 <span class="op">=</span> x2<span class="op">;</span>  <span class="co">// X2 の値を保持</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">auto</span> V<span class="op">&gt;</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> C4 <span class="op">{</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> <span class="kw">constexpr</span> <span class="kw">decltype</span><span class="op">(</span>V<span class="op">)</span> value <span class="op">=</span> V<span class="op">;</span>  <span class="co">// V の型を推論し、その値を保持</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 162</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span>C1<span class="op">&lt;</span><span class="dv">42</span><span class="op">&gt;::</span>value <span class="op">==</span> <span class="dv">42</span><span class="op">);</span>  <span class="co">// テンプレートパラメータ N = 42 の動作を確認</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span>C2<span class="op">&lt;</span><span class="fl">3.14</span><span class="bu">f</span><span class="op">&gt;::</span>value <span class="op">==</span> <span class="fl">3.14</span><span class="bu">f</span><span class="op">);</span>  <span class="co">// テンプレートパラメータ N = 3.14f の動作を確認</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">constexpr</span> X1 x1<span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="fl">2.5</span><span class="bu">f</span><span class="op">};</span>  <span class="co">// X1 のオブジェクトを constexpr で作成</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">constexpr</span> X2 x2<span class="op">{</span><span class="dv">2</span><span class="op">,</span> <span class="fl">3.5</span><span class="bu">f</span><span class="op">};</span>  <span class="co">// X2 のオブジェクトを constexpr で作成</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span>C3<span class="op">&lt;</span>x1<span class="op">,</span> x2<span class="op">&gt;::</span>value1 <span class="op">==</span> x1<span class="op">);</span>  <span class="co">// X1 の比較</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span>C3<span class="op">&lt;</span>x1<span class="op">,</span> x2<span class="op">&gt;::</span>value2 <span class="op">==</span> x2<span class="op">);</span>  <span class="co">// X2 の比較</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span>C4<span class="op">&lt;</span><span class="dv">100</span><span class="op">&gt;::</span>value <span class="op">==</span> <span class="dv">100</span><span class="op">);</span>  <span class="co">// 整数の動作確認</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span>C4<span class="op">&lt;</span>x1<span class="op">&gt;::</span>value <span class="op">==</span> x1<span class="op">);</span>    <span class="co">// X1 オブジェクトの動作確認</span></span></code></pre></div>
+<h4
+id="関数テンプレートに明示的に型指定した場合にadlで見つからない問題を修正">関数テンプレートに明示的に型指定した場合にADLで見つからない問題を修正
+<a id="SS_18_4_4_3"></a></h4>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 179</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">namespace</span> adl_NS <span class="op">{</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> X <span class="op">{};</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// X に対する関数テンプレート</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> func<span class="op">(</span>T<span class="op">)</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">&quot;Called func(T) from my_namespace&quot;</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  <span class="co">// namespace adl_NS</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 194</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    adl_NS<span class="op">::</span>X obj<span class="op">;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 型を明示的に指定して呼び出す（C++20以前では ADL が効かない）</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    func<span class="op">&lt;</span>adl_NS<span class="op">::</span>X<span class="op">&gt;(</span>obj<span class="op">);</span>  <span class="co">// エラー: ADL が働かず、関数が見つからない</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 型を明示的に指定せずに呼び出す（ADLが働く）</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    func<span class="op">(</span>obj<span class="op">);</span>  <span class="co">// OK: adl_NS から func が見つかる</span></span></code></pre></div>
+<h4
+id="エイリアステンプレート経由でのクラステンプレートのテンプレート引数推論">エイリアステンプレート経由でのクラステンプレートのテンプレート引数推論
+<a id="SS_18_4_4_4"></a></h4>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 207</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> X <span class="op">{</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        X<span class="op">(</span>T value<span class="op">)</span> <span class="op">:</span> <span class="va">value_</span><span class="op">{</span>value<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        T getValue<span class="op">()</span> <span class="at">const</span> <span class="op">{</span> <span class="cf">return</span> <span class="va">value_</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        T <span class="va">value_</span><span class="op">;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> T<span class="op">&gt;</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">using</span> XAlias <span class="op">=</span> X<span class="op">&lt;</span>T<span class="op">&gt;;</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 224</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    XAlias obj1<span class="op">{</span><span class="dv">42</span><span class="op">};</span>  <span class="co">// 推論される型はint</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span><span class="bu">std::</span>is_same_v<span class="op">&lt;</span><span class="kw">decltype</span><span class="op">(</span>obj1<span class="op">),</span> X<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;);</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    XAlias obj2<span class="op">{</span><span class="fl">3.14</span><span class="op">};</span>  <span class="co">// 推論される型はdouble</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static_assert</span><span class="op">(</span><span class="bu">std::</span>is_same_v<span class="op">&lt;</span><span class="kw">decltype</span><span class="op">(</span>obj2<span class="op">),</span> X<span class="op">&lt;</span><span class="dt">double</span><span class="op">&gt;&gt;);</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>obj1<span class="op">.</span>getValue<span class="op">(),</span> <span class="dv">42</span><span class="op">);</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    EXPECT_DOUBLE_EQ<span class="op">(</span>obj2<span class="op">.</span>getValue<span class="op">(),</span> <span class="fl">3.14</span><span class="op">);</span></span></code></pre></div>
+<h4
+id="structテンプレートのテンプレート引数推論">structテンプレートのテンプレート引数推論
+<a id="SS_18_4_4_5"></a></h4>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 236</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> T<span class="op">&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> Point <span class="op">{</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        T x<span class="op">;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        T y<span class="op">;</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/cpp_improve/cpp20_ut.cpp 247</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    Point p<span class="op">{</span><span class="fl">3.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">};</span>  <span class="co">// C++17:NG C++20:OK</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    ASSERT_DOUBLE_EQ<span class="op">(</span>p<span class="op">.</span>x<span class="op">,</span> <span class="fl">3.0</span><span class="op">);</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    ASSERT_DOUBLE_EQ<span class="op">(</span>p<span class="op">.</span>y<span class="op">,</span> <span class="fl">4.0</span><span class="op">);</span></span></code></pre></div>
+<h2 id="c23の主な新規機能">C++23の主な新規機能 <a id="SS_18_5"></a></h2>
+<p>not yet.</p>
+</body>
+</html>

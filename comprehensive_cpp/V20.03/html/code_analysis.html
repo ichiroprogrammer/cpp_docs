@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.03)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.03)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/code_analysis.md -->
+<h1 id="コード解析">コード解析 <a id="SS_4"></a></h1>
+<p>本ドキュメントでは、ソースコードの品質を向上するために下記のような様々な方法を推奨する。</p>
+<ul>
+<li><a href="process_and_infra.html#SS_11_2_1">自動単体テスト</a></li>
+<li><a href="process_and_infra.html#SS_11_2_3">自動統合テスト</a></li>
+<li><a
+href="process_and_infra.html#SS_11_2_5_1_2">コードインスペクション</a></li>
+<li>ツールによるコード解析</li>
+</ul>
+<p>ツールによるコード解析(以下、単にコード解析と呼ぶ)とは、
+開発対象のソフトウェアの仕様とは無関係に発見できるバグやその類、セキュリティホール、
+コーディングルール不順守、その他のソースコード記述の問題を発見するための検出手段であり、
+動的、静的に分類される。
+静的コード解析には、以下のようなものがある。</p>
+<ol type="1">
+<li>ソースコードの記述自体の解析</li>
+<li>実行形式バイナリコードの解析</li>
+<li>各種メトリクスやリバースエンジニアリングツールを用いた解析</li>
+</ol>
+<p>本章では、無償のオープンソースで実施できる静的解析1と動的解析について解説を行う。</p>
+<hr />
+<p><strong>この章の構成</strong></p>
+<p>   <a
+href="code_analysis.html#SS_4_1">コンパイラによる静的解析</a><br />
+   <a href="code_analysis.html#SS_4_2">scan-buildによる静的解析</a><br />
+   <a href="code_analysis.html#SS_4_3">cppcheck静的解析</a><br />
+   <a href="code_analysis.html#SS_4_4">sanitizerによる動的解析</a><br />
+   <a href="code_analysis.html#SS_4_5">まとめ</a></p>
+<p><a
+href="introduction.html#SS_1_7">このドキュメントの構成</a>に戻る。</p>
+<hr />
+<h2 id="コンパイラによる静的解析">コンパイラによる静的解析
+<a id="SS_4_1"></a></h2>
+<p>コンパイラによる静的解析とは、コンパイラの警告出力を使用する解析である。
+静的解析の中で最も手軽に実施することができるが、
+意外なほど多くのソフトウェア開発でおざなりにされている。</p>
+<p>多くのコンパイラでは警告をエラーとして扱うオプションが用意されているため、
+それをオンにしたビルドをすることで、多くのバグやバグの元となり得るコードを排除できる。</p>
+<h3 id="gの警告機能">g++の警告機能 <a id="SS_4_1_1"></a></h3>
+<p>本ドキュメントのサンプルコードは、 以下のような<a
+href="term_explanation.html#SS_19_19_1">g++</a>/<a
+href="term_explanation.html#SS_19_19_2">clang++</a>の警告機能を使用してビルドを行っている。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="ch">-</span><span class="fu">Werror -Wall -Wextra -Weffc++</span></span></code></pre></div>
+<p>また、<a
+href="exercise_q.html#SS_20">演習</a>で使用するコードに関しては、あえて問題のあるコードを記述するため、
+下記のようなオプションを使用し一部の警告を抑止している。</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    //  exercise/programming_convention_q/Makefile 4</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">SUPPRESS_WARN</span><span class="ch">=</span><span class="st">-Wno-effc++ -Wno-unused-variable -Wno-delete-incomplete -Wno-unused-function </span><span class="ch">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">                  -Wno-sizeof-array-argument -Wno-unused-parameter -Wno-conversion-null </span><span class="ch">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">                  -Wno-literal-conversion</span></span></code></pre></div>
+<p>実際のコードによりこの効果を例示する。</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 24</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span>  x<span class="op">{-</span><span class="dv">1</span><span class="op">};</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> y<span class="op">{</span><span class="dv">1</span><span class="op">};</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> b0<span class="op">{</span>x <span class="op">&lt;</span> y<span class="op">};</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ASSERT_FALSE<span class="op">(</span>b0<span class="op">);</span>  <span class="co">// 数学では成立する x &lt; y が成立しない</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">++</span>x<span class="op">,</span> <span class="op">++</span>y<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> b1<span class="op">{</span>x <span class="op">&lt;</span> y<span class="op">};</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    ASSERT_TRUE<span class="op">(</span>b1<span class="op">);</span>  <span class="co">// x、yが正になれば x &lt; y が成立する</span></span></code></pre></div>
+<p>上記コードでは、int32_tであるxとuint32_tであるyを比較することにより、xがuin32_tに型変換されるため、
+数学的には自明な x &lt; y が成立しない。 「<a
+href="programming_convention.html#SS_3_1_1_1">整数型</a>」で述べたルールに違反したために発生する問題であるが、
+その検出はg++により下記のように行うことができる。</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/GCC.txt 2</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">29</span><span class="op">:</span><span class="dv">15</span><span class="op">:</span> warning<span class="op">:</span> comparison of integer expressions of different signedness<span class="op">:</span> ‘<span class="dt">int32_t</span>’ <span class="op">{</span>aka ‘int’<span class="op">}</span> <span class="kw">and</span> ‘<span class="dt">uint32_t</span>’ <span class="op">{</span>aka ‘unsigned int’<span class="op">}</span> <span class="op">[-</span>Wsign<span class="op">-</span>compare<span class="op">]</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="dv">29</span> <span class="op">|</span>     <span class="dt">bool</span> b0<span class="op">{</span>x <span class="op">&lt;</span> y<span class="op">};</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>          <span class="op">|</span>             <span class="op">~~^~~</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">33</span><span class="op">:</span><span class="dv">15</span><span class="op">:</span> warning<span class="op">:</span> comparison of integer expressions of different signedness<span class="op">:</span> ‘<span class="dt">int32_t</span>’ <span class="op">{</span>aka ‘int’<span class="op">}</span> <span class="kw">and</span> ‘<span class="dt">uint32_t</span>’ <span class="op">{</span>aka ‘unsigned int’<span class="op">}</span> <span class="op">[-</span>Wsign<span class="op">-</span>compare<span class="op">]</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>       <span class="dv">33</span> <span class="op">|</span>     <span class="dt">bool</span> b1<span class="op">{</span>x <span class="op">&lt;</span> y<span class="op">};</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>          <span class="op">|</span>             <span class="op">~~^~~</span></span></code></pre></div>
+<p>次のコードは、<a
+href="design_pattern.html#SS_9_3">Pimpl</a>パターンの誤った実装よってメモリリークを引き起こす
+(「<a
+href="programming_convention.html#SS_3_5_6_2">delete</a>」参照)。</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 46</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Pimpl <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        Pimpl<span class="op">();</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">~</span>Pimpl<span class="op">()</span> <span class="op">{</span> <span class="kw">delete</span> <span class="va">core_</span><span class="op">;</span> <span class="op">}</span>  <span class="co">// 不完全型のdelete</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">class</span> PimplCore<span class="op">;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        PimplCore<span class="op">*</span> <span class="va">core_</span><span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Pimpl<span class="op">::</span>PimplCore <span class="op">{</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        PimplCore<span class="op">()</span> <span class="op">:</span> <span class="va">x_</span><span class="op">{</span><span class="kw">new</span> X<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">~</span>PimplCore<span class="op">()</span> <span class="op">{</span> <span class="kw">delete</span> <span class="va">x_</span><span class="op">;</span> <span class="op">}</span>  <span class="co">// ~PimplCore()から呼び出されない</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        X<span class="op">*</span> <span class="va">x_</span><span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    Pimpl<span class="op">::</span>Pimpl<span class="op">()</span> <span class="op">:</span> <span class="va">core_</span><span class="op">{</span><span class="kw">new</span> PimplCore<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> incomplete_class<span class="op">()</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ~Pimpl()では、クラスPimplCoreが不完全型なので~PimplCore()が呼び出されないため、</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// x_の解放がされずメモリリークする</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> pimpl <span class="op">=</span> Pimpl<span class="op">{};</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>このように連続的に記述されている場合は、コードインスペクションで発見できるかもしれないが、
+クラスの規模がある程度大きくなれば、このような問題を目視で発見することは容易ではない。
+一方でg++は下記のように、いとも簡単にそれを指摘する。</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/GCC.txt 20</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span> In destructor ‘Pimpl<span class="op">::~</span>Pimpl<span class="op">()</span>’<span class="op">:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">51</span><span class="op">:</span><span class="dv">16</span><span class="op">:</span> warning<span class="op">:</span> possible problem detected in invocation of ‘<span class="kw">operator</span> delete’ <span class="op">[-</span>Wdelete<span class="op">-</span>incomplete<span class="op">]</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       <span class="dv">51</span> <span class="op">|</span>     <span class="op">~</span>Pimpl<span class="op">()</span> <span class="op">{</span> <span class="kw">delete</span> <span class="va">core_</span><span class="op">;</span> <span class="op">}</span>  <span class="co">// 不完全型のdelete</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          <span class="op">|</span>                <span class="op">^~~~~~~~~~~~</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">51</span><span class="op">:</span><span class="dv">23</span><span class="op">:</span> warning<span class="op">:</span> invalid use of incomplete type ‘class Pimpl<span class="op">::</span>PimplCore’</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="dv">51</span> <span class="op">|</span>     <span class="op">~</span>Pimpl<span class="op">()</span> <span class="op">{</span> <span class="kw">delete</span> <span class="va">core_</span><span class="op">;</span> <span class="op">}</span>  <span class="co">// 不完全型のdelete</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>          <span class="op">|</span>                       <span class="op">^~~~~</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">53</span><span class="op">:</span><span class="dv">11</span><span class="op">:</span> note<span class="op">:</span> forward declaration of ‘class Pimpl<span class="op">::</span>PimplCore’</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>       <span class="dv">53</span> <span class="op">|</span>     <span class="kw">class</span> PimplCore<span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>          <span class="op">|</span>           <span class="op">^~~~~~~~~</span></span></code></pre></div>
+<p>また、「<a href="programming_convention.html#SS_3_9_4">move処理</a>」
+で触れたようなパフォーマンスに悪影響のある下記のようなコードに対しても、
+g++は適切な指摘をすることができる。</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 76</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string prevent_copy_elision<span class="op">()</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> ret <span class="op">=</span> <span class="bu">std::</span>string<span class="op">{</span><span class="st">&quot;prevent copy elision&quot;</span><span class="op">};</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>move<span class="op">(</span>ret<span class="op">);</span>  <span class="co">// std::moveのためにRVOが阻害される</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> rvo_inhibition<span class="op">()</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// RVOが機能すればstd::stringのコンストラクタは一度だけ呼び出される</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>string a <span class="op">=</span> prevent_copy_elision<span class="op">();</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/GCC.txt 45</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span> In function ‘<span class="bu">std::</span>string prevent_copy_elision<span class="op">()</span>’<span class="op">:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">82</span><span class="op">:</span><span class="dv">21</span><span class="op">:</span> warning<span class="op">:</span> moving a local object in a <span class="cf">return</span> statement prevents copy elision <span class="op">[-</span>Wpessimizing<span class="op">-</span>move<span class="op">]</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="dv">82</span> <span class="op">|</span>     <span class="cf">return</span> <span class="bu">std::</span>move<span class="op">(</span>ret<span class="op">);</span>  <span class="co">// std::moveのためにRVOが阻害される</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>          <span class="op">|</span>            <span class="op">~~~~~~~~~^~~~~</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">82</span><span class="op">:</span><span class="dv">21</span><span class="op">:</span> note<span class="op">:</span> remove ‘<span class="bu">std::</span>move’ call</span></code></pre></div>
+<h3 id="clangの警告機能">clang++の警告機能 <a id="SS_4_1_2"></a></h3>
+<p>clang++にもg++と同様の優れた警告機能が備わっているが、それらは実装が異なるため、
+下記のような混乱を引き起こすコードに対して(「<a
+href="programming_convention.html#SS_3_3_2_7">オーバーライド</a>」参照)、
+clang++は、g++ができない問題点の指摘を行うことができる。</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 92</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> OverloadVirtualBase <span class="op">{</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        OverloadVirtualBase<span class="op">()</span>          <span class="op">=</span> <span class="cf">default</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">virtual</span> <span class="op">~</span>OverloadVirtualBase<span class="op">()</span> <span class="op">=</span> <span class="cf">default</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">virtual</span> <span class="dt">void</span> DoSomething<span class="op">(</span><span class="dt">int32_t</span><span class="op">)</span> <span class="kw">noexcept</span>  <span class="co">// 派生クラスがオーバーライドできる。</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            <span class="op">...</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> OverloadVirtualDerived <span class="op">:</span> <span class="kw">public</span> OverloadVirtualBase <span class="op">{</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// シグネチャが異なるためOverloadVirtualBase::DoSomethingのオーバーライドではない。</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">virtual</span> <span class="dt">void</span> DoSomething<span class="op">(</span><span class="dt">uint32_t</span><span class="op">)</span> <span class="kw">noexcept</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>            <span class="op">...</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/CLANG.txt 19</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">108</span><span class="op">:</span><span class="dv">18</span><span class="op">:</span> warning<span class="op">:</span> <span class="ch">&#39;O</span><span class="er">verloadVirtualDerived::DoSomething</span><span class="ch">&#39;</span> hides overloaded <span class="kw">virtual</span> function <span class="op">[-</span>Woverloaded<span class="op">-</span><span class="kw">virtual</span><span class="op">]</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">virtual</span> <span class="dt">void</span> DoSomething<span class="op">(</span><span class="dt">uint32_t</span><span class="op">)</span> <span class="kw">noexcept</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                     <span class="op">^</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">98</span><span class="op">:</span><span class="dv">18</span><span class="op">:</span> note<span class="op">:</span> hidden overloaded <span class="kw">virtual</span> function <span class="ch">&#39;O</span><span class="er">verloadVirtualBase::DoSomething</span><span class="ch">&#39;</span> declared here<span class="op">:</span> type mismatch at <span class="dv">1</span><span class="er">st</span> parameter <span class="op">(</span><span class="ch">&#39;i</span><span class="er">nt32_t</span><span class="ch">&#39;</span> <span class="op">(</span>aka <span class="ch">&#39;i</span><span class="er">nt</span><span class="ch">&#39;</span><span class="op">)</span> vs <span class="ch">&#39;u</span><span class="er">int32_t</span><span class="ch">&#39;</span> <span class="op">(</span>aka <span class="ch">&#39;u</span><span class="er">nsigned int</span><span class="ch">&#39;</span><span class="op">))</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">virtual</span> <span class="dt">void</span> DoSomething<span class="op">(</span><span class="dt">int32_t</span><span class="op">)</span> <span class="kw">noexcept</span>  <span class="co">// 派生クラスがオーバーライドできる。</span></span></code></pre></div>
+<p>こういった問題があるため、両コンパイラによるコンパイルを薦める。</p>
+<h2 id="scan-buildによる静的解析">scan-buildによる静的解析
+<a id="SS_4_2"></a></h2>
+<p>scan-buildはclang++をベースにした静的解析ツールであり、
+コンパイラの警告機能では指摘できないバグやバグの元となり得るコードを指摘できる。</p>
+<p>まずは、問題のあるコードを以下に示す。</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 115</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> IllegalShallowCopy <span class="op">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        IllegalShallowCopy<span class="op">()</span> <span class="op">:</span> <span class="va">x_</span><span class="op">{</span><span class="kw">new</span> X<span class="op">}</span> <span class="op">{}</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">~</span>IllegalShallowCopy<span class="op">()</span> <span class="op">{</span> <span class="kw">delete</span> <span class="va">x_</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        X<span class="op">*</span> <span class="va">x_</span><span class="op">;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> illegal_shallow_copy<span class="op">()</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> a <span class="op">=</span> IllegalShallowCopy<span class="op">{};</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> b <span class="op">=</span> IllegalShallowCopy<span class="op">{};</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> b<span class="op">;</span>  <span class="co">// a.x_ = b.x_が行われるため、代入前のa.x_は解放されず、</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                <span class="co">// 代入後のb.x_は2度deleteされる</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>上記クラスIllegalShallowCopyは、オブジェクトをnewにより生成し、そのポインタをメンバ変数として持つ。
+このようなクラスに対しては<a
+href="term_explanation.html#SS_19_5_9_2">ディープコピー</a>を実装するか、
+オブジェクトのコピーを禁止すべきであることは、「<a
+href="programming_convention.html#SS_3_3_2_2">コンストラクタ</a>」で述べた通りである。</p>
+<p>こういったコードに対して、g++/clang++はその問題を発見できないが、
+scan-buildは下記のように適切な指摘を行うことができる。</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/scan-build.txt 1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">120</span><span class="op">:</span><span class="dv">29</span><span class="op">:</span> warning<span class="op">:</span> Attempt to free released memory <span class="op">[</span>cplusplus<span class="op">.</span>NewDelete<span class="op">]</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="op">~</span>IllegalShallowCopy<span class="op">()</span> <span class="op">{</span> <span class="kw">delete</span> <span class="va">x_</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                                <span class="op">^~~~~~~~~</span></span></code></pre></div>
+<p>次に示すのは、 「<a href="design_pattern.html#SS_9_9">RAII(scoped
+guard)</a>」に従わなかったために発生した潜在的バグを含んだコードである。</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 138</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> potential_leak<span class="op">()</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        X<span class="op">*</span> x<span class="op">{</span><span class="kw">new</span> X<span class="op">};</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>global <span class="op">==</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span>  <span class="co">// globalが2ならメモリリーク</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">delete</span> x<span class="op">;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>こういったコードに対しても以下に示す通り適切なメッセージを出力する。</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/scan-build.txt 7</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">145</span><span class="op">:</span><span class="dv">9</span><span class="op">:</span> warning<span class="op">:</span> Potential leak of memory pointed to by <span class="ch">&#39;x&#39;</span> <span class="op">[</span>cplusplus<span class="op">.</span>NewDeleteLeaks<span class="op">]</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">^~~~~~</span></span></code></pre></div>
+<p>scan-buildは以下のような方法で簡単に使用できるため、
+C++でのソフトウェア開発における必須アイテムの一つであるといえる。</p>
+<pre><code>    &gt; scan-build make</code></pre>
+<h2 id="cppcheck静的解析">cppcheck静的解析 <a id="SS_4_3"></a></h2>
+<p>cppcheckはscan-buildと同様な静的解析ツールであり、
+コンパイラの警告機能では指摘できないバグやバグの元となり得るコードを指摘できる。</p>
+<p>まずは、問題のあるコードを以下に示す。</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 152</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> array_access<span class="op">(</span><span class="dt">int32_t</span> index<span class="op">)</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">uint32_t</span> array<span class="op">[</span><span class="dv">8</span><span class="op">]{};</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> array<span class="op">[</span>index<span class="op">];</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> array_stask_read_overflow<span class="op">()</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        array_access<span class="op">(</span><span class="dv">8</span><span class="op">);</span>  <span class="co">// off-by-1 このようなコードは意外なほど多い</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>問題は、配列への不正アクセスであり、これは未定義動作につながる典型的なバグであるが、
+scan-buildでは発見できない。</p>
+<p>cppcheckはこういったコードに対して以下に示す通り適切なメッセージを出力する。</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/cppcheck.txt 1</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="dv">1</span><span class="er">mcode_analysis.cpp</span><span class="op">:</span><span class="dv">158</span><span class="op">:</span><span class="dv">17</span><span class="op">:</span> <span class="op">[</span><span class="dv">31</span><span class="er">merror</span><span class="op">:</span><span class="op">[</span><span class="dv">39</span><span class="er">m</span> Array <span class="ch">&#39;a</span><span class="er">rray[8]</span><span class="ch">&#39;</span> accessed at index <span class="dv">8</span><span class="op">,</span> which is out of bounds<span class="op">.</span> <span class="op">[</span>arrayIndexOutOfBounds<span class="op">]</span><span class="op">[</span><span class="dv">0</span><span class="er">m</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> array<span class="op">[</span>index<span class="op">];</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                    <span class="op">^</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="dv">1</span><span class="er">mcode_analysis.cpp</span><span class="op">:</span><span class="dv">163</span><span class="op">:</span><span class="dv">18</span><span class="op">:</span> <span class="op">[</span><span class="dv">2</span><span class="er">mnote</span><span class="op">:</span><span class="op">[</span><span class="dv">0</span><span class="er">m</span> Calling function <span class="ch">&#39;a</span><span class="er">rray_access</span><span class="ch">&#39;</span><span class="op">,</span> <span class="dv">1</span><span class="er">st</span> argument <span class="ch">&#39;8&#39;</span> value is <span class="dv">8</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        array_access<span class="op">(</span><span class="dv">8</span><span class="op">);</span>  <span class="co">// off-by-1 このようなコードは意外なほど多い</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                     <span class="op">^</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="dv">1</span><span class="er">mcode_analysis.cpp</span><span class="op">:</span><span class="dv">158</span><span class="op">:</span><span class="dv">17</span><span class="op">:</span> <span class="op">[</span><span class="dv">2</span><span class="er">mnote</span><span class="op">:</span><span class="op">[</span><span class="dv">0</span><span class="er">m</span> Array index out of bounds</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> array<span class="op">[</span>index<span class="op">];</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>                    <span class="op">^</span></span></code></pre></div>
+<p>このバグは、後述するsanitizerで発見できるものの、静的解析で発見できた方が当然ながら好ましい。</p>
+<p>cppcheckは以下のような方法で簡単に使用できるため、
+C++でのソフトウェア開発における必須アイテムの一つであるといえる。</p>
+<pre><code>    &gt; bear make --always-make       # compile_commands.jsonの生成
+    &gt; cppcheck --project=compile_commands.json 2&gt; cppcheck_bugs.txt</code></pre>
+<h2 id="sanitizerによる動的解析">sanitizerによる動的解析
+<a id="SS_4_4"></a></h2>
+<p>本ドキュメントで扱うsanitizerとは、無償で利用できるC/C++動的解析ツールである。
+sanitizerオプションをオンにしたg++/clang++でテスト対象をビルドし、
+生成された実行形式バイナリを駆動することで使用することができる。</p>
+<p>サンプルコードをsanitizerで解析するために使用したg++/clang++のコンパイルオプションを以下に示す。</p>
+<pre><code>    -fsanitize=address,leak,undefined,float-divide-by-zero,float-cast-overflow</code></pre>
+<p>これらのオプションは、g++/clang++共通である。</p>
+<p>このオプションを使用した実行形式コードがどのように動作するのかを例示するために、
+まずは、動的解析対象のコードを下記する。</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 167</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> NonVirtualDestructorBase <span class="op">{</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        NonVirtualDestructorBase<span class="op">()</span> <span class="kw">noexcept</span> <span class="op">{}</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">~</span>NonVirtualDestructorBase<span class="op">()</span> <span class="op">{</span> <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="ot">__func__</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> NonVirtualDestructorDerived <span class="op">:</span> <span class="kw">public</span> NonVirtualDestructorBase <span class="op">{</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        NonVirtualDestructorDerived<span class="op">(</span><span class="dt">char</span> <span class="at">const</span><span class="op">*</span> str<span class="op">)</span> <span class="op">:</span> <span class="va">str_</span><span class="op">{</span><span class="bu">std::</span>make_unique<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;(</span>str<span class="op">)}</span> <span class="op">{}</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">~</span>NonVirtualDestructorDerived<span class="op">()</span> <span class="op">{</span> <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="ot">__func__</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> Get<span class="op">()</span> <span class="at">const</span> <span class="kw">noexcept</span> <span class="op">{</span> <span class="cf">return</span> <span class="op">*</span><span class="va">str_</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>unique_ptr<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> <span class="va">str_</span><span class="op">;</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> non_virtual_destructor<span class="op">()</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ~NonVirtualDestructorBase()が非virtualであるため、aの解放時に~NonVirtualDestructorDerived()</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// が呼び出されないことによってNonVirtualDestructorDerived::str_はリークする。</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>unique_ptr<span class="op">&lt;</span>NonVirtualDestructorBase<span class="op">&gt;</span> a<span class="op">{</span><span class="bu">std::</span>make_unique<span class="op">&lt;</span>NonVirtualDestructorDerived<span class="op">&gt;(</span><span class="st">&quot;D&quot;</span><span class="op">)};</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>上記コードは、「<a
+href="programming_convention.html#SS_3_2_4">継承/派生</a>」で説明した内容(基底クラスのデストラクタはvirtual)に反するため、
+メモリ管理にstd::unique_ptr&lt;&gt;を使用しているにもかかわらずメモリリークを引き起こす。
+g++/clang++/scan-build/cppcheckはこの問題を指摘できないが、
+sanitizerは以下のような出力によりメモリリークを指摘することができる。</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/sanitizer.txt 4</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">==</span><span class="dv">4691</span><span class="op">==</span>ERROR<span class="op">:</span> AddressSanitizer<span class="op">:</span> <span class="kw">new</span><span class="op">-</span><span class="kw">delete</span><span class="op">-</span>type<span class="op">-</span>mismatch on <span class="bn">0x602000000410</span> in thread T0<span class="op">:</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>      object passed to <span class="kw">delete</span> has wrong type<span class="op">:</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      size of the allocated type<span class="op">:</span>   <span class="dv">8</span> bytes<span class="op">;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>      size of the deallocated type<span class="op">:</span> <span class="dv">1</span> bytes<span class="op">.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#0 0x7f79c7b5422f in operator delete(void*, unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:172</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#1 0x55aae7e44f4f in std::default_delete&lt;NonVirtualDestructorBase&gt;::operator()(NonVirtualDestructorBase*) const /usr/include/c++/11/bits/unique_ptr.h:85</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#2 0x55aae7e42954 in std::unique_ptr&lt;NonVirtualDestructorBase, std::default_delete&lt;NonVirtualDestructorBase&gt; &gt;::~unique_ptr() /usr/include/c++/11/bits/unique_ptr.h:361</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#3 0x55aae7e37129 in non_virtual_destructor() /home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/code_analysis.cpp:190</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#4 0x55aae7e3b7fd in exec_background(void (*)()) /home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/code_analysis.cpp:366</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#5 0x55aae7e3ba66 in all() /home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/code_analysis.cpp:378</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#6 0x55aae7e3baf0 in CodeAnalysis_others_Test::TestBody() /home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/code_analysis.cpp:382</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#7 0x55aae7e919e0 in void testing::internal::HandleSehExceptionsInMethodIfSupported&lt;testing::Test, void&gt;(testing::Test*, void (testing::Test::*)(), char const*) (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x969e0)</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#8 0x55aae7e8986c in void testing::internal::HandleExceptionsInMethodIfSupported&lt;testing::Test, void&gt;(testing::Test*, void (testing::Test::*)(), char const*) (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x8e86c)</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#9 0x55aae7e63623 in testing::Test::Run() (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x68623)</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#10 0x55aae7e64050 in testing::TestInfo::Run() (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x69050)</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#11 0x55aae7e649af in testing::TestSuite::Run() (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x699af)</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#12 0x55aae7e74162 in testing::internal::UnitTestImpl::RunAllTests() (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x79162)</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#13 0x55aae7e92b03 in bool testing::internal::HandleSehExceptionsInMethodIfSupported&lt;testing::internal::UnitTestImpl, bool&gt;(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x97b03)</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#14 0x55aae7e8ab12 in bool testing::internal::HandleExceptionsInMethodIfSupported&lt;testing::internal::UnitTestImpl, bool&gt;(testing::internal::UnitTestImpl*, bool (testing::internal::UnitTestImpl::*)(), char const*) (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x8fb12)</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#15 0x55aae7e72859 in testing::UnitTest::Run() (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x77859)</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#16 0x55aae7ea90aa in RUN_ALL_TESTS() (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0xae0aa)</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#17 0x55aae7ea9023 in main (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0xae023)</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#18 0x7f79c6f38d8f  (/lib/x86_64-</span><span class="ot">linux</span><span class="pp">-gnu/libc.so.6+0x29d8f)</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#19 0x7f79c6f38e3f in __libc_start_main (/lib/x86_64-</span><span class="ot">linux</span><span class="pp">-gnu/libc.so.6+0x29e3f)</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#20 0x55aae7e35204 in _start (/home/ichiro/ichiroprogrammer/comprehensive_cpp/example/code_analysis/sanitizer/example.exe+0x3a204)</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    SUMMARY<span class="op">:</span> AddressSanitizer<span class="op">:</span> <span class="kw">new</span><span class="op">-</span><span class="kw">delete</span><span class="op">-</span>type<span class="op">-</span>mismatch <span class="op">../../../../</span>src<span class="op">/</span>libsanitizer<span class="op">/</span>asan<span class="op">/</span>asan_new_delete<span class="op">.</span>cpp<span class="op">:</span><span class="dv">172</span> in <span class="kw">operator</span> <span class="kw">delete</span><span class="op">(</span><span class="dt">void</span><span class="op">*,</span> <span class="dt">unsigned</span> <span class="dt">long</span><span class="op">)</span></span></code></pre></div>
+<p>次に示すコードは、型が違うインスタンスへの代入によりオーバーフローを起こしてしまう例である。
+先に示したコード同様、
+g++/clang++/scan-build/cppcheckでは指摘されない問題がsanitizerにより指摘される。</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/code_analysis.cpp 386</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> x<span class="op">{</span><span class="bn">0x1&#39;0000&#39;0000</span><span class="op">};</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// int32_t y{x};  // yのレンジを超えるため、コンパイルエラー</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int32_t</span> y <span class="op">=</span> x<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/code_analysis/warnings/sanitizer.txt 585</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    code_analysis<span class="op">.</span>cpp<span class="op">:</span><span class="dv">390</span><span class="op">:</span><span class="dv">17</span><span class="op">:</span> runtime error<span class="op">:</span> <span class="fl">4.29497e+09</span> is outside the range of representable values of type <span class="ch">&#39;i</span><span class="er">nt</span><span class="ch">&#39;</span></span></code></pre></div>
+<p>sanitizerは以上に示した通り極めて優れたバグ検出能力を持つが、
+動的解析の特性からソースコードに上記のようなバグがあってもそれが実行されなければ、
+そのバグは指摘されない。</p>
+<p>また、このような指摘をするためのコードは実行形式バイナリの中にコンパイル時に組み込まれるため、
+以下のような問題が発生する。</p>
+<ul>
+<li>ランタイム動作が遅くなる。</li>
+<li>ビルド時間が延びる。</li>
+<li>実行形式バイナリのファイルサイズが巨大になる。</li>
+</ul>
+<p>このためプログラミングの最中に行われる動作確認や手作業でのシステムテスト(特に組み込みソフトウェア)
+に用いる実行形式バイナリにsanitizerを適用することは難しい。</p>
+<p>従って、<a
+href="process_and_infra.html#SS_11_2_5">CI(継続的インテグレーション)</a>の一環で行われる
+<a href="process_and_infra.html#SS_11_2_1">自動単体テスト</a>や<a
+href="process_and_infra.html#SS_11_2_3">自動統合テスト</a>でのsanitizerの使用を薦める。</p>
+<h2 id="まとめ">まとめ <a id="SS_4_5"></a></h2>
+<p>以上で述べてきたようにコード解析ツールにはそれぞれ得手不得手があり、完璧なものは存在しないため、
+これらを組み合わせてコード品質の向上に努める必要があるが、
+これらの実施が各プログラマによって個別に行われるのであれば、
+コンパイル時間の増大等による新たなロスが発生する。</p>
+<p>上記や「<a
+href="process_and_infra.html#SS_11_2_5_5">CI項目の例</a>」で述べたように自動化によって、こういったロスを回避しつつ、
+様々なコード解析ツールを組み合わせて使用することが効率的なプロセスの要件となる。</p>
+</body>
+</html>
