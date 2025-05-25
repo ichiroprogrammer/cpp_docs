@@ -8,15 +8,15 @@ import shutil
 import sys
 import glob
 from itertools import zip_longest
-
+from collections import namedtuple
 
 def get_args(args=None):
     parser = argparse.ArgumentParser(description="repos-dir")
     parser.add_argument("--repos", type=str, default=None) # VPATH
     parser.add_argument("-f", "--force", action="store_true", help="force operation")
+    parser.add_argument("-N", "--not_add", action="store_true", help="not add/commit")
 
     args = parser.parse_args(args)
-
     args.repos = os.path.abspath(args.repos)
     return args;
 
@@ -39,7 +39,10 @@ def _subprocess_run(cmd):
     return output_lines
 
 
-_DOCS_EXT = {"md", "html", "pdf"};
+
+Docs = namedtuple('Docs', ['key', 'ext', 'src_dir'])  # keyは保存dir名にも使用する
+
+_DOCS_EXT = [Docs("md", "md", "o"), Docs("html", "html", "o"), Docs("md_pu", "md", "o/pu")]
 
 
 def get_sh1(repos_dir):
@@ -105,11 +108,11 @@ class ReleasedRepos:
     def __str__(self):
         return f"{self.sh1} {self.version_on_msg} {self.repos_name} {self._version_on_file}"
 
-def copy_files_to_docs(docs, to_dirs):
-    for ext in _DOCS_EXT:
-        for file in docs[ext]:
-            print(ext, "-", file, to_dirs[ext])
-            shutil.copy(file, to_dirs[ext])
+def copy_files_to_docs(src_docs, to_dirs):
+    for docs in _DOCS_EXT:
+        for file in src_docs[docs.key]:
+            print(docs.key, "-", file, to_dirs[docs.key])
+            shutil.copy(file, to_dirs[docs.key])
 
 
 def make_log(released_repos: ReleasedRepos):
@@ -149,19 +152,20 @@ def _main():
 
     make_log(released_repos)
 
-    git_add_ci(released_repos)
+    if not opt.not_add:
+        git_add_ci(released_repos)
 
 def get_all_docs(dir):
-    content_o = os.path.join(dir, 'o') 
 
-    all_docs = {key: [] for key in _DOCS_EXT}
+    all_docs = {docs.key: [] for docs in _DOCS_EXT}
 
-    for ext in _DOCS_EXT:
-        files_to_copy = glob.glob(os.path.join(content_o, f'*.{ext}'))
-        if len(files_to_copy) == 0 and not ext == "pdf":    # pdfは無くてもよい
-            raise Exception(f"There is no *.{ext} !!:")
+    for docs in _DOCS_EXT:
+        src_dir = os.path.join(dir, docs.src_dir) 
+        files_to_copy = glob.glob(os.path.join(src_dir, f'*.{docs.ext}'))
+        if len(files_to_copy) == 0 :
+            raise Exception(f"There is no *.{docs.ext} !!:")
 
-        all_docs[ext] = files_to_copy
+        all_docs[docs.key] = files_to_copy
 
     return all_docs
 
@@ -173,14 +177,18 @@ def generate_dir(repos_name, version):
     version_dir = os.path.join(repos_name, version)
     os.makedirs(version_dir, exist_ok=True)
 
-    gen_dirs = [os.path.join(version_dir, ext) for ext in _DOCS_EXT]
+    gen_dirs = [os.path.join(version_dir, docs.key) for docs in _DOCS_EXT]
+
+    print(f"tako1 : {gen_dirs}")
+
+    keys = [docs.key for docs in _DOCS_EXT]
 
     for dir in gen_dirs:
         os.makedirs(dir)
 
     contents_dirs = {}
 
-    for item1, item2 in zip_longest(_DOCS_EXT, gen_dirs):
+    for item1, item2 in zip_longest(keys, gen_dirs):
         contents_dirs[item1] = item2
         
     return contents_dirs
