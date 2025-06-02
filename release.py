@@ -163,7 +163,7 @@ def get_all_docs(dir):
         src_dir = os.path.join(dir, docs.src_dir) 
         files_to_copy = glob.glob(os.path.join(src_dir, f'*.{docs.ext}'))
         if len(files_to_copy) == 0 :
-            raise Exception(f"There is no *.{docs.ext} !!:")
+            raise Exception(f"There is no *.{docs.ext} in {src_dir} !!!:")
 
         all_docs[docs.key] = files_to_copy
 
@@ -178,8 +178,6 @@ def generate_dir(repos_name, version):
     os.makedirs(version_dir, exist_ok=True)
 
     gen_dirs = [os.path.join(version_dir, docs.key) for docs in _DOCS_EXT]
-
-    print(f"tako1 : {gen_dirs}")
 
     keys = [docs.key for docs in _DOCS_EXT]
 
