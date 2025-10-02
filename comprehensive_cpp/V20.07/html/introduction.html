@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.07)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.07)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/introduction.md -->
+<h1 id="イントロダクション">イントロダクション <a id="SS_1"></a></h1>
+<p>本ドキュメントは、 C++でのプログラミング、 デザイン、
+ソフトウェア開発におけるプロセス、ワークフロー等に対する原理、原則をまとめたものである。</p>
+<p>ソフトウェア工学を実践的に学習した者には明らかなように、
+ソフトウェア工学はトレードオフを扱う学問である。
+従って、後述する、しないにかかわらずソフトウェアの原理、原則は、
+常にそれが正しいとは限らず、またそれらが互いに矛盾することもある。
+老子の至言「道の道とすべきは、常の道に非ず」のごときものである。</p>
+<p>ソフトウェア開発の現場においては、このことを常に念頭に置き、
+慎重且つ深い洞察を以って、これらを実践すべきである。</p>
+<h2 id="本ドキュメントの目的">本ドキュメントの目的
+<a id="SS_1_1"></a></h2>
+<p>「守破離」とは、日本の伝統武道、技芸の修行者が歩むべき習熟モデルである。
+「守」、「破」、「離」それぞれが以下のような修行者の習熟レベルと、それに基づいた行動規範を表す。</p>
+<ul>
+<li>「守」-
+未熟な修行者であり、まずは、先人の残した「形(型)」を無批判に受け入れ、それを反復すること</li>
+<li>「破」-「形」に習熟した修行者であり、「形」に自らの工夫を加えながら、より高いレベルを探求すること</li>
+<li>「離」-
+最高レベルに到達した修行者であり、自らが「形」を作り出すこと</li>
+</ul>
+<p>このドキュメントは、</p>
+<ul>
+<li>「守」のレベルにあるC++プログラマに「形」を提供すること</li>
+<li>そのようなプログラマの「破」への道しるべとなること</li>
+<li>このドキュメントを批判的に読むことで、「破」のプログラマに「離」への切っ掛けを与えること</li>
+<li>C++で開発を行うチームが作り出すソースコードに規律や整合性を与えること、
+もしくは守るべき規範のボトムラインを示すこと</li>
+</ul>
+<p>を目的とする。</p>
+<h2 id="本ドキュメントの次に">本ドキュメントの次に
+<a id="SS_1_2"></a></h2>
+<p>本ドキュメントを読み、理解したプログラマの次のステップのために、
+巻末に「<a href="bibliography.html#SS_22">参考文献</a>」を設けた。</p>
+<p>それらを読破し、合理的理由でこれらに倣い、もしくは批判できるようになることで、
+「守」が終了し、「破」へと進むことができると考えられる。</p>
+<h2 id="改訂履歴">改訂履歴 <a id="SS_1_3"></a></h2>
+<ul>
+<li>V20.07
+<ul>
+<li>プレースメントnewを使い、メモリアロケーションの数を少なくするPimplパターン追加</li>
+<li>.clang-formatの修正し、一カラム120文字まで許容</li>
+</ul></li>
+<li>V20.06
+<ul>
+<li>expressionの説明の抜本的変更</li>
+<li>lvalueリファレンス、rvalueリファレンス、forwardingリファレンスの説明の修正と追加</li>
+</ul></li>
+<li>V20.04
+<ul>
+<li>凝集度の解説の修正</li>
+<li>クラスの規模についてLCOMによる規制を追加</li>
+</ul></li>
+<li>V20.03
+<ul>
+<li>プログラミング規約(プリプロセッサ命令)の変更</li>
+<li>ダイヤモンド継承の図解と説明強化</li>
+<li>仮想継承の説明強化</li>
+</ul></li>
+<li>V20.02
+<ul>
+<li><p>プログラミング規約</p>
+<ul>
+<li>関数の戻り値型にstd::optionalを追加</li>
+<li>unionの代わりのstd::variantを追加</li>
+</ul></li>
+<li><p>std::weak_ptrの解説を追加</p></li>
+<li><p>std::pmrの解説を追加</p></li>
+<li><p>std::weak_ptrの解説を追加</p></li>
+<li><p>pmrの解説を追加</p></li>
+<li><p>templateメタプログラミング</p>
+<ul>
+<li>浮動小数点IsEqual</li>
+<li>FixedPoint</li>
+<li>std::enable_ifをコンセプトを使用しリファクタリング</li>
+</ul></li>
+<li><p>用語説明追加</p>
+<ul>
+<li>モジュール</li>
+<li>コルーチン</li>
+<li>畳み込み式</li>
+<li>テンプレートのテクニックに畳み込み式の使用</li>
+<li>explicit</li>
+<li>コンセプト</li>
+<li>&lt;=&gt;</li>
+</ul></li>
+</ul></li>
+<li>V20.01
+<ul>
+<li>C++20のシンタックスを導入</li>
+<li>C++の進化と主な変更点を追加</li>
+</ul></li>
+<li>V18.06
+<ul>
+<li>アーキテクチャに非同期処理用のサンプルコードを追加</li>
+</ul></li>
+<li>V18.05
+<ul>
+<li>テーブルの体裁を整えた</li>
+</ul></li>
+<li>V18.04
+<ul>
+<li>インデックスを廃止</li>
+<li>depsにCMakeLists.txtを追加</li>
+</ul></li>
+<li>V18.03
+<ul>
+<li>全体のインデックスを最小にした</li>
+<li>各章ごとにインデックスをつけた</li>
+</ul></li>
+</ul>
+<h2 id="本ドキュメントの修正改善">本ドキュメントの修正・改善
+<a id="SS_1_4"></a></h2>
+<p>本ドキュメントをソフトウェア開発のルールとして採用したチームのプログラマにとって、
+本ドキュメントは守るべき「形」であるが、「形」であることは不変であることを意味しない。
+むしろ、ソフトウェア工学の進歩やチームの習熟に合わせ、その時点で最も正しいであろうルール、
+プラクティスを積極的に導入することで、「形」の陳腐化を防ぐべきである。
+このことは、スコット・メイヤーズ氏によるEffective C++の第1版から第3版、
+およびEffective Modern
+C++までの変遷を読むことで、より深い理解が得られるはずである。
+従って、「破」や「離」のレベルにあるプログラマは、
+このドキュメントや、このドキュメントから派生した(もしくは、それとは無関係な)
+チームのルールの内容を定期的に見直し、より高いレベルへと改善させるよう努めてほしい。</p>
+<h2 id="例示したコードの説明">例示したコードの説明
+<a id="SS_1_5"></a></h2>
+<p>次章以降では、ソースコードを使って説明を行う場合がある。このような場合の注意点を述べる。</p>
+<ul>
+<li>「…」のみで構成された行は、ソースコードの省略を表す。</li>
+<li>特定の規則、法則、慣習等を説明するためのソースコードは、シンプルさを優先するため、
+その他の規則、法則、慣習に従っていない場合がある。特に識別子に関しては、
+「<a
+href="naming_practice.html#SS_6">命名規則</a>」に従っていない場合が多い。
+また、一般にSTLのコンテナクラスやstd::stringをnewする必要はないが、
+コードの動作を示すためにあえてそのようにする場合がある。</li>
+<li>ソースコード内に動作説明のような本来不要なコメントがあるのは、
+読者にその意味を知らせるためであるため、製品コードのコメントをこのようにするべきではない。</li>
+<li>例示したコードの動作の確認、明示のために <a
+href="http://opencv.jp/googletestdocs/primer.html">google
+test(gtest)</a>のアサーション(下表)を使用する。</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">アサーションマクロ</th>
+<th style="text-align: left;">意味</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ASSERT_TRUE(x)</td>
+<td style="text-align: left;">xがtrue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASSERT_FALSE(x)</td>
+<td style="text-align: left;">xがfalse</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASSERT_EQ(x, y)</td>
+<td style="text-align: left;">(x == y)がtrue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASSERT_NE(x, y)</td>
+<td style="text-align: left;">(x != y)がtrue</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASSERT_GE(x, y)</td>
+<td style="text-align: left;">(x &gt;= y)がtrue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASSERT_GT(x, y)</td>
+<td style="text-align: left;">(x &gt; y)がtrue</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASSERT_LE(x, y)</td>
+<td style="text-align: left;">(x &lt;= y)がtrue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASSERT_LT(x, y)</td>
+<td style="text-align: left;">(x &lt; y)がtrue</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASSERT_STREQ(x, y)</td>
+<td style="text-align: left;">(std::string(x) ==
+std::string(y))がtrue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASSERT_DEATH(x, y)</td>
+<td style="text-align: left;">xを実行するとアボートすればtrue</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ASSERT_THROW(x, y)</td>
+<td style="text-align: left;">xを実行するとy例外が発生すればtrue</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>問題を示すために掲載したコードは、実行すると不具合を発生させることがある。
+そういった場合、下記のように単体テストのラベルにDISABLED_を付けることで、
+その実行を抑止することがある。</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    TEST<span class="op">(</span>DISABLED_Xxx<span class="op">,</span> yyy<span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 単体テスト</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<h2
+id="本ドキュメントでの言葉の使い方の注意">本ドキュメントでの言葉の使い方の注意
+<a id="SS_1_6"></a></h2>
+<ul>
+<li>参照
+<ul>
+<li>「～を参照する」というような文脈で使われる<strong>「参照」</strong>はそのまま使用する。</li>
+<li>C++での参照型を表す<strong>参照</strong>は使わず、代わりに<strong>「リファレンス」</strong>を使用する。</li>
+</ul></li>
+<li>例外
+<ul>
+<li>「～の場合は例外である」というような文脈で使われる<strong>「例外」</strong>はそのまま使用する。</li>
+<li>C++でthrowすると発生する事象を表す<strong>例外</strong>は使わず、代わりに<strong>「エクセプション」</strong>を使用する。</li>
+</ul></li>
+<li>classとクラス
+<ul>
+<li><strong>class</strong>はC++のキーワードとして使用する。</li>
+<li><strong>クラス</strong>は上記以外で使用する。</li>
+</ul></li>
+<li>プログラミングとコーディング、ソースコードとコード、インスタンスとオブジェクト
+<ul>
+<li>同じような意味で使用する。</li>
+</ul></li>
+</ul>
+<h2 id="このドキュメントの構成">このドキュメントの構成
+<a id="SS_1_7"></a></h2>
+<hr />
+<ul>
+<li><a
+href="software_practice.html#SS_2">ソフトウェアプラクティス</a></li>
+<li><a href="programming_convention.html#SS_3">プログラミング規約</a></li>
+<li><a href="code_analysis.html#SS_4">コード解析</a></li>
+<li><a href="coding_style.html#SS_5">コーディングスタイル</a></li>
+<li><a href="naming_practice.html#SS_6">命名規則</a></li>
+<li><a href="comment.html#SS_7">コメント</a></li>
+<li><a href="solid.html#SS_8">SOLID</a></li>
+<li><a href="design_pattern.html#SS_9">デザインパターン</a></li>
+<li><a href="architecture.html#SS_10">アーキテクチャ</a></li>
+<li><a href="process_and_infra.html#SS_11">開発プロセスとインフラ</a></li>
+<li><a href="concurrency.html#SS_12">並行処理</a></li>
+<li><a
+href="template_meta_programming.html#SS_13">テンプレートメタプログラミング</a></li>
+<li><a
+href="dynamic_memory_allocation.html#SS_14">ダイナミックメモリアロケーション</a></li>
+<li><a href="debug.html#SS_15">デバッグ</a></li>
+<li><a href="dev_tools.html#SS_16">開発ツール</a></li>
+<li><a href="deps.html#SS_17">deps</a></li>
+<li><a href="cpp_improve.html#SS_18">C++の進化と主な変更点</a></li>
+<li><a href="term_explanation.html#SS_19">用語解説</a></li>
+<li><a href="exercise_q.html#SS_20">演習</a></li>
+<li><a href="exercise_a.html#SS_21">解答</a></li>
+<li><a href="bibliography.html#SS_22">参考文献</a></li>
+<li><a href="afterword.html#SS_23">あとがき</a></li>
+<li><a href="sample_code.html#SS_24">Sample Code</a></li>
+</ul>
+</body>
+</html>
