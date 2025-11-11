@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Comprehensive Knowledge of C++(V20.11)</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #cccccc; background-color: #303030; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffcfaf; } /* Alert */
+    code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #dca3a3; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #f0dfaf; } /* ControlFlow */
+    code span.ch { color: #dca3a3; } /* Char */
+    code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+    code span.co { color: #7f9f7f; } /* Comment */
+    code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+    code span.do { color: #7f9f7f; } /* Documentation */
+    code span.dt { color: #dfdfbf; } /* DataType */
+    code span.dv { color: #dcdccc; } /* DecVal */
+    code span.er { color: #c3bf9f; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #c0bed1; } /* Float */
+    code span.fu { color: #efef8f; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+    code span.kw { color: #f0dfaf; } /* Keyword */
+    code span.op { color: #f0efd0; } /* Operator */
+    code span.ot { color: #efef8f; } /* Other */
+    code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #dca3a3; } /* SpecialChar */
+    code span.ss { color: #cc9393; } /* SpecialString */
+    code span.st { color: #cc9393; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #cc9393; } /* VerbatimString */
+    code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+    body {
+        margin: 0 auto;
+        max-width: none;
+        width: 1000px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 2px solid black;
+    }
+
+    header {
+        margin-bottom: 4em;
+        text-align: center;
+        color: white;
+        background-color: lightblue;
+    }
+
+    h1:not(:first-of-type) {
+        page-break-before: always;
+    }
+
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Comprehensive Knowledge of C++(V20.11)</h1>
+<p class="author">autor:ichiroprogrammer</p>
+</header>
+<!-- ./md/debug.md -->
+<h1 id="デバッグ">デバッグ <a id="SS_15"></a></h1>
+<p>ソフトウェア開発にバグは付き物であり、プログラマの工数の多くはそのバグの修正に費やされる。
+したがってデバッグの効率化はソフト開発効率改善の大きなポーションを占める。
+このドキュメントの提言の多くはそのためのものであるが、色々な文脈に分散しており、
+またそのときの論旨とは違ったため解説が不十分であったりする。</p>
+<p>この問題を幾分緩和するためにこの章を設ける。</p>
+<p>バグには以下のような様々な発生パターンがある。</p>
+<ul>
+<li>ある操作で100％発生するバグ</li>
+<li>ある操作の繰り返しによって発生するバグ
+<ul>
+<li>メモリやファイルハンドルのリークのように少しづつ劣化していくようなバグ</li>
+</ul></li>
+<li>ランダムに発生するように見えるバグ
+<ul>
+<li>マルチスレッドの競合問題のような確率論的にしか発生しないバグ</li>
+<li>メモリ二重解放によるクラッシュのような発生パターの特定が難しいバグ</li>
+<li>デッドロック</li>
+</ul></li>
+</ul>
+<p>当然ながら発生パターンの違いはデバッグ手法の有効性に大きく影響する。</p>
+<p>共有リポジトリ内のソースコードにバグが多ければ、プログラマは各人の開発に集中できず、
+それ自体が新たなバグの発生源となる。
+また、共有リポジトリ内のソースコードのデバッグを行った為に、
+そのプログラマの新規機能開発に充てられる工数は不足し、
+これによるテスト不足は共有リポジトリ内のソースコードの新たなバグにつながる。と考えれば、
+共有リポジトリ内のソースコードをクリーンに保つことも、
+デバッグの効率化への重要な戦略であるといえる。</p>
+<p>ここまでの議論からわかるように、デバッグの効率化とは、単なるデバッグ手法にとどまらず、
+共有リポジトリ内のソースコードをクリーンに保つようなプロセス的な手法も包含する広範囲な内容となる。
+以下に、そのための様々なアイテムを説明する。</p>
+<hr />
+<p><strong>この章の構成</strong></p>
+<p>   <a href="debug.html#SS_15_1">デバッガの使用</a><br />
+   <a href="debug.html#SS_15_2">gitの使用</a><br />
+   <a href="debug.html#SS_15_3">TATの短縮</a><br />
+    <a href="debug.html#SS_15_3_1">ビルド時間の短縮</a><br />
+    <a href="debug.html#SS_15_3_2">依存関係の整理</a></p>
+<p>   <a href="debug.html#SS_15_4">自動単体テストの実施</a><br />
+   <a href="debug.html#SS_15_5">自動統合テストの実施</a><br />
+   <a href="debug.html#SS_15_6">事後的デバッグ</a><br />
+    <a href="debug.html#SS_15_6_1">ログの取得</a><br />
+    <a href="debug.html#SS_15_6_2">モニター</a></p>
+<p>   <a href="debug.html#SS_15_7">潜在的バグの削減</a><br />
+   <a href="debug.html#SS_15_8">難しいバグの対処</a><br />
+   <a href="debug.html#SS_15_9">助成の依頼</a><br />
+    <a href="debug.html#SS_15_9_1">現象1 - 不思議なハングアップ</a><br />
+    <a href="debug.html#SS_15_9_2">現象2 - グローバル変数の破壊</a><br />
+    <a href="debug.html#SS_15_9_3">現象3 -
+プロセスのスローダウン</a><br />
+    <a href="debug.html#SS_15_9_4">現象4 -
+バックトレースが見れない</a><br />
+    <a href="debug.html#SS_15_9_5">現象5 -
+newしたオブジェクトの破壊</a><br />
+    <a href="debug.html#SS_15_9_6">現象6 - STLのバグ?</a><br />
+    <a href="debug.html#SS_15_9_7">現象7 -
+解放後のrvalueへのアクセス</a></p>
+<p>   <a href="debug.html#SS_15_10">まとめ</a></p>
+<p><a href="introduction.html#SS_1_4">インデックス</a>に戻る。</p>
+<hr />
+<h2 id="デバッガの使用">デバッガの使用 <a id="SS_15_1"></a></h2>
+<p>言うまでもなく特定操作で100%発生するバグのデバッグには、デバッガの使用が適している。
+windowsアプリケーションの開発では、Visual
+Studioが素晴らしいデバッガを提供しているため、
+それを使い、ステップ実行すればまず間違いなく短時間でバグを特定できる。
+linux系のアプリケーション開発においてはgdb/lldbで同様のことが言える。</p>
+<p>問題は組み込みソフト開発の現場である。
+printfデバッグが唯一のデバッグ手段となっているエンジニアをよく見かける。こういった現場では
+jtagデバッガを使えば大きな改善が期待できる。</p>
+<p>また、「<a
+href="debug.html#SS_15_4">自動単体テストの実施</a>」に従えば、組み込みソフト開発においても、
+先に述べたような優れたデバッガを使用できる。</p>
+<p>ランダムに発生するようなバグにおいても、デバッガは有効であることがある。
+このようなバグではステップ実行でその原因を特定できないが、例えばデッドロックが起こった場合は、</p>
+<ul>
+<li>デッドロックが起こったプロセスをデバッガにアタッチさせてスレッドの状態を見る</li>
+<li>メモリダンプを取り、デバッガでスレッドの状態を見る(linuxでもwindowsでも同様のことはできる)</li>
+</ul>
+<p>のような手法が有効である。</p>
+<h2 id="gitの使用">gitの使用 <a id="SS_15_2"></a></h2>
+<p>言うまでもないが、新規機能を追加した後にすでに動いていた機能が動かなくなったのであれば、
+新規コードが原因であると考えるのが常識的である。
+このようなデグレードの原因を効率的に発見するためには、
+コード追加前後での差分を見るのが理にかなっている。 <a
+href="process_and_infra.html#SS_11_2_5_1">バージョン管理システム</a>を使えば、これを正確かつ簡単に行うことができる。</p>
+<p>複数人でソフトウェア開発を行う場合、頻繁に各人の作り出すソースコードをマージする必要がある。
+マージにはある一定確率でのバグ混入は避けられず、
+バグが発生すればこれを直ちに修正するのが合理的なチーム運営である。 <a
+href="process_and_infra.html#SS_11_2_5_1">バージョン管理システム</a>を使わずに、これを行うことは難しい。</p>
+<p>リリースしたソフトウェアの異常動作が報告されたときに、
+そのバイナリコードを生成したソースコードに完全に一致するソースコードを使用せずに、
+その原因を特定することは、ほぼ不可能である。 <a
+href="process_and_infra.html#SS_11_2_5_1">バージョン管理システム</a>を使わずにこれを行うことも上記同様に難しい。</p>
+<p>このような理由(他にも多数の理由はある)から、 <a
+href="process_and_infra.html#SS_11_2_5_1">バージョン管理システム</a>の導入には議論の余地はないが、
+数あるバージョン管理システムの中から何を選ぶのかは意見の分かれるところである。</p>
+<p>本ドキュメントでは以下のような観点からgitを推奨する。</p>
+<ul>
+<li>現在も活発に開発されている。</li>
+<li>ウェブドキュメントや書籍が豊富である。</li>
+<li>クラウドサービスがある。</li>
+<li>ライセンス費用がない。</li>
+<li>有名なオープンソース管理に使用されている。</li>
+<li>多くのオープンソース管理に使用されているため、
+gitの知識は現在のプログラマにとって常識となっている。</li>
+</ul>
+<p>gitには以下のような基本的なコマンドに加えて、</p>
+<ul>
+<li>add/commit - ソースコードのリポジトリへの登録</li>
+<li>branch/checkout/reset - ブランチ操作</li>
+<li>merge - ブランチ間のマージ</li>
+<li>log - コミットログ</li>
+</ul>
+<p>リポジトリの分散をサポートする下記のようなコマンドがある。</p>
+<ul>
+<li>fetch/pull - リモートブランチからの差分取り込み</li>
+<li>push - リモートブランチへの差分転送</li>
+<li>rebase - カレントブランチをリモートブランチに同期</li>
+</ul>
+<p>他にも多数のコマンドがあるが、中でも有用なのが、</p>
+<ul>
+<li>bisect - デバッグサポート</li>
+</ul>
+<p>である。以下にbisectの使い方を例示する。</p>
+<p>本ドキュメントでは、「<a
+href="process_and_infra.html#SS_11">開発プロセスとインフラ</a>」で述べたように、単体テスト、
+統合テストを自動化することを推奨している。</p>
+<p>本ドキュメントで使用するディレクトリやファイル間の依存関係を解析するためのソフトウェア
+<a
+href="deps.html#SS_17">deps</a>の開発においても、当然これを実践している。</p>
+<p>depsの開発においては、単体テスト、統合テストは下記のようなdeps/build.shによって行われる。</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">//</span>  deps/example/deps/build.sh 3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">readonly</span> <span class="va">BASE_DIR</span><span class="op">=</span><span class="va">$(</span><span class="bu">cd</span> <span class="va">$(</span><span class="fu">dirname</span> <span class="va">$0)</span><span class="kw">;</span> <span class="bu">pwd</span><span class="va">)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">readonly</span> <span class="va">BASENAME</span><span class="op">=</span><span class="st">&quot;</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$0)</span><span class="st">&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">$BASE_DIR</span><span class="ex">/../../deep/build/build_core.sh</span> <span class="va">$BASE_DIR</span> <span class="va">$@</span> <span class="at">-i</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># build_core.shによって下記が行われ、何らかのエラーが発生した場合、非0でexitする。</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># * ビルド &amp; UT &amp; IT</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># * 静的解析</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># * 動的解析</span></span></code></pre></div>
+<p>depsが、</p>
+<ul>
+<li>xxxリビジョンまでは、build.shが成功(値0でexit)</li>
+<li>yyyリジョンでは、build.shが失敗(非0でexit)</li>
+</ul>
+<p>のような状態に陥ったとする(<a
+href="process_and_infra.html#SS_11_2_5">CI(継続的インテグレーション)</a>を導入しているソフトウェア開発では、
+このような状態は珍しいことでない)。
+この場合、バグが混入したリビジョンを確定することがデバッグの第一歩となる。
+bisectはこれをダイレクトにサポートする。</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> bisect start xxx yyy</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">git</span> bisect run deps/build.sh</span></code></pre></div>
+<p>上記コマンドは、xxx～yyyのリビジョン毎にbuild.shを実行し、build.shが非0でexitした場合、
+そこで停止する。これによりバグが混入したリビジョンをほぼ工数をロスすることなしに確定できる。</p>
+<h2 id="tatの短縮">TATの短縮 <a id="SS_15_3"></a></h2>
+<p>TATとはターンアラウンドタイムの略語であり、一度の試行に要する時間を指す。
+デバッグのTATが短ければ短いほどデバッグ効率が良くなることは明らかだろう
+(これとは対をなす概念が「<a
+href="debug.html#SS_15_6">事後的デバッグ</a>」である)。</p>
+<p>再現性の悪いバグには、様々なテストパターンを試す、環境を変えてみる、
+等の運任せの手法も時には必要になるが、以下のような戦略的アプローチが最も有効である。</p>
+<ul>
+<li>printfデバッグを使わない(「<a
+href="debug.html#SS_15_1">デバッガの使用</a>」参照)</li>
+<li><a href="debug.html#SS_15_3_1">ビルド時間の短縮</a></li>
+<li><a
+href="debug.html#SS_15_4">自動単体テストの実施</a>(ターゲットハードウェアへのプログラム転送が不要なため、
+組み込みソフト開発には特に有効である)</li>
+</ul>
+<h3 id="ビルド時間の短縮">ビルド時間の短縮 <a id="SS_15_3_1"></a></h3>
+<p>ビルド時間を短くするためには、下記等が施策となる。</p>
+<ul>
+<li>コンパイルの並列化を行う(make -j等)</li>
+<li>ライブラリに細かく分割する(コンパイルの並列化がされやすくなる)</li>
+<li>コア数/スレッド数が多く、SSD等のストレージアクセスが早く、メモリが多いコンパイルマシンをを使う</li>
+<li>差分ビルドが有効に働くように、<a
+href="debug.html#SS_15_3_2">依存関係の整理</a>を行う</li>
+<li>不要なインクルードを行わない
+(静的解析ツールによっては、不要なインクルードを指摘してくれる)</li>
+</ul>
+<p>ビルドツールが並列コンパイルをサポートしているのであれば (「<a
+href="dev_tools.html#SS_16_1">コンパイラ</a>」で述べたしたメーカのIDEは並列コンパイルができなかった)、
+上記したような高スペックのビルドマシンを導入することで、
+工数負担なしにコンパイル時間の改善ができる。
+多少費用は増えるが、人件費とは比較にならないほど安価である(「<a
+href="dev_tools.html#SS_16">開発ツール</a>」参照)。</p>
+<p>各プログラマがフルビルドを一日に何度も行うことはないので、
+実践的には差分ビルドが有効になるように依存関係を見直すのが良い。
+ただし、これには「<a
+href="debug.html#SS_15_3_2">依存関係の整理</a>」で説明したような努力が必要である。</p>
+<h3 id="依存関係の整理">依存関係の整理 <a id="SS_15_3_2"></a></h3>
+<p>「<a
+href="programming_convention.html#SS_3_7">パッケージとその構成ファイル</a>」で述べたようにソースコードをパッケージ分割し、
+そのパッケージをライブラリとしてまとめ、ライブラリ間の循環依存がないようにすることで、
+差分ビルドは有効に働くことが多い(その場合、当然無駄なインクルードもしない必要がある)。</p>
+<p>このようなライブラリ構成は、</p>
+<ul>
+<li>単体テストが容易になる(「<a
+href="process_and_infra.html#SS_11_2_1">自動単体テスト</a>」参照)</li>
+<li>修正後の影響範囲を明確にしやすい</li>
+<li>ライブラリの転用がしやすい</li>
+</ul>
+<p>等他にも良い影響があるため、この構造を維持するべきである。
+そのためには、</p>
+<ul>
+<li>静的解析ツール等を使った依存関係の監視(「<a
+href="deps.html#SS_17">deps</a>」参照)</li>
+<li>ビルドツールの使い方の工夫(「<a
+href="deps.html#SS_17_3">makeによる依存関係の維持</a>」参照)</li>
+</ul>
+<p>等が必要になる。</p>
+<h2 id="自動単体テストの実施">自動単体テストの実施
+<a id="SS_15_4"></a></h2>
+<p><a href="process_and_infra.html#SS_11_2_1">自動単体テスト</a>は、</p>
+<ul>
+<li>デバッグのTATを短縮できる(「<a
+href="debug.html#SS_15_3">TATの短縮</a>」参照)</li>
+<li>統合テストでは実施困難なテストを行うことができる</li>
+<li>ほぼ工数をかけることなく、回帰テストを実施できるため、
+共有リポジトリ内のソースコードをクリーンに保てる</li>
+<li>カバレッジを取ることで、テストが不十分なコードを特定できる</li>
+</ul>
+<p>等の効果を期待できるため、現在のソフトウェア開発において欠かすことができない手法である。</p>
+<h2 id="自動統合テストの実施">自動統合テストの実施
+<a id="SS_15_5"></a></h2>
+<p><a href="process_and_infra.html#SS_11_2_3">自動統合テスト</a>は、</p>
+<ul>
+<li>ほぼ工数をかけることなく、回帰テストを実施できるため、
+共有リポジトリ内のソースコードをクリーンに保てる</li>
+<li>長時間操作が必要なテスト(メモリーリークや、発生率の悪いタイミング問題等)を、
+人手をかけずに実施できる</li>
+<li>git bisect(「<a
+href="debug.html#SS_15_2">gitの使用</a>」参照)と組み合わせれば、
+デグレードが起こった共有リポジトリのリビジョンを特定できる</li>
+</ul>
+<p>等の効果を期待できるため、現在のソフトウェア開発において欠かすことができない手法である。</p>
+<p><a
+href="deps.html#SS_17">deps</a>に関しても、以下のシェルスクリプトにより自動統合テストを実現している。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="ex">//</span>  deps/example/deps/it.sh 6</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span><span class="fu"> help()</span><span class="kw">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;</span><span class="va">$BASENAME</span><span class="st">  [option]&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;    -a BIN : BIN is test target(default:./g++/deps)&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;    -d     : debug mode&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">&quot;    -h     : show this message&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">exit</span> <span class="va">$1</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">//</span> ...</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">function</span><span class="fu"> test_a2pu()</span> <span class="kw">{</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">local</span> <span class="at">-r</span> <span class="va">exp</span><span class="op">=</span><span class="va">$1</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">local</span> <span class="at">-r</span> <span class="va">in</span><span class="op">=</span><span class="va">$2</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">local</span> <span class="at">-r</span> <span class="va">act</span><span class="op">=</span><span class="va">${exp}</span>.act</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rm</span> <span class="at">-f</span> <span class="va">$act</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">$APP</span> a2pu <span class="at">-i</span> <span class="va">$in</span> <span class="at">-o</span> <span class="va">$act</span> <span class="va">$dir</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">diff</span> <span class="va">$exp</span> <span class="va">$act</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rm</span> <span class="va">$act</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">}</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="ex">//</span> ...</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> test_a 0         <span class="kw">&amp;&amp;</span> <span class="ex">test_a</span> it_data/a_ut_data.txt it_data/p2p_ut_data.txt </span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> test_a2pu 0      <span class="kw">&amp;&amp;</span> <span class="ex">test_a2pu</span> it_data/pu_ut_data.pu it_data/p2p_ut_data.txt </span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> test_a2pu 1      <span class="kw">&amp;&amp;</span> <span class="ex">test_a2pu</span> it_data/pu_ut_data_s.pu it_data/p2p_ut_data_s.txt</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> test_deps_fake   <span class="kw">&amp;&amp;</span> <span class="ex">test_deps_fake</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> test_deps_dep    <span class="kw">&amp;&amp;</span> <span class="ex">test_deps_dep</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> test_deps_dep2   <span class="kw">&amp;&amp;</span> <span class="ex">test_deps_dep2</span></span></code></pre></div>
+<p>上記でも使ったunix系のコマンドは、</p>
+<ul>
+<li>統合テストのみならず、様々な自動化に関して非常に強力なツールである</li>
+<li><a
+href="https://www.cygwin.com/">cygwin</a>によりwindows上でもunixでの使用感とほぼ同等に使える</li>
+</ul>
+<p>ため、 <a
+href="https://github.com/jlevy/the-art-of-command-line/blob/master/README-ja.md">The
+Art of Command Line</a> 等を参考に学習するべきである。</p>
+<h2 id="事後的デバッグ">事後的デバッグ <a id="SS_15_6"></a></h2>
+<p>多くのバグは、組織の公式なテストやユーザによって発見されるため(ユーザには発見されたくないが)、
+その解析にデバッガが使えないことはよくあることである。
+このような場合でも、ホスト上のソフトウェアであれば、
+メモリダンプを取り、事後的にデバッガを利用することはできるが、
+このアプローチが必ずしも効果的とは限らない。
+また、組み込みソフトの場合、メモリダンプの取得ですら簡単ではない。</p>
+<p>ここでは、そのような場合に有効な手法について解説する。</p>
+<h3 id="ログの取得">ログの取得 <a id="SS_15_6_1"></a></h3>
+<p>第三者によってバグが報告された場合、
+デバッグのファーストステップは、そのバグを手元で再現させることになるが、
+その第三者からバグ発生時の正確な手順を聞き出すことは困難である。また、聞き出せたとしても、
+もし、そのバグが簡単に再現しない場合、その手順を完全に信じることは難しい。</p>
+<p>こういったことに備えるために、
+ソースコードにあらかじめログを仕込んでおくことは昔から行われてきており、今なお有効な手法である。</p>
+<p><a href="deps.html#SS_17">deps</a>の開発にもログは有効であり、</p>
+<ul>
+<li>ログ取得用のクラスと関数テンプレート (「<a
+href="template_meta_programming.html#SS_13_1">ログ取得ライブラリの開発</a>」、「<a
+href="template_meta_programming.html#SS_13_6">ログ取得ライブラリの開発2</a>」参照)</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  deps/example/deps/logging/h/logging/logger.h 11</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">namespace</span> Logging <span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Logger <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">static</span> Logger<span class="op">&amp;</span> Inst<span class="op">(</span><span class="dt">char</span> <span class="at">const</span><span class="op">*</span> filename <span class="op">=</span> <span class="kw">nullptr</span><span class="op">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> HEAD<span class="op">,</span> <span class="kw">typename</span><span class="op">...</span> TAIL<span class="op">&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> Set<span class="op">(</span><span class="dt">char</span> <span class="at">const</span><span class="op">*</span> filename<span class="op">,</span> <span class="dt">uint32_t</span> line_no<span class="op">,</span> HEAD <span class="at">const</span><span class="op">&amp;</span> head<span class="op">,</span> TAIL<span class="op">...</span> tails<span class="op">)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            <span class="kw">auto</span>   path     <span class="op">=</span> <span class="bu">std::</span>string_view<span class="op">{</span>filename<span class="op">};</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            <span class="dt">size_t</span> npos     <span class="op">=</span> path<span class="op">.</span>find_last_of<span class="op">(</span><span class="ch">&#39;/&#39;</span><span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">auto</span>   basename <span class="op">=</span> <span class="op">(</span>npos <span class="op">!=</span> <span class="bu">std::</span>string_view::npos<span class="op">)</span> <span class="op">?</span> path<span class="op">.</span>substr<span class="op">(</span>npos <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">:</span> path<span class="op">;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            <span class="va">os_</span><span class="op">.</span>width<span class="op">(</span><span class="dv">12</span><span class="op">);</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            <span class="va">os_</span> <span class="op">&lt;&lt;</span> basename <span class="op">&lt;&lt;</span> <span class="st">&quot;:&quot;</span><span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            <span class="va">os_</span><span class="op">.</span>width<span class="op">(</span><span class="dv">3</span><span class="op">);</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="va">os_</span> <span class="op">&lt;&lt;</span> line_no<span class="op">;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            set_inner<span class="op">(</span>head<span class="op">,</span> tails<span class="op">...);</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ...</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> set_inner<span class="op">()</span> <span class="op">{</span> <span class="va">os_</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> HEAD<span class="op">,</span> <span class="kw">typename</span><span class="op">...</span> TAIL<span class="op">&gt;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> set_inner<span class="op">(</span>HEAD <span class="at">const</span><span class="op">&amp;</span> head<span class="op">,</span> TAIL<span class="op">...</span> tails<span class="op">)</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>            <span class="kw">using</span> Nstd<span class="op">::</span><span class="kw">operator</span><span class="op">&lt;&lt;;</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            <span class="va">os_</span> <span class="op">&lt;&lt;</span> <span class="st">&quot;:&quot;</span> <span class="op">&lt;&lt;</span> head<span class="op">;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>            set_inner<span class="op">(</span>tails<span class="op">...);</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>        <span class="kw">template</span> <span class="op">&lt;</span><span class="kw">typename</span> HEAD<span class="op">,</span> <span class="kw">typename</span><span class="op">...</span> TAIL<span class="op">&gt;</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        <span class="dt">void</span> set_inner<span class="op">(</span><span class="dt">char</span> sep<span class="op">,</span> HEAD <span class="at">const</span><span class="op">&amp;</span> head<span class="op">,</span> TAIL<span class="op">...</span> tails<span class="op">)</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>            <span class="kw">using</span> Nstd<span class="op">::</span><span class="kw">operator</span><span class="op">&lt;&lt;;</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="va">os_</span> <span class="op">&lt;&lt;</span> sep <span class="op">&lt;&lt;</span> head<span class="op">;</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            set_inner<span class="op">(</span>tails<span class="op">...);</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ...</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span>  <span class="co">// namespace Logging</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define LOGGER_INIT</span><span class="op">(</span>filename<span class="op">)</span><span class="pp"> </span>Logging<span class="op">::</span>Logger<span class="op">::</span>Inst<span class="op">(</span>filename<span class="op">)</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define LOGGER</span><span class="op">(...)</span><span class="pp"> </span>Logging<span class="op">::</span>Logger<span class="op">::</span>Inst<span class="op">().</span>Set<span class="op">(</span><span class="ot">__FILE__</span><span class="op">,</span><span class="pp"> </span><span class="ot">__LINE__</span><span class="op">,</span><span class="pp"> </span><span class="ot">__VA_ARGS__</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>オブジェクトを文字列変換するため関数</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  deps/example/deps/app/src/deps_opts.h 53</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string          ToStringDepsOpts<span class="op">(</span>DepsOpts <span class="at">const</span><span class="op">&amp;</span> deps_opts<span class="op">,</span> <span class="bu">std::</span>string_view indent <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">);</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inline</span> <span class="bu">std::</span>ostream<span class="op">&amp;</span> <span class="kw">operator</span><span class="op">&lt;&lt;(</span><span class="bu">std::</span>ostream<span class="op">&amp;</span> os<span class="op">,</span> DepsOpts <span class="at">const</span><span class="op">&amp;</span> opts<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> os <span class="op">&lt;&lt;</span> ToStringDepsOpts<span class="op">(</span>opts<span class="op">);</span> <span class="op">}</span></span></code></pre></div>
+<ul>
+<li>ログの取得方法</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  deps/example/deps/app/src/main.cpp 43</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>unique_ptr<span class="op">&lt;</span>Dependency<span class="op">::</span>ScenarioGenerator<span class="op">&gt;</span> gen_scenario<span class="op">(</span>App<span class="op">::</span>DepsOpts <span class="at">const</span><span class="op">&amp;</span> opt<span class="op">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">using</span> <span class="kw">namespace</span> Dependency<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">switch</span> <span class="op">(</span>opt<span class="op">.</span>GetCmd<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> App<span class="op">::</span>DepsOpts<span class="op">::</span>Cmd<span class="op">::</span>GenPkg<span class="op">:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            LOGGER<span class="op">(</span><span class="st">&quot;start GenPkg&quot;</span><span class="op">);</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="bu">std::</span>make_unique<span class="op">&lt;</span>PkgGenerator<span class="op">&gt;(</span>opt<span class="op">.</span>In<span class="op">(),</span> opt<span class="op">.</span>IsRecursive<span class="op">(),</span> opt<span class="op">.</span>Dirs<span class="op">(),</span> opt<span class="op">.</span>Exclude<span class="op">());</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> App<span class="op">::</span>DepsOpts<span class="op">::</span>Cmd<span class="op">::</span>GenSrc<span class="op">:</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            LOGGER<span class="op">(</span><span class="st">&quot;start GenPkg&quot;</span><span class="op">);</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="bu">std::</span>make_unique<span class="op">&lt;</span>SrcsGenerator<span class="op">&gt;(</span>opt<span class="op">.</span>In<span class="op">(),</span> opt<span class="op">.</span>IsRecursive<span class="op">(),</span> opt<span class="op">.</span>Dirs<span class="op">(),</span> opt<span class="op">.</span>Exclude<span class="op">());</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="co">// ...</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">catch</span> <span class="op">(</span><span class="bu">std::</span>runtime_error <span class="at">const</span><span class="op">&amp;</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        LOGGER<span class="op">(</span><span class="st">&quot;error occured:&quot;</span><span class="op">,</span> e<span class="op">.</span>what<span class="op">());</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cerr <span class="op">&lt;&lt;</span> e<span class="op">.</span>what<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>make_unique<span class="op">&lt;</span>ScenarioGeneratorNop<span class="op">&gt;(</span><span class="kw">false</span><span class="op">);</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[])</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        App<span class="op">::</span>DepsOpts d_opt<span class="op">{</span>argc<span class="op">,</span> argv<span class="op">};</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        LOGGER_INIT<span class="op">(</span>d_opt<span class="op">.</span>Log<span class="op">()</span> <span class="op">==</span> <span class="st">&quot;-&quot;</span> <span class="op">?</span> <span class="kw">nullptr</span> <span class="op">:</span> d_opt<span class="op">.</span>Log<span class="op">().</span>c_str<span class="op">());</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        LOGGER<span class="op">(</span><span class="st">&quot;Options&quot;</span><span class="op">,</span> <span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span><span class="op">,</span> d_opt<span class="op">);</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> out_sel   <span class="op">=</span> OStreamSelector<span class="op">{</span>d_opt<span class="op">.</span>Out<span class="op">()};</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> exit_code <span class="op">=</span> gen_scenario<span class="op">(</span>d_opt<span class="op">)-&gt;</span>Output<span class="op">(</span>out_sel<span class="op">.</span>OStream<span class="op">())</span> <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        LOGGER<span class="op">(</span><span class="st">&quot;Exit&quot;</span><span class="op">,</span> exit_code<span class="op">);</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> exit_code<span class="op">;</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>によりログを取得している。これにより以下のような内容のログファイルが取得できる。</p>
+<pre><code>    app/src/main.cpp:109:Options
+    cmd       : GenPkg
+    in        : 
+    out       : 
+    recursive : true
+    src_as_pkg: false
+    log       : it_data/log_exp.txt.act
+    dirs      : ut_data
+    exclude   : 
+    parsed    : true
+    app/src/main.cpp: 51:start GenPkg
+    app/src/main.cpp:114:Exit:0</code></pre>
+<p>なお、組み込みソフトの場合、ファイルが使えないこともよくあるため、ログをメモリ上にストアし、
+<a
+href="debug.html#SS_15_6_2">モニター</a>の機能によりそれを吸い上げる必要がある(ファイルが使える場合にもこれは同様である)。</p>
+<h3 id="モニター">モニター <a id="SS_15_6_2"></a></h3>
+<p>先に書いた通り、組み込みソフトの場合、バグ発生後にメモリダンプを取り、
+後からデバッガで調査することは難しい。
+また、ログを取っていた場合でもそれを吸い上げる方法が無ければ、それを利用できない。
+このような場合には、あらかじめデバッグ用の機能を入れることが有効である。
+本ドキュメントではこういった機能をモニタープログラム、あるいは単にモニターと呼ぶ。</p>
+<p>モニターには以下のような機能が必要である。</p>
+<ul>
+<li>ホスト上のターミナルソフト(<a
+href="https://ja.osdn.net/projects/ttssh2/">Tera Term</a>等)
+と接続するため入出力(通常はuartを利用)</li>
+<li>下記のコマンドを実装するため簡易シェル(<a
+href="https://cubeatsystems.com/ntshell/">ntshell</a>等)</li>
+<li>メモリに保存されたログの出力</li>
+<li>デバッガの基本機能
+<ul>
+<li>メモリダンプ</li>
+<li>メモリ(回路のレジスタ等)への書き込み</li>
+<li>レジスタダンプ(各種レジスタやCPUの状態の表示)</li>
+<li>リアルタイムOSのリソースの表示</li>
+<li>スレッドの状態の表示や<a
+href="debug.html#SS_15_6_2_2">スタック消費量の計測</a></li>
+<li><a href="debug.html#SS_15_6_2_1">メモリ保護機能</a>のON/OFF</li>
+<li>グローバルなnew/deleteの使用状況(「<a
+href="dynamic_memory_allocation.html#SS_14_4_1">グローバルnew/deleteのオーバーロード</a>」参照)</li>
+</ul></li>
+</ul>
+<p>レジスタダンプは、CPU例外場所の特定やコールスタックの構築には欠かせない機能であるが、
+使用しているCPUやコンパイラの仕様を理解しなければ実装できない。
+ARMを使っているのであれば、 <a
+href="https://developer.arm.com/">https://developer.arm.com/</a>
+等のネットドキュメントに十分情報が掲載されている。
+他のランタイム系にも同様のドキュメントは提供されているはずである。</p>
+<p>実装難度が高い、もしくは時間がない等の理由でこういった機能の実装をおろそかにすれば、
+必ずと言っていいほど極度に解析困難なバグに悩まされることになる。</p>
+<h4 id="メモリ保護機能">メモリ保護機能 <a id="SS_15_6_2_1"></a></h4>
+<p>組み込みソフトは、仮想アドレスを使わず、
+直接ハードウエアアドレスを使って動作することが一般的である。
+その場合、CPUのデフォルトの設定では、リードオンリー領域
+(インストラクション、文字列リテラル、constなPOD等)に対してもライトアクセスできるため、
+例えば、クラスへのポインタにnullptrが代入された状態で、
+そのポインタをデリファレンスし、ライト系のメンバ関数を呼び出せば(ptr-&gt;f()のような呼び出し)、
+０アドレス付近のコードが破壊される。</p>
+<p>多くのCPUでは、この領域には割り込みベクタが配置されているため、CPU例外が発生する。
+それを捕捉する機能が実装されていなければソフトは暴走する。
+CPU例外を捕捉する機能が実装されている場合でも、
+その例外コードは「不正なインストラクションの実行」を示すことがほとんどであるため、
+真の原因特定は難しい。</p>
+<p>使用しているCPUがメモリ保護機能(MMUやMPUと呼ばれることが多い)をサポートしているのであれば、
+それを使いリードオンリー領域を保護することで、このような状況を回避することができる。</p>
+<p>適切にメモリ保護機能を活性化した状態でも、リードオンリー領域にライトアクセスした場合、
+やはりCPU例外が発生するが、CPU例外を捕捉し、その時のレジスタをダンプすれば、
+「リードオンリー領域にライトアクセスしたインストラクションが配置されているアドレス」
+を特定することができる。
+後は、ツールチェーンに付属するaddr2line、readelf、objdump、nmのようなバイナリ解析ツールを使い、
+アドレスからソースコードを特定すればよい。</p>
+<p>ただし、jtagデバッガを使用する場合、メモリ保護機能の設定には注意が必要である。</p>
+<p>jtagデバッガがブレークポイントを設定する方法は2つある。一つはハードウェアブレークであり、
+他方はソフトウェアブレークである。ソフトウェアブレークを設定する場合、
+デバッガは、一時的に「ブレークを指定されたソースコードに対応するインストラクション」
+に「ソフトウェアブレークするためのインストラクション」を上書きする。</p>
+<p>メモリ保護をしている場合、jtagデバッガによるこの動作はCPU例外を発生させることがある。
+これを避けるためには、一時的にメモリ保護機能を不活性にすればよい。
+これをモニターから実行できるコマンドとして実装すると便利である。</p>
+<h4 id="スタック消費量の計測">スタック消費量の計測
+<a id="SS_15_6_2_2"></a></h4>
+<p>強固なメモリ保護を持つOS上のソフトウェアがスタックのオーバーフローを起こした場合、
+それを示す例外コードが、コアダンプ等の何らかの方法で通知されるため、
+多くの場合、デバッグはそれほど困難ではない。</p>
+<p>組み込みソフトの場合でのスタックオーバーフローは、
+「スタックに割り当てられたメモリのすぐ上にある領域が破壊される」
+というデバッグ困難な現象を引き起こす
+(これにより、メモリ破壊だけではなくスレッドの暴走等も起こり得る)。</p>
+<p>こういったことを防ぐには、スタックをある特定のバイト列(0xdeadbeaf等)でフィルし、
+スタックの消費量を計測できるようにすることが重要である
+(0xdeadbeafでないデータが書き込まれている最上位アドレスまでが使われたと判断できる)。
+当然ながらスタックの消費量を表示するコマンドはモニターから実行できれば便利である。</p>
+<h2 id="潜在的バグの削減">潜在的バグの削減 <a id="SS_15_7"></a></h2>
+<p>すでに述べたように共有リポジトリ内のソースコードをクリーンに保つことは、デバッグの効率化に繋がる。
+そのためにの手段として以下の三点が有効である。</p>
+<ul>
+<li><a
+href="process_and_infra.html#SS_11_2_5_1_2">コードインスペクション</a><br />
+</li>
+<li>コードの静的解析
+<ul>
+<li><p><a
+href="code_analysis.html#SS_4_1">コンパイラによる静的解析</a><br />
+</p></li>
+<li><p>静的解析ツールの使用<br />
+静的解析ツールを選択する最も重要な基準は、
+S/N比である(S(シグナル)とはバグやバグに近いコードであり、
+N(ノイズ)とは修正の必要のないコードである)。S/N比が悪いと、
+早晩プログラマはこのツールの指摘を無視し始める。
+ツールの指摘を確認するようにプロセス的に強制しても、おざなりな対応が行われるだけなので、
+S/N比の良い下記のようなツールを選ぶべきである。</p>
+<ul>
+<li>scan-build(「<a
+href="code_analysis.html#SS_4_2">scan-buildによる静的解析</a>」参照、ライセンス費フリー)</li>
+<li><a
+href="https://www.synopsys.com/ja-jp/software-integrity/security-testing/static-analysis-sast.html">coverity</a></li>
+</ul></li>
+</ul></li>
+<li>コードの動的解析
+<ul>
+<li>コードにassert()を入れる。
+これは外部ツールではなく、標準ヘッダcassertをインクルードすれば使用できる
+(「<a
+href="programming_convention.html#SS_3_11_1">assertion</a>」参照)。</li>
+<li>g++/clang++を使用しているのであれば、マクロ_GLIBCXX_DEBUGを定義してビルドを行うことで、
+STLの誤使用に関するバグが指摘される。多くのコンパイラがこのような機能を持っている
+(Visual Studioでは、コンパイラの/MDdオプションをを指定する)。</li>
+<li>動的解析ツールの使用<br />
+sanitizer(「<a
+href="code_analysis.html#SS_4_4">sanitizerによる動的解析</a>」参照)やvalgrind等が優れている。
+<a
+href="http://www.andreasen.org/LeakTracer/">LeakTracer</a>等のメモリリーク専用のツールもある。</li>
+</ul></li>
+</ul>
+<p>静的解析ルールと違い動的解析ツールは、プログラムを動作させなければバグを発見できないが、
+<a
+href="process_and_infra.html#SS_11_2_5">CI(継続的インテグレーション)</a>と組み合わせれば、
+効率的に運用できる(「<a
+href="debug.html#SS_15_5">自動統合テストの実施</a>」参照)。</p>
+<p>なお、<a
+href="deps.html#SS_17">deps</a>に関しても、以下のようにすることで単体テスト、
+統合テスト時にsanitizerによる動的解析を行っている。</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    //  deps/example/deps/Makefile 174</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    ut: <span class="ch">$(</span><span class="dt">EXES_UT_DONE</span><span class="ch">)</span>  <span class="co"># 単体テスト用ターゲット</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    it: <span class="ch">$(</span><span class="dt">EXE_IT_DONE</span><span class="ch">)</span>  <span class="co"># 統合テスト用ターゲット</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">SANITIZER_DIR</span><span class="ch">=</span><span class="st">sanitizer/</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="ot">.PHONY</span> <span class="ot">:</span><span class="dt"> sanitizer</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="er">    </span>san:  <span class="co"># g++ sanitizerビルド</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="ch">$(</span><span class="dt">MAKE</span><span class="ch">)</span> O=<span class="ch">$(</span><span class="dt">SANITIZER_DIR</span><span class="ch">)</span> \</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">SANITIZER_OPT</span><span class="ch">=</span><span class="st">&quot;-fsanitize=address,leak,undefined,float-divide-by-zero,float-cast-overflow&quot;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    san-ut: sanitizer  <span class="co"># g++ sanitizerバイナリでの単体テスト</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        make O=<span class="ch">$(</span><span class="dt">SANITIZER_DIR</span><span class="ch">)</span> ut</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    san-it: sanitizer  <span class="co"># g++ sanitizerバイナリでの統合テスト</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        make O=<span class="ch">$(</span><span class="dt">SANITIZER_DIR</span><span class="ch">)</span> it</span></code></pre></div>
+<h2 id="難しいバグの対処">難しいバグの対処 <a id="SS_15_8"></a></h2>
+<p>一般に下記のような現象の原因特定は難しい。その再現性が悪いとなおさらそうなる。</p>
+<ul>
+<li>ハングアップ</li>
+<li>メモリ、ファイルハンドル等のリソースの枯渇</li>
+<li>不正メモリアクセス</li>
+<li>不正な命令の実行</li>
+</ul>
+<p>本ドキュメントの提言に従ってソフトウェア開発を進めれば、
+そのリスクを低く保てるが、それでもこのようなバグは発生する。</p>
+<p>ハングアップについては、<a
+href="debug.html#SS_15_6_1">ログの取得</a>、<a
+href="debug.html#SS_15_1">デバッガの使用</a>
+が有効なデバッグ方法となることが多い(もちろん組み込みの場合は、<a
+href="debug.html#SS_15_6_2">モニター</a>が必要である)。
+また、バージョンが特定できるのであればgitのdiff/bisect等(「<a
+href="debug.html#SS_15_1">デバッガの使用</a>」参照)が役に立つ。</p>
+<p>リソースの枯渇については、
+scan-buildやcoverity等の静的解析ツール(「<a
+href="debug.html#SS_15_7">潜在的バグの削減</a>」参照)を使うことで、
+ピンポイントでリーク箇所を特定できることがあるため、
+まずはこれらを使ってみることを推奨する。
+これで発見できない場合、動的解析ツールの使用を検討するべきだろう。</p>
+<p>恒久的には、 「<a href="design_pattern.html#SS_9_10">RAII(scoped
+guard)</a>」で紹介したようなリソースの自動解放のパターンを使用し、
+そもそもこのような問題が発生しないように改善するべきだろう。</p>
+<p>バグの性質上、再現/回帰テストには長時間のアプリケーション動作が必要になることがある。
+テスターにひたすらクリックさせるようなテストは非効率であるだけでなく、
+人道的にも問題になるかもしれないため、<a
+href="debug.html#SS_15_5">自動統合テストの実施</a>も必須になる。</p>
+<p>不正メモリアクセス、不正な命令の実行に関しては、下記のようなメモリ破壊を疑うべきだろう。</p>
+<ul>
+<li>スタックの破壊</li>
+<li>静的なオブジェクトの破壊</li>
+<li>newしたオブジェクトの破壊やダブルデリート</li>
+</ul>
+<p>これらに関しても、上記したような静的/動的解析ツールの活用が有効になる場合が多い。
+これで問題が発見できない場合、以下のような知識が必要になる。</p>
+<ul>
+<li>コンパイラのスタックの生成方法、CPUレジスタの使用方法、アセンブラ</li>
+<li>コンパイラに付属するバイナリツール</li>
+<li>CPU例外に対するランタイム系の処理方法</li>
+</ul>
+<p>これらの知識はC++プログラマの基本スキルセットの一部だと思うが、
+実際にはこれらの知識を持たないプログラマも少なくない。
+そのようなプログラマにはこれを良い機会と捉え、新知識の習得に励んでほしいが、
+目の前に迫った納期の前に、そのような悠長なことを言っていられないこともあるだろう。
+そのような場合は、上級なプログラマに助成(「<a
+href="debug.html#SS_15_9">助成の依頼</a>」参照)を頼むこと以外、
+建設的なデバッグ方法はない (やみくもにソースコードを眺めたり、
+ログやprintfを仕込んでも、よほどの幸運でもない限りバグは見つからない)。</p>
+<h2 id="助成の依頼">助成の依頼 <a id="SS_15_9"></a></h2>
+<p>ここでのデバッグの「助成の依頼」とは以下のいずれかを指す。</p>
+<ul>
+<li>動作説明を聞いてもらう</li>
+<li>一緒にデバッグしてもらう</li>
+</ul>
+<p>「動作説明を聞いてもらう」相手は、同プロジェクトのプログラマがベストであるが、
+実際には難しいことが多い。こういった時(ほとんどの場合そうなるが)には、相手は誰でもいい。
+それすらできない場合、ペットでも無生物でも良い。
+他者に説明することで、自分の理解を確めることができ、
+エアポケットに落ち込んでしまった見落としを発見できる可能性が高くなる。</p>
+<p>「一緒にデバッグしてもらう」相手は、 「<a
+href="debug.html#SS_15_8">難しいバグの対処</a>」で述べたような知識豊富なプログラマで無ければならない。
+これができるか否かは、日頃の人付き合いに依存するが、知識豊富なプログラマの多くは、
+人から頼られることを拒否しない(当然状況によるが、通常は喜んで手伝ってくれるはず)。</p>
+<p>下記に筆者が他者から助成を頼まれた事例を取り上げる。
+もしこのような現象を独力で解決できる自信がないのであれば、
+まずは、思い切って依頼してみることだ。</p>
+<h3 id="現象1---不思議なハングアップ">現象1 - 不思議なハングアップ
+<a id="SS_15_9_1"></a></h3>
+<p>この現象は、モニター機能を実装した組み込みソフトウェアのテストで起こった。
+あるプログラマが、自分の書いた機能を長時間テストするために、 <a
+href="https://ja.osdn.net/projects/ttssh2/">Tera
+Term</a>をターゲットボードに接続し、
+そのソフトウェアに組み入れたテストをTera Termから起動して帰宅した。
+翌日出社するとそのテストは途中でハングアップしてるように見える状態で止まっていた。
+彼はなんとなく、Tera
+Termにリターンキーを入力した。すると、途中で止まっていたテストが再び走り出し、
+数時間後に完了した。この状態でできることはほとんどないので、彼は何もなかったことにして、
+その日の帰宅前にまた同様のテストを走らせた。次の朝、また同じことが起きたため、
+この現象のデバッグに取り掛かろうとしたが、やり方が全く分からなかった。</p>
+<p>この日の朝会はすでに終わっていたため、次の日の朝会でこの現象を報告し、助成を求めた。</p>
+<p>この報告を聞いて難問題であることを確信した私は、すぐにでもデバッグを手伝いたかったが、
+後2、3日かかるプログラミングの最中であったため、
+彼に「その現象のTATがもっと短いテストパターンを探る」ように指示し、自分の作業をつづけた。
+2日後、TATが30分までに短縮されたこの現象のデバッグに参加した。</p>
+<p>このデバッグの難しさは、この現象が起こっている時にモニターから何か文字を打ち込むと、
+ハングアップ状態が解けてしまうことであった。</p>
+<p>現象からRTOSのバグであると推測して、jtagデバッガでRTOSのリソースを観察して、以下のことが分かった
+(RTOSのリソースはより便利にモニターから見れたが、モニターを使うとこの現象が霧散してしまうため、
+この機能は使えない)。</p>
+<ul>
+<li>カレントスレッドポインタがNULLである</li>
+<li>テストを実行するスレッドはレディーキューに繋がれている</li>
+</ul>
+<p>RTOSの仕様では、</p>
+<ul>
+<li>各スレッドには、その情報を保持するスレッド構造体が存在する</li>
+<li>カレントスレッドポインタは、実行中のスレッドのスレッド構造体を指す</li>
+<li>実行可能(待っていたイベントが起こった等)なスレッドのスレッド構造体はレディーキューに繋がれる</li>
+<li>スレッドのディスパッチャは、RTOSのシステムコールか割り込みルーチンから実行される。</li>
+<li>ディスパッチャは、一旦カレントスレッドポインタをNULLにして、
+レディーキューに繋がれたスレッドの中で最高プライオリティを持つものをそこから取り出し、
+カレントスレッドポインタに代入した後、そのスレッドを走らせる</li>
+<li>カレントスレッドポインタがNULLの際に発生したチック割込みからは、
+ディスパッチャは呼び出されない(プリエンプション対象のスレッドがないため)。</li>
+</ul>
+<p>となっていた
+(このような詳細仕様は、通常ドキュメントには書かれていない。
+また、書かれていてもそもそもRTOSを疑っているのだからその情報は信じられないため、
+RTOSのコードハック以外の方法はない)。</p>
+<p>以上から、</p>
+<ul>
+<li>「カレントスレッドポインタがNULLである」ことは「現在実行中のスレッドは存在しない」</li>
+<li>「レディーキューが空ではない」ことは「実行可能なスレッドが存在する」</li>
+</ul>
+<p>を意味する。
+このような中途半端な状態はディスパッチャ内でしか発生しないので、以下のことが分かったことになる。</p>
+<ul>
+<li>この現象はハングアップである</li>
+<li>カレントスレッドポインタは静的変数であるため、 「<a
+href="debug.html#SS_15_9_2">現象2 -
+グローバル変数の破壊</a>」のようなことがない限り、RTOSのバグである</li>
+</ul>
+<p>「<a href="debug.html#SS_15_9_2">現象2 -
+グローバル変数の破壊</a>」で書いたような方法により、
+この現象が変数破壊でないことを確信した我々はさらにRTOSのコードハックを続けた。</p>
+<p>ディスパッチャは、ディスパッチャ自身に割り込まれることがあるため、
+カレントスレッドポインタやレディーキューにアクセスするときに割り込みを禁止し、
+その処理の終了後に割り込みを許可する(これをクリティカルセクションの保護と言う)。
+もしクリティカルセクションの保護をしなければこの現象が起こせることが分かったが、
+クリティカルセクションを保護しているソースコード内のインラインアセンブラに問題がないことも分かり、
+デバッグは行き詰った。
+とはいえ、放置できる問題でもないため、コンパイル後のバイナリを逆アセンブルして、
+動作を確かめることにした。これは苦痛に満ちた作業だが、他の方法を思いつかなかった。</p>
+<p>そして、ようやく原因を特定できた。
+「割り込み許可を行うインストラクション」と
+「カレントスレッドポインタへNULLを代入するインストラクション」の順番が、
+ソースコードに書かれている順番と逆になっており、
+このためカレントスレッドポインタの操作が割り込みから保護されていなかったのだ。</p>
+<p>結果はRTOSのバグではなく、
+コンパイラのバグ(最適化に伴うインストラクションの不適切な入れ替え)であった。</p>
+<p>一旦ソースコードにこのバグのワークアラウンドを入れ、コンパイラメーカーにこの現象を報告した。
+2か月後にこのバグが修正されたコンパイラがリリースされたため、
+ソースコードを元に戻し、この問題が再現しないことを確認してこの問題をクローズした。</p>
+<h3 id="現象2---グローバル変数の破壊">現象2 - グローバル変数の破壊
+<a id="SS_15_9_2"></a></h3>
+<p>新人プログラマから以下のような現象の助言を求められた。</p>
+<ul>
+<li>静的オブジェクトのメンバ変数一つが0を設定していないにもかかわらず、0になる。</li>
+<li>デバッガでアドレスが近い静的オブジェクトを見てみたが、他のオブジェクトには異常がないように見える。</li>
+<li>この問題は1日一回程度起こる(起こせる)</li>
+</ul>
+<p>この現象を聞いて、まず疑ったのは「そのメンバ変数に0を代入していないつもりになっているだけで、
+実際には0を代入している」ことであったため、ソースコードレビューをしたのだが、
+問題は見つからなかった(ソースコードが汚いことは分かったが)。</p>
+<p>次に行うべきは、「この現象が静的メモリの破壊である」ことの確定である。
+壊されたと推定されたオブジェクトの前後に以下のようなオブジェクトを挿入して、
+再現テストをすることにした。</p>
+<pre><code>    uint32_t pad0[] = { 0xdeadbeaf, 0xdeadbeaf, 0xdeadbeaf, ... };
+    Collaps  collaps_obj;    // 破壊を疑っているオブジェクト。実際はシングルトンだった。
+    uint32_t pad1[] = { 0xdeadbeaf, 0xdeadbeaf, 0xdeadbeaf, ... };</code></pre>
+<p>ここで注意すべきは、この変更で静的オブジェクトの配置が大きく変わっていないことを確かめることである。
+linuxの場合、それにはnmコマンドが最適である。</p>
+<p>参考のため、「<a
+href="deps.html#SS_17">deps</a>」の実行形式バイナリにnmを適用した例を示す。</p>
+<pre><code>    &gt; nm --demangle g++/deps
+
+    000000000008b000 D __data_start
+    00000000000085b0 t __do_global_dtors_aux
+    0000000000089ff8 d __do_global_dtors_aux_fini_array_entry
+    000000000008b008 D __dso_handle
+                     U __dynamic_cast@@CXXABI_1.3
+                     U __errno_location@@GLIBC_2.2.5
+    0000000000089fa8 d __frame_dummy_init_array_entry
+                     w __gmon_start__
+
+    ...
+
+                     U abort@@GLIBC_2.2.5
+    000000000008b440 B optarg@@GLIBC_2.2.5
+    000000000008b590 B optind@@GLIBC_2.2.5
+    0000000000008570 t register_tm_clones
+                     U strchr@@GLIBC_2.2.5
+                     U strcmp@@GLIBC_2.2.5
+                     U strtol@@GLIBC_2.2.5
+                     U tolower@@GLIBC_2.2.5</code></pre>
+<p>nmにより挿入前後でpad0、pad1以外に並びが変わっていないことを確認した後、再現テストを行い
+(ASLRを行うOS上のアプリケーションの場合、それを非活性化することも必要である）、
+pad0の1ワードだけが0になっていることを確認できた。これでメモリ破壊であることが確定した
+(さらに運のいいことに、0が書かれていたアドレスはpad0、pad1挿入前後で同じであった)。</p>
+<p>もし、「<a
+href="debug.html#SS_15_1">デバッガの使用</a>」で説明したようなことが可能ならば、
+pod0への書き込みアドレスにライトトラップをかけて再現テストを行えば、
+不正なデータの書き込み個所を特定できる。
+この例の場合もデバッガを使用しバグを特定した。</p>
+<p>デバッガが使用でいない場合でもやり方はいくつかあるが、最も単純なのはassert()を使う方法である。</p>
+<p>このバグの場合、疑うべきは静的な配列のオーバーランである。
+nmによりリストアップした静的な配列のライトアクセス箇所のインデックスに下記のようなコードを挿入して、
+再現テストを行えばよい。</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span><span class="dv">0</span> <span class="op">&lt;=</span> index <span class="op">&amp;&amp;</span> index <span class="op">&lt;</span> array_length<span class="op">(</span>global_array<span class="op">));</span></span></code></pre></div>
+<p>静的な配列へのライトアクセス箇所が多い場合、苦痛な作業となるが、
+典型的なアンチパターンである静的な変数を多用した罰である考え、その苦痛を受け入れるべきだろう。</p>
+<h3 id="現象3---プロセスのスローダウン">現象3 - プロセスのスローダウン
+<a id="SS_15_9_3"></a></h3>
+<p>組み込みlinuxでの開発で起こったこの現象は、
+usbストレージに大量のデータをコピーするプロセスがスローダウンするというものであった。
+この問題を最初に聞いたのは、この対処に私が加わる3か月ほど前であった。
+この時、難問であるとは思ったが、リリースまでまだ日数があったことと、担当が海外のチームだったため、
+スルーした。</p>
+<p>3ヶ月後、このチームサイトに出張した折、この問題がまだ解決できていないことを知った。
+彼らがこの3ヵ月でこの問題に対して行ったことは、</p>
+<ul>
+<li>1時間程度で再現させられるshellスクリプトを開発した(当初は数日に1回程度の頻度)</li>
+<li>以下のことを発見した
+<ul>
+<li>この現象が起こった時、プロセスのnice値が最低プライオリティになっている</li>
+<li>nice値をコマンドから変更しプライオリティを上げると問題はなくなる</li>
+</ul></li>
+<li>最新のusbストレージのドライバを変更せずにそのまま使っており、
+ネットにもバグ等は報告れされいない</li>
+</ul>
+<p>等であった。ここから推測されることは、</p>
+<ul>
+<li>usbストレージの最新の標準ドライバにこれほど高い再現率のバグがあるとは思えないため、
+この現象はusbとは関係ない</li>
+<li>nice値が不正になるということはチック生成と密接な関係がある</li>
+</ul>
+<p>ということである。</p>
+<p>チックの生成がどうなっているかを聞いたが誰も答えられなかったため、
+ソースコードからそのドライバを探し出した。
+subversionの履歴から、このコードはこのチームが一年ほど前に作ったことが分かったため、
+担当者を呼び出しソースコードレビューを行い、以下のような怪しいコードを見つけた。</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define CHICK_REG_ADDR  </span><span class="fl">0x00.</span><span class="er">....</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#define CHICK_REG_VALUE </span><span class="op">((</span><span class="at">volatile</span><span class="pp"> </span>ulonglong<span class="op">*)</span>CHICK_REG_ADDR<span class="op">)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    ulonglong chick <span class="op">=</span> CHICK_REG_VALUE<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>chick_previous <span class="op">&gt;</span> chick<span class="op">)</span> <span class="op">{</span> <span class="co">// chick_previous: 前回ロードしたchick</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span> <span class="co">// 桁上り対策</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>この辺りのハードウェアの仕様は良く知らなかったが、
+チックを作り出すチップとCPUはおそらく32ビットバスで繋がっていたはずである。
+すぐにハードウェアの担当者に連絡を取り、32ビットバスであることを確認した。
+(経験の長いエンジニアやチームリーダーはチームをまたがる情報に簡単にアクセスできるため、
+彼らに助成を依頼すべき理由の一つになる)。</p>
+<p>この開発で使用していたgccでのulonglongは64ビットであるため、</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    ulonglong chick <span class="op">=</span> CHICK_REG_VALUE<span class="op">;</span></span></code></pre></div>
+<p>は以下のように段階的に読み込まれ、それぞれの値を合わせることでchickの値が生成される。</p>
+<ol type="1">
+<li>chick0 = (チックレジスタ63-32ビットの値)</li>
+<li>chick1 = (チックレジスタ31-0ビットの値)</li>
+<li>chick = (chick0 &lt;&lt; 32) | chick1</li>
+</ol>
+<p>チックレジスタの値が0x0000’0000’ffff’ffffのような場合、上記1でchick0には0がロードされるが、
+上記2はそれより少し遅れて実行されるため桁上りが起こりほとんど0の値がchick1にロードされる。
+上記3によりchickもほどんど0のような値になるため、前回ロードしたchickの値よりも小さい値となる。
+これは長い時間が経過したことを表してしまうため、
+現在実行中のプロセスがきわめて多くのCPUタイムを使用したことになり、
+linuxのスケジューラはこのプロセスのプライオリティを最低に引き下げた。</p>
+<p>これがこの問題のメカニズムだった。メカニズムさえわかってしまえば対処は簡単である。
+担当者はすぐにコードを修正し、私がそれをレビューした後、
+1時間でこの問題を再現させられるスクリプトによりテストを開始した。
+2日後、問題がないことを確かめてこの問題をクローズした。</p>
+<h3 id="現象4---バックトレースが見れない">現象4 -
+バックトレースが見れない <a id="SS_15_9_4"></a></h3>
+<p>関数Aが関数Bを呼び出した場合、Bの処理の完了後、
+「AがBを呼び出したアドレスの次のアドレス」に戻る必要がある。
+このアドレスを記録するためのレジスタをリターンアドレスレジスタと呼ぶことにする。
+さらにBが関数Cを呼び出す場合、リターンアドレスレジスタは「BがCを呼び出したアドレスの次のアドレス」
+で上書きされる。こうなるとBからAに戻れなくなるため、
+BはCを呼び出す前にリターンアドレスレジスタをスタックにプッシュする。</p>
+<p>デバッガのバックトレース機能を実行して表示される関数一覧は、
+スタックに保存されたものを含むリターンアドレスレジスタから生成される。
+従って、ソフトウェアがクラッシュした時、バックトレースが見れない原因は、</p>
+<ul>
+<li>スタックが破壊された</li>
+<li>スタックポインタが破壊された</li>
+</ul>
+<p>のいずれかであると思って良いが、C/C++からスタックポインタを破壊することは難しいため、
+OSの開発でない限り、スタック破壊を疑うべきである。</p>
+<p>スタックが破壊された影響でバックトレースが見れない場合でも、
+ほとんどの場合、多少は表示されるため、スタック破壊が発生する関数を絞り込める。
+そのような関数群に下記のようなログを仕込むことでバグの個所をさらに絞り込める。</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// どこかの.cpp内で以下の定義</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="at">const</span><span class="op">*</span> global_last_func<span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 絞り込んだ関数の先頭行</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">extern</span> <span class="dt">char</span> <span class="at">const</span><span class="op">*</span> global_last_func<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    global_last_func <span class="op">=</span> <span class="ot">__func__</span><span class="op">;</span></span></code></pre></div>
+<p>該当する関数群が複数のスレッドから呼び出される場合、thread_localを使った工夫が必要になるが、
+概ね同様のアプローチでバグが発生した関数を特定できる。</p>
+<p>基本的なデバッグ方法であるため、わざわざ説明する必要はないかとも思ったが、
+「バックトレースが見れないこと」と「その原因のほとんどがスタック破壊であること」
+の論理的な繋がりを知らないプログラマが多いため、この節を書いた。</p>
+<h3 id="現象5---newしたオブジェクトの破壊">現象5 -
+newしたオブジェクトの破壊 <a id="SS_15_9_5"></a></h3>
+<p>「開発中のソフトウェアが毎回違う場所でクラッシュする」現象について助力を求められたことがある。
+クラッシュ時にデバッガからthisを表示すると毎回違うクラスであるという。
+こういった場合、下記のようなコードが原因であると推測できる。</p>
+<ul>
+<li>newした配列やstd::vector等のオーバーラン</li>
+<li>delete済のポインタを使ったオブジェクトへの書き込み操作</li>
+<li>二重delete</li>
+</ul>
+<p>newした配列(「<a
+href="programming_convention.html#SS_3_5_6">メモリアロケーション</a>」参照)やstd::vector等のオーバーランに関しては、
+多くの場合、「<a
+href="debug.html#SS_15_7">潜在的バグの削減</a>」で触れたようなコード解析で発見できるが、
+このチームはすでにこの方法を試して、効果がないことを確認していた。
+この現象につながるような静的解析での指摘もないことから、
+再現したらメモリダンプを取るように指示して現場を後にした。</p>
+<p>数日後、メモリダンプを解析するよう依頼を受けたため、
+デバッガを使用して壊されたオブジェクトを観察し、オブジェクトの破壊を確認した。
+thisをいくら見ても壊れていること以外何もわからないので、thisアドレス辺りを16進数表示してみた。</p>
+<p>アドレスからその型を特定することは極めて難しいが、この場合は幸運だった。
+16進数表示の中にヒープのアドレスらしきバイト列があったので、そこをさらに16進数表示して、
+ASCII文字列のようなバイト列を発見した。このバイト列をソースコードから検索すると、
+下記のようなコードを発見できた。</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// f.cpp</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> f<span class="op">(</span><span class="dt">char</span><span class="op">*</span> s<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// sの後ろへの書き込み</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// g.cpp</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    g<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>string s <span class="op">=</span> <span class="st">&quot;xxx&quot;</span><span class="op">;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        f<span class="op">((</span><span class="dt">char</span><span class="op">*)</span>s<span class="op">.</span>c_str<span class="op">());</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>最近CプログラマからC++プログラマに鞍替えした人が書いてしまったコードだそうだ
+(このようなコードはCでもダメだが)。</p>
+<h3 id="現象6---stlのバグ">現象6 - STLのバグ?
+<a id="SS_15_9_6"></a></h3>
+<p>あるプロジェクトの朝会でのこと。
+プログラマの一人がSTLのバグを発見したということで、他のメンバに注意を喚起した。
+このプロジェクトで使用していたコンパイラは広く使われているものだったので、
+そんなことはないだろうと思いつつ、念のために確認するとコードは下記のようなものだった。</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 13</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">class</span> Pred <span class="op">{</span>  <span class="co">// 0を最大3個まで見つける</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span><span class="op">:</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        Pred<span class="op">()</span> <span class="kw">noexcept</span> <span class="op">{}</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">bool</span> <span class="kw">operator</span><span class="op">()(</span><span class="dt">int32_t</span> i<span class="op">)</span> <span class="kw">noexcept</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span><span class="va">found_</span> <span class="op">&gt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>i <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                <span class="op">++</span><span class="va">found_</span><span class="op">;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span><span class="op">:</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">size_t</span> <span class="va">found_</span><span class="op">{</span><span class="dv">0</span><span class="op">};</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    TEST<span class="op">(</span>Debug<span class="op">,</span> no_ref<span class="op">)</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> v <span class="op">=</span> <span class="bu">std::</span>vector<span class="op">{</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>        v<span class="op">.</span>erase<span class="op">(</span><span class="bu">std::</span>remove_if<span class="op">(</span>v<span class="op">.</span>begin<span class="op">(),</span> v<span class="op">.</span>end<span class="op">(),</span> Pred<span class="op">{}),</span> v<span class="op">.</span>end<span class="op">());</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#if 0  </span><span class="co">// 本来ならば下記のテストがパスするはずだが。</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co">        ASSERT_EQ((std::vector&lt;int32_t&gt;{0, 1, 2, 3, 4, 5}), v);</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co">    </span><span class="pp">#else</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>        ASSERT_EQ<span class="op">((</span><span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int32_t</span><span class="op">&gt;{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">}),</span> v<span class="op">);</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="pp">#endif</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>なるほど、初心者がよくやるミスである。</p>
+<p>STLの関数は引数オブジェクトをコピーすることがあるため、下記のように書くべきだ。</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 49</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    TEST<span class="op">(</span>Debug<span class="op">,</span> ref<span class="op">)</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> v    <span class="op">=</span> <span class="bu">std::</span>vector<span class="op">{</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> pred <span class="op">=</span> Pred<span class="op">{};</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        v<span class="op">.</span>erase<span class="op">(</span><span class="bu">std::</span>remove_if<span class="op">(</span>v<span class="op">.</span>begin<span class="op">(),</span> v<span class="op">.</span>end<span class="op">(),</span> <span class="bu">std::</span>ref<span class="op">(</span>pred<span class="op">)),</span> v<span class="op">.</span>end<span class="op">());</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        ASSERT_EQ<span class="op">((</span><span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int32_t</span><span class="op">&gt;{</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">}),</span> v<span class="op">);</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>この程度の述語であればラムダ式を使い下記のように書いても良いだろう。</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 61</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    TEST<span class="op">(</span>Debug<span class="op">,</span> lambda<span class="op">)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> v <span class="op">=</span> <span class="bu">std::</span>vector<span class="op">{</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">};</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> found <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> it    <span class="op">=</span> <span class="bu">std::</span>remove_if<span class="op">(</span>v<span class="op">.</span>begin<span class="op">(),</span> v<span class="op">.</span>end<span class="op">(),</span> <span class="op">[&amp;</span>found<span class="op">](</span><span class="dt">int32_t</span> i<span class="op">)</span> <span class="kw">noexcept</span> <span class="op">{</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>found <span class="op">&gt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>i <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                <span class="op">++</span>found<span class="op">;</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">});</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        v<span class="op">.</span>erase<span class="op">(</span>it<span class="op">,</span> v<span class="op">.</span>end<span class="op">());</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        ASSERT_EQ<span class="op">((</span><span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int32_t</span><span class="op">&gt;{</span><span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">5</span><span class="op">}),</span> v<span class="op">);</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>このちょっとした事件で、このチームは、ありがちなSTLの誤用パターンを認知できた。
+また、このバグはcopyコンストラクタを= deleteすれば防げたため、
+改めて「<a
+href="programming_convention.html#SS_3_2_4_1">特殊メンバ関数</a>」で指摘したことの重要性を確認することもできた。
+と考えれば、この程度の知識で全員に注意を喚起した彼の勇気を称えるべきだろう。</p>
+<h3 id="現象7---解放後のrvalueへのアクセス">現象7 -
+解放後のrvalueへのアクセス <a id="SS_15_9_7"></a></h3>
+<p>下記の関数gen_strは、</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 86</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string gen_str<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span>  <span class="co">// 何らかの重い処理</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>下記のように文字列リテラルから変換されたされたstd::stringオブジェクトである
+<a
+href="core_lang_spec.html#SS_19_7_1_2">rvalue</a>を引数に取ることができる。</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 96</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> str <span class="op">=</span> gen_str<span class="op">(</span><span class="st">&quot;haha&quot;</span><span class="op">);</span>  <span class="co">// &quot;haha&quot;は、std::string{&quot;haha&quot;}に変換される</span></span></code></pre></div>
+<p>このテンポラリオブジェクトは、それをバインドしたリファレンスがスコープアウトするまで存在するため、
+gen_strの仮引数リファレンスでバインドされたstd::stringオブジェクトであるrvalueは、
+この関数がリターンするまで存在し続ける。
+この仕様により、gen_str内ではこの仮引数に安全にアクセスすることができる。</p>
+<p>この関数の処理が重すぎたため、下記のように並列化したが、これにより動作が不安定になった。</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 104</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>future<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> gen_future<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>async<span class="op">(</span><span class="bu">std::</span>launch::async<span class="op">,</span> <span class="op">[&amp;</span>str<span class="op">]</span> <span class="op">{</span> <span class="cf">return</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span> <span class="op">});</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>この関数は、下記のような呼び出しでクラッシュしてしまうことがある。</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 129</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> f <span class="op">=</span> gen_future<span class="op">(</span><span class="st">&quot;haha&quot;</span><span class="op">);</span></span></code></pre></div>
+<p>上記関数gen_futureの中で、</p>
+<ol type="1">
+<li>ラムダ式が生成され、そのラムダ式はrvalueのリファレンスをメンバとして保持する。</li>
+<li>そのラムダ式を引数としたstd::asyncによりスレッドが生成される。</li>
+<li>それを保持したstd::futureが生成され、関数がリターンする。</li>
+</ol>
+<p>のようなことが行われ、この後、</p>
+<ol start="4" type="1">
+<li>gen_futureの呼び出しにより生成されたstd::stringオブジェクトであるrvalueは破棄される。</li>
+</ol>
+<p>これはgen_futureを実行するコンテキスト上で行われるが、</p>
+<ol start="5" type="1">
+<li>それとは別のコンテキスト(スレッド)上でラムダ式が実行される。</li>
+</ol>
+<p>上記4, 5のどちらが先に実行されるかは、その状況に依存するが、
+4が5より先に実行された場合、このラムダ式は、すでに破棄されたrvalueへアクセスしてしまい、
+クラッシュを引き起こす。</p>
+<p>これの修正は、下記のようにラムダ式のリファレンスキャプチャをコピーキャプチャにすれば良い。</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 139</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>future<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> gen_future<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">)</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>async<span class="op">(</span><span class="bu">std::</span>launch::async<span class="op">,</span> <span class="op">[</span>str<span class="op">]</span> <span class="op">{</span> <span class="cf">return</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span> <span class="op">});</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                                     ^^^ コピーキャプチャ</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>gen_futureと同様の仕様を持つ以下の関数</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 166</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>thread gen_thread_lambda<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">,</span> <span class="bu">std::</span>string<span class="op">&amp;</span> str_out<span class="op">)</span>  <span class="co">// str_outに結果出力</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>thread<span class="op">{[&amp;</span>str<span class="op">,</span> <span class="op">&amp;</span>str_out<span class="op">]</span> <span class="op">{</span> str_out <span class="op">=</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span> <span class="op">}};</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>にも、下記のように呼び出すことで、ほぼ同様の問題が発生する。</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 193</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> str_out <span class="op">=</span> <span class="bu">std::</span>string<span class="op">{};</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> t       <span class="op">=</span> gen_thread_lambda<span class="op">(</span><span class="st">&quot;haha&quot;</span><span class="op">,</span> str_out<span class="op">);</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    t<span class="op">.</span>join<span class="op">();</span></span></code></pre></div>
+<p>これの修正も、下記のようにラムダ式のリファレンスキャプチャをコピーキャプチャにすれば良い。</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 206</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>thread gen_thread_lambda<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">,</span> <span class="bu">std::</span>string<span class="op">&amp;</span> str_out<span class="op">)</span>  <span class="co">// str_outに結果出力</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>thread<span class="op">{[</span>str<span class="op">,</span> <span class="op">&amp;</span>str_out<span class="op">]</span> <span class="op">{</span> str_out <span class="op">=</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span> <span class="op">}};</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                  ^^^ コピーキャプチャ</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>gen_thread_lambdaのC++03のスタイルである以下の関数</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 236</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> thread_entry<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">,</span> <span class="bu">std::</span>string<span class="op">&amp;</span> str_out<span class="op">)</span> <span class="op">{</span> str_out <span class="op">=</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span> <span class="op">}</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>thread gen_thread_func<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">,</span> <span class="bu">std::</span>string<span class="op">&amp;</span> str_out<span class="op">)</span>  <span class="co">// str_outに結果出力</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>thread<span class="op">{</span>thread_entry<span class="op">,</span> <span class="bu">std::</span>ref<span class="op">(</span>str<span class="op">),</span> <span class="bu">std::</span>ref<span class="op">(</span>str_out<span class="op">)};</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>にも、やはり同様の問題が発生する。</p>
+<p>上記修正とほぼ同様に、下記のようにリファレンス渡しをコピー渡しにすれば修正できる。</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  example/etc/debug.cpp 275</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> thread_entry<span class="op">(</span><span class="bu">std::</span>string str<span class="op">,</span> <span class="bu">std::</span>string<span class="op">&amp;</span> str_out<span class="op">)</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">//                            ^^^ コピー渡し</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        str_out <span class="op">=</span> do_heavy_algorithm<span class="op">(</span>str<span class="op">);</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>thread gen_thread_func<span class="op">(</span><span class="bu">std::</span>string <span class="at">const</span><span class="op">&amp;</span> str<span class="op">,</span> <span class="bu">std::</span>string<span class="op">&amp;</span> str_out<span class="op">)</span>  <span class="co">// str_outに結果出力</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">std::</span>thread<span class="op">{</span>thread_entry<span class="op">,</span> str<span class="op">,</span> <span class="bu">std::</span>ref<span class="op">(</span>str_out<span class="op">)};</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                               ^^^ コピー渡し</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>以上で見てきたように、C++ではリファレンスがわかりづらいバグを生み出してしまうことが良くある。
+リファレンスを使わなければこのような問題を避けることができるが、実行速度が遅くなり、
+C++を使用する意味がなくなる。</p>
+<p>従って、C++で効率よくプログラミングするためには、
+このような微妙な問題を的確に記述できなければならない。</p>
+<h2 id="まとめ">まとめ <a id="SS_15_10"></a></h2>
+<p>おぞましいことだが、修正の難しいバグをその場しのぎ手法(グローバル変数を使う等)で回避したり、
+周知されていない再現性の低いバグをなかったことにする等の、
+プロとしてあるまじき行為への誘惑にかられることがある。
+ガッツはそういった悪魔のささやきにあらがうための重要な要素だが、
+そのような精神論のみらなず、このドキュメントで示したような手法を自在に使えるようになることが、
+おぞましい行為から自身を守る手段となる。</p>
+<p>一旦ダークサイドに落ちてしまえば、それは習慣となり、そこでプログラマとしての成長は終わる。
+そうならないために学習あるのみである。</p>
+</body>
+</html>
